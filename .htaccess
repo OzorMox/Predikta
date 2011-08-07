@@ -1,0 +1,3 @@
+<Files connect.php>
+deny from all
+</Files>
