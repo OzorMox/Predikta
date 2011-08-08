@@ -177,7 +177,7 @@ echo "<tr>";
 if ($_SESSION['admin'] == 1)
 	echo "<th><b>[<a href=\"addgame.php\" title=\"Add a new game\">Add</a>] Game</b></th><th><b>Date</b></th><th><b>Result</b></th>";
 else
-	echo "<th><b>Game</b></th><th><b>Date</b></th><th><b>Actual</b></th>";
+	echo "<th><b>Game</b></th><th><b>Date</b></th><th><b>Result</b></th>";
 
 //build individual player columns
 while ($playerrow = mysql_fetch_array($playerdata))
