@@ -206,31 +206,17 @@ while($gamerow = mysql_fetch_array($gamedata))
 	switch ($gamerow['status'])
 	{
 		case "open":
-			//if ($_SESSION['admin'] == 1)
-			//{
-				//echo "<td style=\"background-color:#ccffcc\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['game_1'] . " v " . $gamerow['game_2'] . "</td>";
-				//echo "<td style=\"background-color:#ccffcc\" title=\"" . $typetext . "\"><a href=\"changedate.php?game=" . $gamerow['game_id'] . "&game1=" . urlencode($gamerow['game_1']) . "&game2=" . urlencode($gamerow['game_2']) . "\" title=\"Change the date of this game\">" . formatdate($gamerow["date"]) . "</a></td>";
-				//echo "<td style=\"background-color:#ccffcc\">[<a href=\"lock.php?game=" . $gamerow["game_id"] . "&game1=" . urlencode($gamerow['game_1']) . "&game2=" . urlencode($gamerow['game_2']) . "\" title=\"Override automatic locking to prevent further predictions\">Lock</a>]</td>";
-			//}
-			//else
-			//{
-				echo "<td style=\"background-color:#ccffcc\">" . $gamerow['game_1'] . " v " . $gamerow['game_2'] . "</td>";
-				echo "<td style=\"background-color:#ccffcc\" title=\"" . $typetext . "\">" . formatdate($gamerow["date"]) . "</td>";
-				echo "<td style=\"background-color:#ccffcc\">Open</td>";
-			//}
-			break;
-		case "unlocked":
 			if ($_SESSION['admin'] == 1)
 			{
 				echo "<td style=\"background-color:#ccffcc\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['game_1'] . " v " . $gamerow['game_2'] . "</td>";
 				echo "<td style=\"background-color:#ccffcc\" title=\"" . $typetext . "\"><a href=\"changedate.php?game=" . $gamerow['game_id'] . "&game1=" . urlencode($gamerow['game_1']) . "&game2=" . urlencode($gamerow['game_2']) . "\" title=\"Change the date of this game\">" . formatdate($gamerow["date"]) . "</a></td>";
-				echo "<td style=\"background-color:#ccffcc\">[<a href=\"lock.php?game=" . $gamerow["game_id"] . "&game1=" . urlencode($gamerow['game_1']) . "&game2=" . urlencode($gamerow['game_2']) . "\" title=\"Relock this game to prevent further predictions\">Relock</a>]</td>";
+				echo "<td style=\"background-color:#ccffcc\">Open</td>";
 			}
 			else
 			{
 				echo "<td style=\"background-color:#ccffcc\">" . $gamerow['game_1'] . " v " . $gamerow['game_2'] . "</td>";
 				echo "<td style=\"background-color:#ccffcc\" title=\"" . $typetext . "\">" . formatdate($gamerow["date"]) . "</td>";
-				echo "<td style=\"background-color:#ccffcc\">Unlocked</td>";
+				echo "<td style=\"background-color:#ccffcc\">Open</td>";
 			}
 			break;
 		case "locked":
@@ -618,7 +604,7 @@ if (!isset($_SESSION['username']))
 	echo "<form name=\"login\" action=\"login.php\" method=\"post\">";
 	echo "<tr><td style=\"border-style: hidden;\">Username:</td><td style=\"border-style: hidden;\"><input type=\"text\" name=\"username\" /></td></tr>";
 	echo "<tr><td style=\"border-style: hidden;\">Password:</td><td style=\"border-style: hidden;\"><input type=\"password\" name=\"password\" /></td></tr>";
-	echo "<tr><td></td><td style=\"border-style: hidden;\"><input type=\"submit\" value=\"OK\"></td></tr>";
+	echo "<tr><td></td><td style=\"border-style: hidden;\"><input type=\"submit\" value=\"Login\"></td></tr>";
 	echo "</form>";
 	echo "</table>";
 }

@@ -11,7 +11,7 @@
 
 include("title");
 
-echo "Warning: All fixtures will be deleted after updating the points for the selected month";
+echo "Warning: All fixtures will be deleted and Brucies reset after updating the points for the selected month";
 echo "<br>";
 echo "<br>";
 echo "Click OK to confirm";

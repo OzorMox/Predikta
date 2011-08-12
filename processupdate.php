@@ -54,8 +54,10 @@ if ($_SESSION['admin'] == 1)
 	//delete all current games, results and messages
 	mysql_query("DELETE FROM games");
 	mysql_query("DELETE FROM results");
-	//don't delete messages anymore
-	//mysql_query("DELETE FROM messages");
+	
+	//reset Brucies to zero
+	mysql_query("UPDATE players SET brucies = 0");
+
 	include("log.php");
 	$action = "Updated month: " . $_GET["month"];
 	writelog($action);
