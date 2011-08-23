@@ -199,9 +199,15 @@ while($gamerow = mysql_fetch_array($gamedata))
 	echo "<tr>";
 	//set alt text for the date cell
 	if ($gamerow['type'] == "weekend")
-		$typetext = "Weekend game (12pm lock)";
+	{
+		$typetext = "Weekend";
+		$typealttext = "12pm lock";
+	}
 	if ($gamerow['type'] == "weekday")
-		$typetext = "Weekday game (7pm lock)";
+	{
+		$typetext = "Weekday";
+		$typealttext = "7pm lock";
+	}
 	//determine what to show based on status and if the user is an admin
 	switch ($gamerow['status'])
 	{
@@ -209,27 +215,27 @@ while($gamerow = mysql_fetch_array($gamedata))
 			if ($_SESSION['admin'] == 1)
 			{
 				echo "<td style=\"background-color:#ccffcc\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['game_1'] . " v " . $gamerow['game_2'] . "</td>";
-				echo "<td style=\"background-color:#ccffcc\" title=\"" . $typetext . "\"><a href=\"changedate.php?game=" . $gamerow['game_id'] . "&game1=" . urlencode($gamerow['game_1']) . "&game2=" . urlencode($gamerow['game_2']) . "\" title=\"Change the date of this game\">" . formatdate($gamerow["date"]) . "</a></td>";
-				echo "<td style=\"background-color:#ccffcc\">Open</td>";
+				echo "<td style=\"background-color:#ccffcc\"><a href=\"changedate.php?game=" . $gamerow['game_id'] . "&game1=" . urlencode($gamerow['game_1']) . "&game2=" . urlencode($gamerow['game_2']) . "\" title=\"Change the date of this game\">" . formatdate($gamerow["date"]) . "</a></td>";
+				echo "<td style=\"background-color:#ccffcc\" title=\"" . $typealttext . "\">" . $typetext . "</td>";
 			}
 			else
 			{
 				echo "<td style=\"background-color:#ccffcc\">" . $gamerow['game_1'] . " v " . $gamerow['game_2'] . "</td>";
-				echo "<td style=\"background-color:#ccffcc\" title=\"" . $typetext . "\">" . formatdate($gamerow["date"]) . "</td>";
-				echo "<td style=\"background-color:#ccffcc\">Open</td>";
+				echo "<td style=\"background-color:#ccffcc\">" . formatdate($gamerow["date"]) . "</td>";
+				echo "<td style=\"background-color:#ccffcc\" title=\"" . $typealttext . "\">" . $typetext . "</td>";
 			}
 			break;
 		case "locked":
 			if ($_SESSION['admin'] == 1)
 			{
 				echo "<td style=\"background-color:#ffffcc\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['game_1'] . " v " . $gamerow['game_2'] . "</td>";
-				echo "<td style=\"background-color:#ffffcc\" title=\"" . $typetext . "\">" . formatdate($gamerow["date"]) . "</td>";
+				echo "<td style=\"background-color:#ffffcc\">" . formatdate($gamerow["date"]) . "</td>";
 				echo "<td style=\"background-color:#ffffcc\">[<a href=\"activate.php?game=" . $gamerow["game_id"] . "&game1=" . urlencode($gamerow['game_1']) . "&game2=" . urlencode($gamerow['game_2']) . "\" title=\"Activate this game and set the actual score\">Set</a>]</td>";
 			}
 			else
 			{
 				echo "<td style=\"background-color:#ffffcc\">" . $gamerow['game_1'] . " v " . $gamerow['game_2'] . "</td>";
-				echo "<td style=\"background-color:#ffffcc\" title=\"" . $typetext . "\">" . formatdate($gamerow["date"]) . "</td>";
+				echo "<td style=\"background-color:#ffffcc\">" . formatdate($gamerow["date"]) . "</td>";
 				echo "<td style=\"background-color:#ffffcc\">Locked</td>";
 			}
 			break;
@@ -237,13 +243,13 @@ while($gamerow = mysql_fetch_array($gamedata))
 			if ($_SESSION['admin'] == 1)
 			{
 				echo "<td style=\"background-color:#ffcccc\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['game_1'] . " v " . $gamerow['game_2'] . "</td>";
-				echo "<td style=\"background-color:#ffcccc\" title=\"" . $typetext . "\">" . formatdate($gamerow["date"]) . "</td>";
+				echo "<td style=\"background-color:#ffcccc\">" . formatdate($gamerow["date"]) . "</td>";
 				echo "<td style=\"background-color:#ffcccc\"><a href=\"deleteactual.php?game=" . $gamerow['game_id'] . "&game1=" . urlencode($gamerow['game_1']) . "&game2=" . urlencode($gamerow['game_2']) . "\" title=\"Delete the actual score for this game\">" . $gamerow['actual_1'] . "-" . $gamerow['actual_2'] . "</a></td>";
 			}
 			else
 			{
 				echo "<td style=\"background-color:#ffcccc\">" . $gamerow['game_1'] . " v " . $gamerow['game_2'] . "</td>";
-				echo "<td style=\"background-color:#ffcccc\" title=\"" . $typetext . "\">" . formatdate($gamerow["date"]) . "</td>";
+				echo "<td style=\"background-color:#ffcccc\">" . formatdate($gamerow["date"]) . "</td>";
 				echo "<td style=\"background-color:#ffcccc\">" . $gamerow['actual_1'] . "-" . $gamerow['actual_2'] . "</td>";
 			}
 			break;
@@ -434,19 +440,13 @@ else
 
 while ($messagerow = mysql_fetch_array($messagedata))
 {
-	if ($_SESSION['admin'] == 1)
+	if ($messagerow['user'] == $_SESSION['username'] && $_SESSION['username'] != "")
 	{
-		if ($messagerow['user'] == $_SESSION['username'] && $_SESSION['username'] != "")
-			echo "<tr style=\"background-color: #ccffcc\"><td>[<a href=\"deletemessage.php?message=" . $messagerow['message_id'] . "\" title=\"Delete this message\">Del</a>] " . $messagerow['message'] . "</td><td>" . $messagerow['user'] . "</td><td>" . formatdatetime($messagerow['datetime']) . "</td></tr>";
-		else
-			echo "<tr><td>[<a href=\"deletemessage.php?message=" . $messagerow['message_id'] . "\" title=\"Delete this message\">Del</a>] " . $messagerow['message'] . "</td><td>" . $messagerow['user'] . "</td><td>" . formatdatetime($messagerow['datetime']) . "</td></tr>";
+		echo "<tr style=\"background-color: #ccffcc\"><td>" . $messagerow['message'] . "</td><td>" . $messagerow['user'] . "</td><td>" . formatdatetime($messagerow['datetime']) . "</td></tr>";
 	}
 	else
 	{
-		if ($messagerow['user'] == $_SESSION['username'] && $_SESSION['username'] != "")
-			echo "<tr style=\"background-color: #ccffcc\"><td>" . $messagerow['message'] . "</td><td>" . $messagerow['user'] . "</td><td>" . formatdatetime($messagerow['datetime']) . "</td></tr>";
-		else
-			echo "<tr><td>" . $messagerow['message'] . "</td><td>" . $messagerow['user'] . "</td><td>" . formatdatetime($messagerow['datetime']) . "</td></tr>";
+		echo "<tr><td>" . $messagerow['message'] . "</td><td>" . $messagerow['user'] . "</td><td>" . formatdatetime($messagerow['datetime']) . "</td></tr>";
 	}
 }
 
