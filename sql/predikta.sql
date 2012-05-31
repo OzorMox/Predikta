@@ -90,6 +90,7 @@ CREATE TABLE IF NOT EXISTS `players` (
   `april` int(10) NOT NULL,
   `may` int(10) NOT NULL,
   `june` int(10) NOT NULL,
+  `bonus` int(10) NOT NULL,
   PRIMARY KEY (`player_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=14 ;
 
