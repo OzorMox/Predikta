@@ -550,9 +550,13 @@ foreach ($totals as $name => $totalpoints)
 				echo "<td style=\"background-color:" . $rowbg . "\"><a href=\"avatar.php?player=" . $playerrow['player_id'] . "\" title=\"View this player's avatar\">" . $playerrow['name'] . "</a></td>";
 			}
 			if ($playerrow['avatar'] != "")
+			{
 				echo "<td style=\"background-color:" . $rowbg . "\"><img src=\"" . $playerrow['avatar'] . "\" height=\"100\" width=\"100\"></td>";
+			}
 			else
+			{
 				echo "<td style=\"background-color:" . $rowbg . "\">Not Set</td>";				
+			}
 			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['brucies'] . "B</td>";
 			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['july'] . "</td>";
 			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['august'] . "</td>";
@@ -566,7 +570,14 @@ foreach ($totals as $name => $totalpoints)
 			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['april'] . "</td>";
 			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['may'] . "</td>";
 			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['june'] . "</td>";
-			echo "<td style=\"background-color:" . $rowbg . "\"><a href=\"setbonus.php\">" . $playerrow['bonus'] . "</a></td>";
+			if ($_SESSION['admin'] == 1)
+			{
+				echo "<td style=\"background-color:" . $rowbg . "\"><a href=\"setbonus.php\">" . $playerrow['bonus'] . "</a></td>";
+			}
+			else
+			{
+				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['bonus'] . "</td>";
+			}
 			echo "<td style=\"background-color:" . $headbg . "\"><b>" . $totalpoints . "</b></td>";
 			echo "</tr>";
 		}
