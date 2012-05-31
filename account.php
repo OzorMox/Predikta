@@ -18,6 +18,28 @@
     {
       $t_reminder = 1;
     }
+    
+    if ($_POST["oldpassword"] != "")
+    {
+		$playerdata = mysql_query("SELECT * FROM players WHERE name = '" . $_SESSION['username'] . "'");
+
+		$playerrow = mysql_fetch_array($playerdata);
+		
+		if ($playerrow['password'] == $_POST["oldpassword"])
+		{
+			mysql_query("UPDATE players SET password = '" . $_POST["newpassword"] . "' WHERE name = '" . $_SESSION['username'] . "'");
+			include("log.php");
+			$action = "Changed password";
+			writelog($action);
+			header('Location: index.php?message=You+have+changed+your+password');
+			exit();
+		}
+		else
+		{
+			header('Location: error.php?error=Incorrect+current+password');
+			exit();
+		}
+	}
 
     $t_sql = "UPDATE `players` SET " . 
                "`email` = '" . $_POST['email'] . "', " . 
@@ -38,16 +60,22 @@
 
   $t_result = mysql_query($t_sql);
   
-  if($t_row = mysql_fetch_assoc($t_result))
+  while ($t_row = mysql_fetch_assoc($t_result))
   {
-    if($t_row['email'] != null && strlen($t_row['email']) > 0)
+    if ($t_row['email'] != null && strlen($t_row['email']) > 0)
+    {
       $t_email = $t_row['email'];
+    }
 
-    if($t_row['send_reminder_email'])
+    if ($t_row['send_reminder_email'])
+    {
       $t_show_reminder = $t_row['send_reminder_email'];
+    }
 
-    if($t_row['avatar'] != null && strlen($t_row['avatar']) > 0)
+    if ($t_row['avatar'] != null && strlen($t_row['avatar']) > 0)
+    {
       $t_avatar = $t_row['avatar'];
+    }
   }
 ?>
 <html>
@@ -62,8 +90,10 @@
 
 include("title");
 
-echo "<form name=\"accountsetings\" action=\"account.php\" method=\"post\">";
-echo "Update your account settings.";
+echo "<form name=\"accountsettings\" action=\"account.php\" method=\"post\">";
+echo "Update your account settings";
+echo "<br>";
+echo "<br>";
 echo "<table>";
 echo "</tr>";
 echo "<tr>";
@@ -81,15 +111,25 @@ echo "<th>Email Address</th>";
 echo "<td><input name=\"email\" type=\"text\" size=\"30\" maxlength=\"255\" value=\"" . $t_email . "\" /></td>";
 echo "</tr>";
 echo "<tr>";
-echo "<th>Send reminder email?</th>";
+echo "<th>Send Reminder Email?</th>";
 $t_checked = "";
 if ($t_show_reminder)
   $t_checked = " checked=\"yes\"";
 echo "<td><input name=\"reminder\" type=\"checkbox\"" . $t_checked . "\" /></td>";
 echo "</tr>";
+echo "<tr>";
+echo "<th colspan=\"2\"><strong>Change Password</strong></th>";
+echo "</tr>";
+echo "<tr>";
+echo "<th>Current</th>";
+echo "<td><input type=\"password\" name=\"oldpassword\" /></td>";
+echo "</tr>";
+echo "<tr>";
+echo "<th>New</th>";
+echo "<td><input type=\"password\" name=\"newpassword\" /></td>";
 echo "</table>";
 echo "<br />";
-echo "<input name=\"submit\" type=\"submit\" value=\"Save Settings\" />";
+echo "<input name=\"submit\" type=\"submit\" value=\"Save\" />";
 echo "</form>";
 echo "<a href=\"index.php\">Back</a>";
 

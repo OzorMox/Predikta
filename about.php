@@ -14,7 +14,10 @@ A group of friends decide it might be fun to predict football match results in a
 Predikta is software based on the spreadsheet and ideas of the group, to handle the predictions tracking and make Luke's life that little bit easier.
 <br>
 <br>
-Predikta is Copyright 2009 James Hemming
+Predikta is Copyright <?php echo date("Y"); ?> James Hemming
+<br>
+<br>
+Email reminder code by Edward Jacobs
 <br>
 <br>
 

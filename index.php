@@ -476,9 +476,9 @@ echo "<br>";
 echo "<br>";
 echo "<table border=\"1\" cellpadding=\"10\">";
 if ($_SESSION['admin'] == 1)
-	echo "<tr><th><b>[<a href=\"addplayer.php\" title=\"Add a new player\">Add</a>] Player</b></th><th><b>Avatar</b></th><th><a href=\"addbrucies.php\" title=\"Add/reset Brucie Bonuses for all players\"><b>Brucies</b></a></th><th><a href=\"update.php?month=july\" title=\"Update points for this month\">Jul</a></th><th><a href=\"update.php?month=august\" title=\"Update points for this month\">Aug</a></th><th><a href=\"update.php?month=september\" title=\"Update points for this month\">Sep</a></th><th><a href=\"update.php?month=october\" title=\"Update points for this month\">Oct</a></th><th><a href=\"update.php?month=november\" title=\"Update points for this month\">Nov</a></th><th><a href=\"update.php?month=december\" title=\"Update points for this month\">Dec</a></th><th><a href=\"update.php?month=january\" title=\"Update points for this month\">Jan</a></th><th><a href=\"update.php?month=february\" title=\"Update points for this month\">Feb</a></th><th><a href=\"update.php?month=march\" title=\"Update points for this month\">Mar</a></th><th><a href=\"update.php?month=april\" title=\"Update points for this month\">Apr</a></th><th><a href=\"update.php?month=may\" title=\"Update points for this month\">May</a></th><th><a href=\"update.php?month=june\" title=\"Update points for this month\">Jun</a></th><th><b>Total [<a href=\"index.php\" title=\"Sort alphabetically\">a</a>|<a href=\"index.php?sort=points\" title=\"Sort by points\">p</a>]</b></th></tr>";
+	echo "<tr><th><b>[<a href=\"addplayer.php\" title=\"Add a new player\">Add</a>] Player</b></th><th><b>Avatar</b></th><th><a href=\"addbrucies.php\" title=\"Add/reset Brucie Bonuses for all players\"><b>Brucies</b></a></th><th><a href=\"update.php?month=july\" title=\"Update points for this month\">Jul</a></th><th><a href=\"update.php?month=august\" title=\"Update points for this month\">Aug</a></th><th><a href=\"update.php?month=september\" title=\"Update points for this month\">Sep</a></th><th><a href=\"update.php?month=october\" title=\"Update points for this month\">Oct</a></th><th><a href=\"update.php?month=november\" title=\"Update points for this month\">Nov</a></th><th><a href=\"update.php?month=december\" title=\"Update points for this month\">Dec</a></th><th><a href=\"update.php?month=january\" title=\"Update points for this month\">Jan</a></th><th><a href=\"update.php?month=february\" title=\"Update points for this month\">Feb</a></th><th><a href=\"update.php?month=march\" title=\"Update points for this month\">Mar</a></th><th><a href=\"update.php?month=april\" title=\"Update points for this month\">Apr</a></th><th><a href=\"update.php?month=may\" title=\"Update points for this month\">May</a></th><th><a href=\"update.php?month=june\" title=\"Update points for this month\">Jun</a></th><th><b>Bonus</b></th><th><b>Total [<a href=\"index.php?sort=az\" title=\"Sort alphabetically\">a</a>|<a href=\"index.php\" title=\"Sort by points\">p</a>]</b></th></tr>";
 else
-	echo "<tr><th><b>Player</b></th><th><b>Avatar</b></th><th><b>Brucies</b></th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th><b>Total [<a href=\"index.php\" title=\"Sort alphabetically\">a</a>|<a href=\"index.php?sort=points\" title=\"Sort by points\">p</a>]</b></th></tr>";
+	echo "<tr><th><b>Player</b></th><th><b>Avatar</b></th><th><b>Brucies</b></th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th>Bonus</th><th><b>Total [<a href=\"index.php\" title=\"Sort alphabetically\">a</a>|<a href=\"index.php?sort=points\" title=\"Sort by points\">p</a>]</b></th></tr>";
 
 $playerdata = mysql_query("SELECT * FROM players ORDER BY name");
 
@@ -487,7 +487,7 @@ $totals = array();
 //get all players and their totals
 while ($playerrow = mysql_fetch_array($playerdata))
 {
-	$totals[$playerrow['name']] = $playerrow['july'] + $playerrow['august'] + $playerrow['september'] + $playerrow['october'] + $playerrow['november'] + $playerrow['december'] + $playerrow['january'] + $playerrow['february'] + $playerrow['march'] + $playerrow['april'] + $playerrow['may'] + $playerrow['june'];
+	$totals[$playerrow['name']] = $playerrow['july'] + $playerrow['august'] + $playerrow['september'] + $playerrow['october'] + $playerrow['november'] + $playerrow['december'] + $playerrow['january'] + $playerrow['february'] + $playerrow['march'] + $playerrow['april'] + $playerrow['may'] + $playerrow['june'] + $playerrow['bonus'];
 }
 
 $noplayers = false;
@@ -500,13 +500,13 @@ $playerrow = null;
 $playerdata = null;
 
 //sort by name or totals
-if ($_GET["sort"] == "points")
+if ($_GET["sort"] == "az")
 {
-	arsort($totals);
+	ksort($totals);
 }
 else
 {
-	ksort($totals);
+	arsort($totals);
 }
 
 foreach ($totals as $name => $totalpoints)
@@ -566,6 +566,7 @@ foreach ($totals as $name => $totalpoints)
 			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['april'] . "</td>";
 			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['may'] . "</td>";
 			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['june'] . "</td>";
+			echo "<td style=\"background-color:" . $rowbg . "\"><a href=\"setbonus.php\">" . $playerrow['bonus'] . "</a></td>";
 			echo "<td style=\"background-color:" . $headbg . "\"><b>" . $totalpoints . "</b></td>";
 			echo "</tr>";
 		}
@@ -611,7 +612,7 @@ if (!isset($_SESSION['username']))
 echo "<br>";
 if (isset($_SESSION['username']) && $_SESSION['username'] != "")
 {
-  echo "<a href=\"account.php\" title=\"account.php\">Account Settings</a> - <a href=\"password.php\" title=\"Change your password\">Change Password</a> - <a href=\"logout.php\" title=\"Clear your current session\">Logout</a> - <a href=\"reset.php\" title=\"Delete all fixtures and reset all points\">Reset</a> - ";
+  echo "<a href=\"account.php\" title=\"account.php\">Account Settings</a> - <a href=\"logout.php\" title=\"Clear your current session\">Logout</a> - <a href=\"reset.php\" title=\"Delete all fixtures and reset all points\">Reset</a> - ";
 }
 echo "<a href=\"viewlog.php\" title=\"View the log\">Log</a> - <a href=\"about.php\" title=\"About Predikta\">About</a>";
 
