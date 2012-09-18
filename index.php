@@ -372,7 +372,7 @@ while($gamerow = mysql_fetch_array($gamedata))
 if (mysql_num_rows($gamedata) == 0)
 {
 	//get the correct value for colspan
-	$spanlength = mysql_num_rows($playerdata) + 2;
+	$spanlength = mysql_num_rows($playerdata) + 3;
 	echo "<tr><td colspan=\"" . $spanlength . "\"><center>No Games</center></td></tr>";
 }
 
@@ -587,7 +587,7 @@ foreach ($totals as $name => $totalpoints)
 //display No Players if there are none
 if ($noplayers)
 {
-	echo "<tr><td colspan=\"16\"><center>No Players</center></td></tr>";
+	echo "<tr><td colspan=\"17\"><center>No Players</center></td></tr>";
 }
 
 echo "</table>";

@@ -25,46 +25,6 @@ Select the teams for the new game
 <br>
 
 <select name="game1">
-<option value="Croatia">Croatia</option>
-<option value="Czech Republic">Czech Republic</option>
-<option value="Denmark">Denmark</option>
-<option value="England">England</option>
-<option value="France">France</option>
-<option value="Germany">Germany</option>
-<option value="Greece">Greece</option>
-<option value="Italy">Italy</option>
-<option value="Netherlands">Netherlands</option>
-<option value="Poland">Poland</option>
-<option value="Portugal">Portugal</option>
-<option value="Republic of Ireland">Republic of Ireland</option>
-<option value="Russia">Russia</option>
-<option value="Spain">Spain</option>
-<option value="Sweden">Sweden</option>
-<option value="Ukraine">Ukraine</option>
-</select>
-
-<select name="game2">
-<option value="Croatia">Croatia</option>
-<option value="Czech Republic">Czech Republic</option>
-<option value="Denmark">Denmark</option>
-<option value="England">England</option>
-<option value="France">France</option>
-<option value="Germany">Germany</option>
-<option value="Greece">Greece</option>
-<option value="Italy">Italy</option>
-<option value="Netherlands">Netherlands</option>
-<option value="Poland">Poland</option>
-<option value="Portugal">Portugal</option>
-<option value="Republic of Ireland">Republic of Ireland</option>
-<option value="Russia">Russia</option>
-<option value="Spain">Spain</option>
-<option value="Sweden">Sweden</option>
-<option value="Ukraine">Ukraine</option>
-</select>
-</select>
-
-<!--
-<select name="game1">
 <option value="Arsenal">Arsenal</option>
 <option value="Aston Villa">Aston Villa</option>
 <option value="Chelsea">Chelsea</option>
@@ -108,6 +68,46 @@ v
 <option value="West Brom">West Brom</option>
 <option value="West Ham">West Ham</option>
 <option value="Wigan">Wigan</option>
+</select>
+
+<!--
+<select name="game1">
+<option value="Croatia">Croatia</option>
+<option value="Czech Republic">Czech Republic</option>
+<option value="Denmark">Denmark</option>
+<option value="England">England</option>
+<option value="France">France</option>
+<option value="Germany">Germany</option>
+<option value="Greece">Greece</option>
+<option value="Italy">Italy</option>
+<option value="Netherlands">Netherlands</option>
+<option value="Poland">Poland</option>
+<option value="Portugal">Portugal</option>
+<option value="Republic of Ireland">Republic of Ireland</option>
+<option value="Russia">Russia</option>
+<option value="Spain">Spain</option>
+<option value="Sweden">Sweden</option>
+<option value="Ukraine">Ukraine</option>
+</select>
+
+<select name="game2">
+<option value="Croatia">Croatia</option>
+<option value="Czech Republic">Czech Republic</option>
+<option value="Denmark">Denmark</option>
+<option value="England">England</option>
+<option value="France">France</option>
+<option value="Germany">Germany</option>
+<option value="Greece">Greece</option>
+<option value="Italy">Italy</option>
+<option value="Netherlands">Netherlands</option>
+<option value="Poland">Poland</option>
+<option value="Portugal">Portugal</option>
+<option value="Republic of Ireland">Republic of Ireland</option>
+<option value="Russia">Russia</option>
+<option value="Spain">Spain</option>
+<option value="Sweden">Sweden</option>
+<option value="Ukraine">Ukraine</option>
+</select>
 </select>
 -->
 
