@@ -6,21 +6,14 @@ session_start();
 //connect to the database
 include("connect.php");
 
-$playerdata = mysql_query("SELECT * FROM players");
-
 if ($_SESSION['admin'] == 1)
 {
 	if ($_POST["reset"] == "reset")
 	{
-		while ($playerrow = mysql_fetch_array($playerdata))
-		{
-			if ($playerrow['name'] != "Admin")
-			{
-				mysql_query("UPDATE players SET brucies = 0 WHERE player_id = " . $playerrow['player_id']);
-			}
-		}
+        mysql_query("UPDATE players SET brucies = 0 WHERE player_id = " . $_GET["player"]);
+
 		include("log.php");
-		$action = "Reset Brucies";
+		$action = "Reset Brucies: " . $_POST["brucies"] . " for player: " . $_GET["player"];
 		writelog($action);
 		header('Location: index.php');
 		exit();
@@ -29,16 +22,15 @@ if ($_SESSION['admin'] == 1)
 	{
 		if (is_numeric($_POST["brucies"]))
 		{
+            $playerdata = mysql_query("SELECT * FROM players WHERE player_id = " . $_GET["player"]);
+            
 			while ($playerrow = mysql_fetch_array($playerdata))
 			{
-				if ($playerrow['name'] != "Admin")
-				{
-					$brucies = $playerrow['brucies'] + $_POST["brucies"];
-					mysql_query("UPDATE players SET brucies = " . $brucies . " WHERE player_id = " . $playerrow['player_id']);
-				}
+                $brucies = $playerrow['brucies'] + $_POST["brucies"];
+                mysql_query("UPDATE players SET brucies = " . $brucies . " WHERE player_id = " . $_GET["player"]);
 			}
 			include("log.php");
-			$action = "Added Brucies: " . $_POST["brucies"];
+			$action = "Added Brucies: " . $_POST["brucies"] . " for player: " . $_GET["player"];
 			writelog($action);
 			header('Location: index.php');
 			exit();

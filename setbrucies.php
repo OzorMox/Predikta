@@ -11,13 +11,13 @@
 
 <?php
 
-echo "<form name=\"addbrucies\" action=\"processaddbrucies.php\" method=\"post\">";
-echo "Enter the number of Brucie Bonuses to add for all players";
+echo "<form name=\"setbrucies\" action=\"processsetbrucies.php?player=" . $_GET["player"] . "\" method=\"post\">";
+echo "Enter the number of Brucie Bonuses to add for this player";
 echo "<br>";
 echo "A negative number will remove Brucies";
 echo "<br>";
 echo "<br>";
-echo "Mark the checkbox to reset all Brucie Bonuses back to zero";
+echo "Mark the checkbox to reset this player's Brucie Bonuses back to zero";
 echo "<br>";
 echo "<br>";
 echo "<input type=\"text\" name=\"brucies\" />";

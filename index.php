@@ -557,7 +557,14 @@ foreach ($totals as $name => $totalpoints)
 			{
 				echo "<td style=\"background-color:" . $rowbg . "\">Not Set</td>";				
 			}
-			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['brucies'] . "B</td>";
+            if ($_SESSION['admin'] == 1)
+            {
+                echo "<td style=\"background-color:" . $rowbg . "\"><a href=\"setbrucies.php?player=" . $playerrow['player_id'] . "\" title=\"Add/reset Brucie Bonuses for this player\">" . $playerrow['brucies'] . "B</a></td>";
+            }
+            else
+            {
+                echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['brucies'] . "B</td>";
+            }
 			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['july'] . "</td>";
 			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['august'] . "</td>";
 			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['september'] . "</td>";
