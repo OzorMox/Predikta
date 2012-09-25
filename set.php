@@ -7,7 +7,16 @@
 
 <body>
 <center>
-<?php include("title");
+<?php
+
+//connect to the database
+include("connect.php");
+
+$playerdata = mysql_query("SELECT brucies FROM players WHERE player_id = " . $_GET["player"]);
+
+$playerrow = mysql_fetch_array($playerdata);
+
+include("title");
 
 if ($_GET["game1"] == "")
 	$game1 = "Unknown";
@@ -30,7 +39,7 @@ echo "<br>";
 echo "<input type=\"checkbox\" name=\"brucie\" value=\"brucie\"> Brucie Bonus";
 echo "<br>";
 echo "<br>";
-echo "Brucie Says: Don't forget to use them all by the end of the month!";
+echo "Brucie Says: You have " . $playerrow['brucies'] . " Brucies left. Don't forget to use them all by the end of the month!";
 echo "<br>";
 echo "<br>";
 echo "<input type=\"submit\" value=\"OK\">";
