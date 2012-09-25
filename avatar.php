@@ -41,17 +41,16 @@ echo "<br>";
 //only display form if player is an admin
 if ($_SESSION['admin'] == 1)
 {
-	echo "<br>";
-	echo "<form name=\"avatar\" action=\"setavatar.php?player=" . $_GET["player"] . "\" method=\"post\">";
-	echo "Avatar URL: <input type=\"text\" name=\"avatar\" size=\"50\" maxlength=\"500\" />&nbsp;<input type=\"submit\" value=\"Set\">";
-	echo "</form>";
+    echo "<br>";
+    echo "<b>Player Administration</b>";
+    echo "<br>";
 	echo "<br>";
 	echo "<form name=\"changename\" action=\"changename.php?player=" . $_GET["player"] . "\" method=\"post\">";
 	echo "Change Name: <input type=\"text\" name=\"name\" maxlength=\"50\" />&nbsp;<input type=\"submit\" value=\"Change\">";
 	echo "</form>";
 	echo "<br>";
 	echo "<form name=\"resetpassword\" action=\"resetpassword.php?player=" . $_GET["player"] . "\" method=\"post\">";
-	echo "<input type=\"submit\" value=\"Reset Password\">";
+	echo "Reset Password: <input type=\"submit\" value=\"This Player Is Forgetful!\">";
 	echo "</form>";
 }
 echo "<br>";
