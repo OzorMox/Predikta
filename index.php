@@ -195,6 +195,9 @@ echo "</tr>";
 //populate table with each game
 while($gamerow = mysql_fetch_array($gamedata))
 {
+    //check if Brucie has predicted on this game
+    bruciepredicts($gamerow['game_id'], $gamerow['team_1'], $gamerow['team_2']);
+    
 	echo "<tr>";
 	//set alt text for the date cell
 	if ($gamerow['type'] == "weekend")
@@ -265,12 +268,18 @@ while($gamerow = mysql_fetch_array($gamedata))
 				if ($playerrow['name'] == $_SESSION['username'])
 				{
 					if ($gamerow['status'] == "open" || $gamerow['status'] == "unlocked")
+                    {
 						echo "<td>[<a href=\"set.php?game=" . $gamerow["game_id"] . "&player=" . $playerrow['player_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Set your prediction for this game\">Set</a>]</td>";
+                    }
 					else
+                    {
 						echo "<td>--</td>";
+                    }
 				}
 				else
+                {
 					echo "<td>--</td>";
+                }
 			}
 			else
 			{
@@ -305,11 +314,6 @@ while($gamerow = mysql_fetch_array($gamedata))
 							$cellcolour = "#ccffcc";
 							$legend = $cellpoints . " point(s)";
 							break;
-						//implementation of new scoring system
-						//case ($cellpoints == 5 || $cellpoints == 10):
-							//$cellcolour = "#ccffcc";
-							//$legend = $cellpoints . " point(s)";
-							//break;
 					}
 				}
 				//white cell colour if the calculation has not been done yet
@@ -652,18 +656,132 @@ function pointscalc($playerscore1, $playerscore2, $brucie, $actualscore1, $actua
 	//the first line was also changed from 5 points to 3 points
 	$points = 0;
 	if (($playerscore1 == $actualscore1) && ($playerscore2 == $actualscore2))
+    {
 		$points = 3;
-	//elseif (($playerscore1 - $actualscore1) == ($playerscore2 - $actualscore2))
-		//$points = 3;
+    }
 	elseif (($playerscore1 > $playerscore2) && ($actualscore1 > $actualscore2))
+    {
 		$points = 1;
+    }
 	elseif (($playerscore1 < $playerscore2) && ($actualscore1 < $actualscore2))
+    {
 		$points = 1;
+    }
 	elseif (($playerscore1 == $playerscore2) && ($actualscore1 == $actualscore2))
+    {
 		$points = 1;
+    }
 	if ($brucie == 1)
+    {
 		$points = $points * 2;
+    }
 	return $points;
+}
+
+function bruciepredicts($gameid, $team1, $team2)
+{
+    $brucieid = 34; //this should not change as long as the player Brucie is never deleted
+                    //TODO: prevent Brucie from being deleted in code
+
+    $brucieresultdata = mysql_query("SELECT * FROM results WHERE game_id = " . $gameid . " AND player_id = " . $brucieid);
+    
+    //check if Brucie has made a prediction yet for this game, if not, do it
+    if (mysql_num_rows($brucieresultdata) == 0)
+    {
+        $team1rank = brucieranking($team1);
+        $team2rank = brucieranking($team2);
+        
+        $team1score = 0;
+        $team2score = 0;
+        $gap = round(abs($team1rank - $team2rank) / 4);
+        if ($team1rank > $team2rank)
+        {
+            $team1score = $gap;
+            $team2score = 0;
+        }
+        else
+        {
+            $team1score = 0;
+            $team2score = $gap;
+        }
+        
+        //weight random adjustments towards the home team
+        if (rand(1, 3) == 3)
+        {
+            $team1score += 1;
+        }
+        if (rand(1, 3) == 3)
+        {
+            $team2score -= 1;
+        }
+        if ($team1score < 0) { $team1score = 0; }
+        if ($team2score < 0) { $team2score = 0; }
+        
+        //decide whether Brucie should use a Brucie (ha!)
+        $bruciebonus = 0;
+        if (abs($team1score - $team2score) >= 2)
+        {
+            $bruciedata = mysql_query("SELECT brucies FROM players WHERE player_id = " . $brucieid);
+            $brucierow = mysql_fetch_array($bruciedata);
+            if ($brucierow['brucies'] > 0)
+            {
+                $bruciebonus = 1;
+                $updbrucies = $brucierow["brucies"] - 1;
+                mysql_query("UPDATE players SET brucies = " . $updbrucies . " WHERE player_id = " . $brucieid);
+            }
+        }
+        
+        writelog("Brucie predicted on game: " . $gameid);
+        
+        mysql_query("INSERT INTO results (score_1, score_2, brucie, game_id, player_id) VALUES (" . (int)$team1score . ", " . (int)$team2score . ", " . $bruciebonus . ", " . $gameid . ", " . $brucieid . ")");
+    }
+}
+
+function brucieranking($team)
+{
+    switch ($team)
+    {
+        case "Man Utd":
+            return 20;
+        case "Man City":
+            return 19;
+        case "Chelsea":
+            return 18;
+        case "Arsenal":
+            return 17;
+        case "Tottenham":
+            return 16;
+        case "Everton":
+            return 15;
+        case "Liverpool":
+            return 14;
+        case "West Brom":
+            return 13;
+        case "Swansea":
+            return 12;
+        case "West Ham":
+            return 11;
+        case "Norwich":
+            return 10;
+        case "Fulham":
+            return 9;
+        case "Stoke":
+            return 8;
+        case "Southampton":
+            return 7;
+        case "Aston Villa":
+            return 6;
+        case "Newcastle":
+            return 5;
+        case "Sunderland":
+            return 4;
+        case "Cardiff":
+            return 3;
+        case "Hull":
+            return 2;
+        case "Crystal Palace":
+            return 1;
+    }
 }
 
 ?>
