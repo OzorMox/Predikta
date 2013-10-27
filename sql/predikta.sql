@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2
+-- version 4.0.8
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Oct 27, 2013 at 10:05 PM
--- Server version: 5.5.25a
--- PHP Version: 5.4.4
+-- Host: magma.dns-systems.net
+-- Generation Time: Oct 27, 2013 at 09:20 PM
+-- Server version: 5.1.69
+-- PHP Version: 5.3.27
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `predikta`
+-- Database: `jkhemming_prd`
 --
 
 -- --------------------------------------------------------
@@ -29,10 +29,10 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `bruciesays` (
   `bruciesays_id` int(10) NOT NULL AUTO_INCREMENT,
   `bruciesays` varchar(5000) COLLATE latin1_general_ci NOT NULL,
-  `user` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `user` int(100) NOT NULL,
   `datetime` datetime NOT NULL,
   PRIMARY KEY (`bruciesays_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- --------------------------------------------------------
 
@@ -42,15 +42,15 @@ CREATE TABLE IF NOT EXISTS `bruciesays` (
 
 CREATE TABLE IF NOT EXISTS `games` (
   `game_id` int(10) NOT NULL AUTO_INCREMENT,
-  `team_1` varchar(100) COLLATE latin1_general_ci NOT NULL,
-  `team_2` varchar(100) COLLATE latin1_general_ci NOT NULL,
-  `actual_1` int(10) NOT NULL,
-  `actual_2` int(10) NOT NULL,
-  `date` date NOT NULL,
-  `status` varchar(10) COLLATE latin1_general_ci NOT NULL,
-  `type` varchar(10) COLLATE latin1_general_ci NOT NULL,
+  `team_1` varchar(100) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `team_2` varchar(100) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `actual_1` int(10) NOT NULL DEFAULT '0',
+  `actual_2` int(10) NOT NULL DEFAULT '0',
+  `date` date NOT NULL DEFAULT '0000-00-00',
+  `status` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `type` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`game_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC AUTO_INCREMENT=99 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `halloffame` (
   `awardedby` varchar(100) COLLATE latin1_general_ci NOT NULL,
   `datetime` datetime NOT NULL,
   PRIMARY KEY (`entry_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- --------------------------------------------------------
 
@@ -75,11 +75,11 @@ CREATE TABLE IF NOT EXISTS `halloffame` (
 
 CREATE TABLE IF NOT EXISTS `log` (
   `log_id` int(10) NOT NULL AUTO_INCREMENT,
-  `action` varchar(500) COLLATE latin1_general_ci NOT NULL,
-  `user` varchar(100) COLLATE latin1_general_ci NOT NULL,
-  `datetime` datetime NOT NULL,
+  `action` text COLLATE latin1_general_ci NOT NULL,
+  `user` varchar(100) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`log_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=860 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- --------------------------------------------------------
 
@@ -89,11 +89,11 @@ CREATE TABLE IF NOT EXISTS `log` (
 
 CREATE TABLE IF NOT EXISTS `messages` (
   `message_id` int(10) NOT NULL AUTO_INCREMENT,
-  `message` varchar(5000) COLLATE latin1_general_ci NOT NULL,
-  `user` varchar(100) COLLATE latin1_general_ci NOT NULL,
-  `datetime` datetime NOT NULL,
+  `message` text COLLATE latin1_general_ci NOT NULL,
+  `user` varchar(100) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`message_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=68 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- --------------------------------------------------------
 
@@ -103,28 +103,28 @@ CREATE TABLE IF NOT EXISTS `messages` (
 
 CREATE TABLE IF NOT EXISTS `players` (
   `player_id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE latin1_general_ci NOT NULL,
-  `password` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `name` varchar(100) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `password` varchar(100) COLLATE latin1_general_ci NOT NULL DEFAULT '',
   `email` varchar(500) COLLATE latin1_general_ci DEFAULT NULL,
   `send_reminder_email` tinyint(1) DEFAULT '0',
-  `avatar` varchar(500) COLLATE latin1_general_ci NOT NULL,
-  `admin` int(10) NOT NULL,
-  `brucies` int(10) NOT NULL,
-  `july` int(10) NOT NULL,
-  `august` int(10) NOT NULL,
-  `september` int(10) NOT NULL,
-  `october` int(10) NOT NULL,
-  `november` int(10) NOT NULL,
-  `december` int(10) NOT NULL,
-  `january` int(10) NOT NULL,
-  `february` int(10) NOT NULL,
-  `march` int(10) NOT NULL,
-  `april` int(10) NOT NULL,
-  `may` int(10) NOT NULL,
-  `june` int(10) NOT NULL,
-  `bonus` int(10) NOT NULL,
+  `avatar` text COLLATE latin1_general_ci NOT NULL,
+  `admin` int(10) NOT NULL DEFAULT '0',
+  `brucies` int(10) NOT NULL DEFAULT '0',
+  `july` int(10) NOT NULL DEFAULT '0',
+  `august` int(10) NOT NULL DEFAULT '0',
+  `september` int(10) NOT NULL DEFAULT '0',
+  `october` int(10) NOT NULL DEFAULT '0',
+  `november` int(10) NOT NULL DEFAULT '0',
+  `december` int(10) NOT NULL DEFAULT '0',
+  `january` int(10) NOT NULL DEFAULT '0',
+  `february` int(10) NOT NULL DEFAULT '0',
+  `march` int(10) NOT NULL DEFAULT '0',
+  `april` int(10) NOT NULL DEFAULT '0',
+  `may` int(10) NOT NULL DEFAULT '0',
+  `june` int(10) NOT NULL DEFAULT '0',
+  `bonus` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`player_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=35 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- --------------------------------------------------------
 
@@ -134,13 +134,13 @@ CREATE TABLE IF NOT EXISTS `players` (
 
 CREATE TABLE IF NOT EXISTS `results` (
   `result_id` int(10) NOT NULL AUTO_INCREMENT,
-  `score_1` int(10) NOT NULL,
-  `score_2` int(10) NOT NULL,
-  `brucie` int(10) NOT NULL,
-  `game_id` int(10) NOT NULL,
-  `player_id` int(10) NOT NULL,
+  `score_1` int(10) NOT NULL DEFAULT '0',
+  `score_2` int(10) NOT NULL DEFAULT '0',
+  `brucie` int(10) NOT NULL DEFAULT '0',
+  `game_id` int(10) NOT NULL DEFAULT '0',
+  `player_id` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`result_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=114 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
