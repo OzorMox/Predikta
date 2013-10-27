@@ -346,9 +346,9 @@ while($gamerow = mysql_fetch_array($gamedata))
 						if ($playerrow['name'] == $_SESSION["username"])
 						{
 							if ($resultrow['brucie'] == 0)
-								echo "<td style=\"background-color:" . $cellcolour . "\"><a href=\"deleteprediction.php?game=" . $gamerow["game_id"] . "&player=" . $playerrow['player_id'] . "\" title=\"Delete your prediction for this game\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . "</a></td>";
+								echo "<td style=\"background-color:" . $cellcolour . "\"><a href=\"deleteprediction.php?game=" . $gamerow["game_id"] . "&player=" . $playerrow['player_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Delete your prediction for this game\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . "</a></td>";
 							else
-								echo "<td style=\"background-color:" . $cellcolour . "\"><a href=\"deleteprediction.php?game=" . $gamerow["game_id"] . "&player=" . $playerrow['player_id'] . "\" title=\"Delete your prediction for this game\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . "</a> (B)</td>";
+								echo "<td style=\"background-color:" . $cellcolour . "\"><a href=\"deleteprediction.php?game=" . $gamerow["game_id"] . "&player=" . $playerrow['player_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Delete your prediction for this game\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . "</a> (B)</td>";
 						}
 						else
 							echo "<td style=\"background-color:#dddddd\">--</td>";
@@ -358,9 +358,9 @@ while($gamerow = mysql_fetch_array($gamedata))
 						if ($playerrow['name'] == $_SESSION["username"])
 						{
 							if ($resultrow['brucie'] == 0)
-								echo "<td style=\"background-color:" . $cellcolour . "\"><a href=\"deleteprediction.php?game=" . $gamerow["game_id"] . "&player=" . $playerrow['player_id'] . "\" title=\"Delete your prediction for this game\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . "</a></td>";
+								echo "<td style=\"background-color:" . $cellcolour . "\"><a href=\"deleteprediction.php?game=" . $gamerow["game_id"] . "&player=" . $playerrow['player_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Delete your prediction for this game\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . "</a></td>";
 							else
-								echo "<td style=\"background-color:" . $cellcolour . "\"><a href=\"deleteprediction.php?game=" . $gamerow["game_id"] . "&player=" . $playerrow['player_id'] . "\" title=\"Delete your prediction for this game\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . "</a> (B)</td>";
+								echo "<td style=\"background-color:" . $cellcolour . "\"><a href=\"deleteprediction.php?game=" . $gamerow["game_id"] . "&player=" . $playerrow['player_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Delete your prediction for this game\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . "</a> (B)</td>";
 						}
 						else
 							echo "<td style=\"background-color:#dddddd\">--</td>";

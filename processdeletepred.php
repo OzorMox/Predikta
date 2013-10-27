@@ -38,7 +38,7 @@ if ($playerrow['name'] == $_SESSION['username'])
 		include("log.php");
 		$action = "Deleted prediction: " . $_GET["game"];
 		writelog($action);
-		header('Location: index.php');
+		header('Location: set.php?game=' . $_GET["game"] . '&player=' . $_GET["player"] . '&team1=' . $_GET["team1"] . '&team2=' . $_GET["team2"]);
 		exit();
 	}
 	else
