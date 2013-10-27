@@ -27,8 +27,8 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 CREATE TABLE IF NOT EXISTS `games` (
   `game_id` int(10) NOT NULL AUTO_INCREMENT,
-  `game_1` varchar(100) COLLATE latin1_general_ci NOT NULL,
-  `game_2` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `team_1` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `team_2` varchar(100) COLLATE latin1_general_ci NOT NULL,
   `actual_1` int(10) NOT NULL,
   `actual_2` int(10) NOT NULL,
   `date` date NOT NULL,

@@ -85,7 +85,7 @@ while ($opengamerow = mysql_fetch_array($opengamedata))
 	}
 }
 
-$gamedata = mysql_query("SELECT * FROM games ORDER BY date, game_1");
+$gamedata = mysql_query("SELECT * FROM games ORDER BY date, team_1");
 
 $playerdata = mysql_query("SELECT * FROM players ORDER BY name");
 
@@ -213,13 +213,13 @@ while($gamerow = mysql_fetch_array($gamedata))
 		case "open":
 			if ($_SESSION['admin'] == 1)
 			{
-				echo "<td style=\"background-color:#ccffcc\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['game_1'] . " v " . $gamerow['game_2'] . "</td>";
-				echo "<td style=\"background-color:#ccffcc\"><a href=\"changedate.php?game=" . $gamerow['game_id'] . "&game1=" . urlencode($gamerow['game_1']) . "&game2=" . urlencode($gamerow['game_2']) . "\" title=\"Change the date of this game\">" . formatdate($gamerow["date"]) . "</a></td>";
+				echo "<td style=\"background-color:#ccffcc\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
+				echo "<td style=\"background-color:#ccffcc\"><a href=\"changedate.php?game=" . $gamerow['game_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Change the date of this game\">" . formatdate($gamerow["date"]) . "</a></td>";
 				echo "<td style=\"background-color:#ccffcc\" title=\"" . $typealttext . "\">" . $typetext . "</td>";
 			}
 			else
 			{
-				echo "<td style=\"background-color:#ccffcc\">" . $gamerow['game_1'] . " v " . $gamerow['game_2'] . "</td>";
+				echo "<td style=\"background-color:#ccffcc\">" . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
 				echo "<td style=\"background-color:#ccffcc\">" . formatdate($gamerow["date"]) . "</td>";
 				echo "<td style=\"background-color:#ccffcc\" title=\"" . $typealttext . "\">" . $typetext . "</td>";
 			}
@@ -227,13 +227,13 @@ while($gamerow = mysql_fetch_array($gamedata))
 		case "locked":
 			if ($_SESSION['admin'] == 1)
 			{
-				echo "<td style=\"background-color:#ffffcc\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['game_1'] . " v " . $gamerow['game_2'] . "</td>";
+				echo "<td style=\"background-color:#ffffcc\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
 				echo "<td style=\"background-color:#ffffcc\">" . formatdate($gamerow["date"]) . "</td>";
-				echo "<td style=\"background-color:#ffffcc\">[<a href=\"activate.php?game=" . $gamerow["game_id"] . "&game1=" . urlencode($gamerow['game_1']) . "&game2=" . urlencode($gamerow['game_2']) . "\" title=\"Activate this game and set the actual score\">Set</a>]</td>";
+				echo "<td style=\"background-color:#ffffcc\">[<a href=\"activate.php?game=" . $gamerow["game_id"] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Activate this game and set the actual score\">Set</a>]</td>";
 			}
 			else
 			{
-				echo "<td style=\"background-color:#ffffcc\">" . $gamerow['game_1'] . " v " . $gamerow['game_2'] . "</td>";
+				echo "<td style=\"background-color:#ffffcc\">" . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
 				echo "<td style=\"background-color:#ffffcc\">" . formatdate($gamerow["date"]) . "</td>";
 				echo "<td style=\"background-color:#ffffcc\">Locked</td>";
 			}
@@ -241,13 +241,13 @@ while($gamerow = mysql_fetch_array($gamedata))
 		case "set":
 			if ($_SESSION['admin'] == 1)
 			{
-				echo "<td style=\"background-color:#ffcccc\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['game_1'] . " v " . $gamerow['game_2'] . "</td>";
+				echo "<td style=\"background-color:#ffcccc\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
 				echo "<td style=\"background-color:#ffcccc\">" . formatdate($gamerow["date"]) . "</td>";
-				echo "<td style=\"background-color:#ffcccc\"><a href=\"deleteactual.php?game=" . $gamerow['game_id'] . "&game1=" . urlencode($gamerow['game_1']) . "&game2=" . urlencode($gamerow['game_2']) . "\" title=\"Delete the actual score for this game\">" . $gamerow['actual_1'] . "-" . $gamerow['actual_2'] . "</a></td>";
+				echo "<td style=\"background-color:#ffcccc\"><a href=\"deleteactual.php?game=" . $gamerow['game_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Delete the actual score for this game\">" . $gamerow['actual_1'] . "-" . $gamerow['actual_2'] . "</a></td>";
 			}
 			else
 			{
-				echo "<td style=\"background-color:#ffcccc\">" . $gamerow['game_1'] . " v " . $gamerow['game_2'] . "</td>";
+				echo "<td style=\"background-color:#ffcccc\">" . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
 				echo "<td style=\"background-color:#ffcccc\">" . formatdate($gamerow["date"]) . "</td>";
 				echo "<td style=\"background-color:#ffcccc\">" . $gamerow['actual_1'] . "-" . $gamerow['actual_2'] . "</td>";
 			}
@@ -265,7 +265,7 @@ while($gamerow = mysql_fetch_array($gamedata))
 				if ($playerrow['name'] == $_SESSION['username'])
 				{
 					if ($gamerow['status'] == "open" || $gamerow['status'] == "unlocked")
-						echo "<td>[<a href=\"set.php?game=" . $gamerow["game_id"] . "&player=" . $playerrow['player_id'] . "&game1=" . urlencode($gamerow['game_1']) . "&game2=" . urlencode($gamerow['game_2']) . "\" title=\"Set your prediction for this game\">Set</a>]</td>";
+						echo "<td>[<a href=\"set.php?game=" . $gamerow["game_id"] . "&player=" . $playerrow['player_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Set your prediction for this game\">Set</a>]</td>";
 					else
 						echo "<td>--</td>";
 				}

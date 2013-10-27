@@ -24,19 +24,21 @@ Select the teams for the new game
 <br>
 <br>
 
-<select name="game1">
+<!-- Premier League-->
+<select name="team1">
 <option value="Arsenal">Arsenal</option>
 <option value="Aston Villa">Aston Villa</option>
+<option value="Cardiff">Cardiff</option>
 <option value="Chelsea">Chelsea</option>
+<option value="Crystal Palace">Crystal Palace</option>
 <option value="Everton">Everton</option>
 <option value="Fulham">Fulham</option>
+<option value="Hull">Hull</option>
 <option value="Liverpool">Liverpool</option>
 <option value="Man City">Man City</option>
 <option value="Man Utd">Man Utd</option>
 <option value="Newcastle">Newcastle</option>
 <option value="Norwich">Norwich</option>
-<option value="QPR">QPR</option>
-<option value="Reading">Reading</option>
 <option value="Southampton">Southampton</option>
 <option value="Stoke">Stoke</option>
 <option value="Sunderland">Sunderland</option>
@@ -44,22 +46,22 @@ Select the teams for the new game
 <option value="Tottenham">Tottenham</option>
 <option value="West Brom">West Brom</option>
 <option value="West Ham">West Ham</option>
-<option value="Wigan">Wigan</option>
 </select>
 v
-<select name="game2">
+<select name="team2">
 <option value="Arsenal">Arsenal</option>
 <option value="Aston Villa">Aston Villa</option>
+<option value="Cardiff">Cardiff</option>
 <option value="Chelsea">Chelsea</option>
+<option value="Crystal Palace">Crystal Palace</option>
 <option value="Everton">Everton</option>
 <option value="Fulham">Fulham</option>
+<option value="Hull">Hull</option>
 <option value="Liverpool">Liverpool</option>
 <option value="Man City">Man City</option>
 <option value="Man Utd">Man Utd</option>
 <option value="Newcastle">Newcastle</option>
 <option value="Norwich">Norwich</option>
-<option value="QPR">QPR</option>
-<option value="Reading">Reading</option>
 <option value="Southampton">Southampton</option>
 <option value="Stoke">Stoke</option>
 <option value="Sunderland">Sunderland</option>
@@ -67,11 +69,11 @@ v
 <option value="Tottenham">Tottenham</option>
 <option value="West Brom">West Brom</option>
 <option value="West Ham">West Ham</option>
-<option value="Wigan">Wigan</option>
 </select>
 
+<!-- Euro 2012 -->
 <!--
-<select name="game1">
+<select name="team1">
 <option value="Croatia">Croatia</option>
 <option value="Czech Republic">Czech Republic</option>
 <option value="Denmark">Denmark</option>
@@ -90,7 +92,7 @@ v
 <option value="Ukraine">Ukraine</option>
 </select>
 
-<select name="game2">
+<select name="team2">
 <option value="Croatia">Croatia</option>
 <option value="Czech Republic">Czech Republic</option>
 <option value="Denmark">Denmark</option>
@@ -111,8 +113,9 @@ v
 </select>
 -->
 
+<!-- World Cup 2010 -->
 <!--
-<select name="game1">
+<select name="team1">
 <option value="Algeria">Algeria</option>
 <option value="Argentina">Argentina</option>
 <option value="Australia">Australia</option>
@@ -147,7 +150,7 @@ v
 <option value="USA">USA</option>
 </select>
 v
-<select name="game2">
+<select name="team2">
 <option value="Algeria">Algeria</option>
 <option value="Argentina">Argentina</option>
 <option value="Australia">Australia</option>

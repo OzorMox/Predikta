@@ -11,18 +11,18 @@
 
 include("title");
 
-if ($_GET["game1"] == "")
-	$game1 = "Unknown";
+if ($_GET["team1"] == "")
+	$team1 = "Unknown";
 else
-	$game1 = $_GET["game1"];
+	$team1 = $_GET["team1"];
 
-if ($_GET["game2"] == "")
-	$game2 = "Unknown";
+if ($_GET["team2"] == "")
+	$team2 = "Unknown";
 else
-	$game2 = $_GET["game2"];
+	$team2 = $_GET["team2"];
 
 echo "<form name=\"deleteactual\" action=\"processdeleteact.php?game=" . $_GET["game"] . "\" method=\"post\">";
-echo "Delete the actual score for " . $game1 . " v " . $game2 . "?";
+echo "Delete the actual score for " . $team1 . " v " . $team2 . "?";
 echo "<br>";
 echo "<br>";
 echo "Click OK to confirm";

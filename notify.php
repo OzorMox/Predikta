@@ -39,7 +39,7 @@
     require_once("class.phpmailer.php");
 
     // Fetch a list of games occurring in exactly $REMIND_DAYS days time
-    $t_sql =  "SELECT `game_1`, `game_2`, `date` " . 
+    $t_sql =  "SELECT `team_1`, `team_2`, `date` " . 
               "FROM `games` " . 
               "WHERE `date` = DATE(DATE_ADD(NOW(), INTERVAL " . $REMIND_DAYS . " DAY));";
 
@@ -49,7 +49,7 @@
       $t_upcoming_games = "";      
       while ($t_row = mysql_fetch_assoc($t_rs))
       {
-        $t_upcoming_games .= $t_row['date'] . ': ' . $t_row['game_1'] . " vs " . $t_row['game_2'] . "\n";
+        $t_upcoming_games .= $t_row['date'] . ': ' . $t_row['team_1'] . " vs " . $t_row['team_2'] . "\n";
       }
 
       if (strlen($t_upcoming_games) == 0)
