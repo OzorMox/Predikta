@@ -49,7 +49,7 @@
       $t_upcoming_games = "";      
       while ($t_row = mysql_fetch_assoc($t_rs))
       {
-        $t_upcoming_games .= $t_row['date'] . ': ' . $t_row['team_1'] . " vs " . $t_row['team_2'] . "\n";
+        $t_upcoming_games .= $t_row['date'] . ': ' . $t_row['team_1'] . " v " . $t_row['team_2'] . "\n";
       }
 
       if (strlen($t_upcoming_games) == 0)

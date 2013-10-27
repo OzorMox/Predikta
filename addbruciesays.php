@@ -12,8 +12,6 @@ if (isset($_SESSION['username']))
 	$user = $_SESSION['username'];
 	$datetime = date("Y/m/d H:i:s");
 
-    echo "bruciesays: " . $bruciesays;
-
 	if ($bruciesays != "")
 	{
         mysql_query("INSERT INTO bruciesays (bruciesays, user, datetime) VALUES ('" . strip_tags($bruciesays) . "', '" . $user . "', '" . $datetime . "')");

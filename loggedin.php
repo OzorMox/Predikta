@@ -21,7 +21,7 @@ if ($_GET["warn"] == "yes")
 	echo "Warning: You are using the default password";
 	echo "<br>";
 	echo "<br>";
-	echo "<a href=password.php title=\"Change your password now\">Change Password</a>";
+	echo "<a href=account.php title=\"Change your password now\">Change Password</a>";
 	echo "<br>";
 	echo "<br>";
 }

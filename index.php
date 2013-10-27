@@ -645,9 +645,9 @@ if (!isset($_SESSION['username']))
 echo "<br>";
 if (isset($_SESSION['username']) && $_SESSION['username'] != "")
 {
-  echo "<a href=\"account.php\" title=\"account.php\">Account Settings</a> - <a href=\"logout.php\" title=\"Clear your current session\">Logout</a> - <a href=\"reset.php\" title=\"Delete all fixtures and reset all points\">Reset</a> - ";
+  echo "<a href=\"account.php\" title=\"account.php\">Account Settings</a> - <a href=\"halloffame.php\" title=\"See who the best Predikta players are!\">Hall Of Fame</a> - <a href=\"logout.php\" title=\"Clear your current session\">Logout</a> - <a href=\"reset.php\" title=\"Delete all fixtures and reset all points\">Reset</a> - <a href=\"viewlog.php\" title=\"View the log\">Log</a> - ";
 }
-echo "<a href=\"viewlog.php\" title=\"View the log\">Log</a> - <a href=\"about.php\" title=\"About Predikta\">About</a>";
+echo "<a href=\"about.php\" title=\"About Predikta\">About</a>";
 
 //functions to format MySQL dates and times
 function formatdate($date)
