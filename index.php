@@ -470,6 +470,17 @@ if ($_SESSION['username'] != null)
 	echo "</form>";
 }
 
+if ($_SESSION['username'] != null)
+{
+    echo "Or give Brucie something to say while people are predicting!";
+    echo "<br>";
+    echo "<br>";
+	echo "<form name=\"message\" action=\"addbruciesays.php\" method=\"post\">";
+	echo "Brucie Says: <input type=\"text\" name=\"bruciesays\" size=\"50\" maxlength=\"100\" />";
+	echo "&nbsp;<input type=\"submit\" value=\"Add\">";
+	echo "</form>";
+}
+
 //--------------------
 //    POINTS TABLE
 //--------------------
