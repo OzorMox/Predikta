@@ -15,7 +15,7 @@ $admintypecheck = $adminrow['admin'];
 
 if ($adminnumcheck != 1 || $admintypecheck != 1)
 {
-	header('Location: error.php?error=Bad+admin+configuration:+Brucie+is+not+happy!');
+	header('Location: error.php?error=Bad+admin+configuration,+Brucie+is+not+happy!');
 	exit();
 }
 
