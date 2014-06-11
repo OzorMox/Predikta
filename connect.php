@@ -1,7 +1,7 @@
 <?php
 
 //connect to the database
-$connection = mysql_connect("jkhemming.dns-systems.net", "jkhemming_asaprd", "Ffzetecs16d");
+$connection = mysql_connect("jkhemming.dns-systems.net", "jkhemming_prd", "Ffzetecs16d");
 //$connection = mysql_connect("localhost", "root", "");
 if (!$connection)
 {
