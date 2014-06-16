@@ -141,6 +141,7 @@ v
 <option value="Japan">Japan</option>
 <option value="Mexico">Mexico</option>
 <option value="Netherlands">Netherlands</option>
+<option value="Nigeria">Nigeria</option>
 <option value="Portugal">Portugal</option>
 <option value="Russia">Russia</option>
 <option value="South Korea">South Korea</option>
@@ -175,6 +176,7 @@ v
 <option value="Japan">Japan</option>
 <option value="Mexico">Mexico</option>
 <option value="Netherlands">Netherlands</option>
+<option value="Nigeria">Nigeria</option>
 <option value="Portugal">Portugal</option>
 <option value="Russia">Russia</option>
 <option value="South Korea">South Korea</option>

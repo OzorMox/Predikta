@@ -87,7 +87,7 @@ while ($opengamerow = mysql_fetch_array($opengamedata))
 
 $gamedata = mysql_query("SELECT * FROM games ORDER BY date, team_1");
 
-$playerdata = mysql_query("SELECT * FROM players ORDER BY name");
+$playerdata = mysql_query("SELECT * FROM players ORDER BY (name = '" . $_SESSION['username'] . "') desc, name");
 
 //store a running total of player points
 $playerpoints = array();
@@ -256,7 +256,7 @@ while($gamerow = mysql_fetch_array($gamedata))
 			}
 			break;
 	}
-	$playerdata = mysql_query("SELECT * FROM players ORDER BY name");
+	$playerdata = mysql_query("SELECT * FROM players ORDER BY (name = '" . $_SESSION['username'] . "') desc, name");
 	//read each player's predictions for the current game
 	while ($playerrow = mysql_fetch_array($playerdata))
 	{
@@ -388,7 +388,7 @@ if (mysql_num_rows($gamedata) == 0)
 }
 else
 {
-	$playerdata = mysql_query("SELECT * FROM players ORDER BY name");
+	$playerdata = mysql_query("SELECT * FROM players ORDER BY (name = '" . $_SESSION['username'] . "') desc, name");
 	while ($playerrow = mysql_fetch_array($playerdata))
 	{
 		if ($playerrow['name'] != "Admin")
