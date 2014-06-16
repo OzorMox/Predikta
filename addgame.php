@@ -25,6 +25,7 @@ Select the teams for the new game
 <br>
 
 <!-- Premier League-->
+<!--
 <select name="team1">
 <option value="Arsenal">Arsenal</option>
 <option value="Aston Villa">Aston Villa</option>
@@ -70,6 +71,7 @@ v
 <option value="West Brom">West Brom</option>
 <option value="West Ham">West Ham</option>
 </select>
+-->
 
 <!-- Euro 2012 -->
 <!--
@@ -113,78 +115,74 @@ v
 </select>
 -->
 
-<!-- World Cup 2010 -->
-<!--
+<!-- World Cup 2014 -->
 <select name="team1">
 <option value="Algeria">Algeria</option>
 <option value="Argentina">Argentina</option>
 <option value="Australia">Australia</option>
+<option value="Belgium">Belgium</option>
+<option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
 <option value="Brazil">Brazil</option>
 <option value="Cameroon">Cameroon</option>
 <option value="Chile">Chile</option>
-<option value="Denmark">Denmark</option>
+<option value="Columbia">Columbia</option>
+<option value="Costa Rica">Costa Rica</option>
+<option value="Croatia">Croatia</option>
+<option value="Ecuador">Ecuador</option>
 <option value="England">England</option>
 <option value="France">France</option>
 <option value="Germany">Germany</option>
 <option value="Ghana">Ghana</option>
 <option value="Greece">Greece</option>
 <option value="Honduras">Honduras</option>
+<option value="Iran">Iran</option>
 <option value="Italy">Italy</option>
 <option value="Ivory Coast">Ivory Coast</option>
 <option value="Japan">Japan</option>
 <option value="Mexico">Mexico</option>
 <option value="Netherlands">Netherlands</option>
-<option value="New Zealand">New Zealand</option>
-<option value="Nigeria">Nigeria</option>
-<option value="North Korea">North Korea</option>
-<option value="Paraguay">Paraguay</option>
 <option value="Portugal">Portugal</option>
-<option value="Serbia">Serbia</option>
-<option value="Slovakia">Slovakia</option>
-<option value="Slovenia">Slovenia</option>
-<option value="South Africa">South Africa</option>
+<option value="Russia">Russia</option>
 <option value="South Korea">South Korea</option>
 <option value="Spain">Spain</option>
 <option value="Switzerland">Switzerland</option>
+<option value="United States">United States</option>
 <option value="Uruguay">Uruguay</option>
-<option value="USA">USA</option>
 </select>
 v
 <select name="team2">
 <option value="Algeria">Algeria</option>
 <option value="Argentina">Argentina</option>
 <option value="Australia">Australia</option>
+<option value="Belgium">Belgium</option>
+<option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
 <option value="Brazil">Brazil</option>
 <option value="Cameroon">Cameroon</option>
 <option value="Chile">Chile</option>
-<option value="Denmark">Denmark</option>
+<option value="Columbia">Columbia</option>
+<option value="Costa Rica">Costa Rica</option>
+<option value="Croatia">Croatia</option>
+<option value="Ecuador">Ecuador</option>
 <option value="England">England</option>
 <option value="France">France</option>
 <option value="Germany">Germany</option>
 <option value="Ghana">Ghana</option>
 <option value="Greece">Greece</option>
 <option value="Honduras">Honduras</option>
+<option value="Iran">Iran</option>
 <option value="Italy">Italy</option>
 <option value="Ivory Coast">Ivory Coast</option>
 <option value="Japan">Japan</option>
 <option value="Mexico">Mexico</option>
 <option value="Netherlands">Netherlands</option>
-<option value="New Zealand">New Zealand</option>
-<option value="Nigeria">Nigeria</option>
-<option value="North Korea">North Korea</option>
-<option value="Paraguay">Paraguay</option>
 <option value="Portugal">Portugal</option>
-<option value="Serbia">Serbia</option>
-<option value="Slovakia">Slovakia</option>
-<option value="Slovenia">Slovenia</option>
-<option value="South Africa">South Africa</option>
+<option value="Russia">Russia</option>
 <option value="South Korea">South Korea</option>
 <option value="Spain">Spain</option>
 <option value="Switzerland">Switzerland</option>
+<option value="United States">United States</option>
 <option value="Uruguay">Uruguay</option>
-<option value="USA">USA</option>
 </select>
--->
 
 <br>
 <br>
@@ -214,10 +212,10 @@ Select the game type
 <br>
 <table style="border-style:none;">
 <tr>
-<td style="border-style:none;"><input type="radio" name="type" value="weekend" checked="checked"></td><td style="border-style:none;">Weekend (12pm lock)</td>
+<td style="border-style:none;"><input type="radio" name="type" value="weekend" checked="checked"></td><td style="border-style:none;">12pm Lock</td>
 </tr>
 <tr>
-<td style="border-style:none;"><input type="radio" name="type" value="weekday"></td><td style="border-style:none;">Weekday (7pm lock)</td>
+<td style="border-style:none;"><input type="radio" name="type" value="weekday"></td><td style="border-style:none;">7pm Lock</td>
 </tr>
 </table>
 <br>

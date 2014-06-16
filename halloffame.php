@@ -1,3 +1,8 @@
+<?php
+//create session
+session_start();
+?>
+
 <html>
 
 <head>
@@ -8,9 +13,6 @@
 <body>
 
 <?php
-//create session
-session_start();
-
 //connect to the database
 include("connect.php");
 
