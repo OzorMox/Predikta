@@ -68,7 +68,7 @@ v
 <option value="Swansea">Swansea</option>
 <option value="Tottenham">Tottenham</option>
 <option value="West Brom">West Brom</option>
-<option value="West Ham">West Ham</option>n>
+<option value="West Ham">West Ham</option>
 </select>
 
 <!-- Euro 2012 -->
