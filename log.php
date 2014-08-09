@@ -11,14 +11,16 @@ function writelog($action)
 	//connect to the database
 	include("connect.php");
 
-	//if action is "automatically locked game", then never log a username
+	//if action is "Automatically locked game" or "Brucie predicted on game", then never log a username
 	$autolockgame = "Automatically locked game";
+	$bruciepredicts = "Brucie predicted on game";
+	
 	//set default username (blank)
 	$user = "--";
 
 	if ($_SESSION['username'] != "")
 	{
-		if (strpos($action, $autolockgame) === false)
+		if (strpos($action, $autolockgame) === false || strpos($action, $bruciepredicts) === false)
 		{
 			$user = $_SESSION['username'];
 		}

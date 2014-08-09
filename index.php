@@ -491,9 +491,9 @@ echo "<br>";
 echo "<br>";
 echo "<table border=\"1\" cellpadding=\"10\">";
 if ($_SESSION['admin'] == 1)
-	echo "<tr><th><b>[<a href=\"addplayer.php\" title=\"Add a new player\">Add</a>] Player</b></th><th><b>Avatar</b></th><th><a href=\"addbrucies.php\" title=\"Add/reset Brucie Bonuses for all players\"><b>Brucies</b></a></th><th><a href=\"update.php?month=july\" title=\"Update points for this month\">Group</a></th><th><a href=\"update.php?month=august\" title=\"Update points for this month\">Last 16</a></th><th><a href=\"update.php?month=september\" title=\"Update points for this month\">Quarter Finals</a></th><th><a href=\"update.php?month=october\" title=\"Update points for this month\">Semi Finals</a></th><th><a href=\"update.php?month=november\" title=\"Update points for this month\">Final</a></th><th><b>Bonus</b></th><th><b>Total [<a href=\"index.php?sort=az\" title=\"Sort alphabetically\">a</a>|<a href=\"index.php\" title=\"Sort by points\">p</a>]</b></th></tr>";
+	echo "<tr><th><b>[<a href=\"addplayer.php\" title=\"Add a new player\">Add</a>] Player</b></th><th><b>Avatar</b></th><th><a href=\"addbrucies.php\" title=\"Add/reset Brucie Bonuses for all players\"><b>Brucies</b></a></th><th><a href=\"update.php?month=july\" title=\"Update points for this month\">Jul</a></th><th><a href=\"update.php?month=august\" title=\"Update points for this month\">Aug</a></th><th><a href=\"update.php?month=september\" title=\"Update points for this month\">Sep</a></th><th><a href=\"update.php?month=october\" title=\"Update points for this month\">Oct</a></th><th><a href=\"update.php?month=november\" title=\"Update points for this month\">Nov</a></th><th><a href=\"update.php?month=december\" title=\"Update points for this month\">Dec</a></th><th><a href=\"update.php?month=january\" title=\"Update points for this month\">Jan</a></th><th><a href=\"update.php?month=february\" title=\"Update points for this month\">Feb</a></th><th><a href=\"update.php?month=march\" title=\"Update points for this month\">Mar</a></th><th><a href=\"update.php?month=april\" title=\"Update points for this month\">Apr</a></th><th><a href=\"update.php?month=may\" title=\"Update points for this month\">May</a></th><th><a href=\"update.php?month=june\" title=\"Update points for this month\">Jun</a></th><th><b>Bonus</b></th><th><b>Total [<a href=\"index.php?sort=az\" title=\"Sort alphabetically\">a</a>|<a href=\"index.php\" title=\"Sort by points\">p</a>]</b></th></tr>";
 else
-	echo "<tr><th><b>Player</b></th><th><b>Avatar</b></th><th><b>Brucies</b></th><th>Group</th><th>Last 16</th><th>Quarter Finals</th><th>Semi Finals</th><th>Final</th><th><b>Bonus</b></th><th><b>Total [<a href=\"index.php?sort=az\" title=\"Sort alphabetically\">a</a>|<a href=\"index.php\" title=\"Sort by points\">p</a>]</b></th></tr>";
+	echo "<tr><th><b>Player</b></th><th><b>Avatar</b></th><th><b>Brucies</b></th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th><b>Bonus</b></th><th><b>Total [<a href=\"index.php?sort=az\" title=\"Sort alphabetically\">a</a>|<a href=\"index.php\" title=\"Sort by points\">p</a>]</b></th></tr>";
 
 $playerdata = mysql_query("SELECT * FROM players ORDER BY name");
 
@@ -502,7 +502,7 @@ $totals = array();
 //get all players and their totals
 while ($playerrow = mysql_fetch_array($playerdata))
 {
-	$totals[$playerrow['name']] = $playerrow['july'] + $playerrow['august'] + $playerrow['september'] + $playerrow['october'] + $playerrow['november'] + $playerrow['bonus'];
+	$totals[$playerrow['name']] = $playerrow['july'] + $playerrow['august'] + $playerrow['september'] + $playerrow['october'] + $playerrow['november'] + $playerrow['december'] + $playerrow['january'] + $playerrow['february'] + $playerrow['march'] + $playerrow['april'] + $playerrow['may'] + $playerrow['june'] + $playerrow['bonus'];
 }
 
 $noplayers = false;
@@ -585,6 +585,13 @@ foreach ($totals as $name => $totalpoints)
 			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['september'] . "</td>";
 			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['october'] . "</td>";
 			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['november'] . "</td>";
+			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['december'] . "</td>";
+			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['january'] . "</td>";
+			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['february'] . "</td>";
+			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['march'] . "</td>";
+			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['april'] . "</td>";
+			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['may'] . "</td>";
+			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['june'] . "</td>";
 			if ($_SESSION['admin'] == 1)
 			{
 				echo "<td style=\"background-color:" . $rowbg . "\"><a href=\"setbonus.php\">" . $playerrow['bonus'] . "</a></td>";
@@ -745,45 +752,45 @@ function brucieranking($team)
 {
     switch ($team)
     {
-        case "Man Utd":
-            return 20;
         case "Man City":
+            return 20;
+        case "Liverpool":
             return 19;
         case "Chelsea":
             return 18;
         case "Arsenal":
             return 17;
-        case "Tottenham":
-            return 16;
         case "Everton":
+            return 16;
+        case "Tottenham":
             return 15;
-        case "Liverpool":
+        case "Man Utd":
             return 14;
-        case "West Brom":
-            return 13;
-        case "Swansea":
-            return 12;
-        case "West Ham":
-            return 11;
-        case "Norwich":
-            return 10;
-        case "Fulham":
-            return 9;
-        case "Stoke":
-            return 8;
         case "Southampton":
+            return 13;
+        case "Stoke":
+            return 12;
+        case "Newcastle":
+            return 11;
+        case "Crystal Palace":
+            return 10;
+        case "Swansea":
+            return 9;
+        case "West Ham":
+            return 8;
+        case "Sunderland":
             return 7;
         case "Aston Villa":
             return 6;
-        case "Newcastle":
-            return 5;
-        case "Sunderland":
-            return 4;
-        case "Cardiff":
-            return 3;
         case "Hull":
+            return 5;
+        case "West Brom":
+            return 4;
+        case "Leicester":
+            return 3;
+        case "Burnley":
             return 2;
-        case "Crystal Palace":
+        case "QPR":
             return 1;
     }
 }

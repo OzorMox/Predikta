@@ -25,21 +25,20 @@ Select the teams for the new game
 <br>
 
 <!-- Premier League-->
-<!--
 <select name="team1">
 <option value="Arsenal">Arsenal</option>
 <option value="Aston Villa">Aston Villa</option>
-<option value="Cardiff">Cardiff</option>
+<option value="Burnley">Burnley</option>
 <option value="Chelsea">Chelsea</option>
 <option value="Crystal Palace">Crystal Palace</option>
 <option value="Everton">Everton</option>
-<option value="Fulham">Fulham</option>
 <option value="Hull">Hull</option>
+<option value="Leicester">Leicester</option>
 <option value="Liverpool">Liverpool</option>
 <option value="Man City">Man City</option>
 <option value="Man Utd">Man Utd</option>
 <option value="Newcastle">Newcastle</option>
-<option value="Norwich">Norwich</option>
+<option value="QPR">QPR</option>
 <option value="Southampton">Southampton</option>
 <option value="Stoke">Stoke</option>
 <option value="Sunderland">Sunderland</option>
@@ -52,26 +51,25 @@ v
 <select name="team2">
 <option value="Arsenal">Arsenal</option>
 <option value="Aston Villa">Aston Villa</option>
-<option value="Cardiff">Cardiff</option>
+<option value="Burnley">Burnley</option>
 <option value="Chelsea">Chelsea</option>
 <option value="Crystal Palace">Crystal Palace</option>
 <option value="Everton">Everton</option>
-<option value="Fulham">Fulham</option>
 <option value="Hull">Hull</option>
+<option value="Leicester">Leicester</option>
 <option value="Liverpool">Liverpool</option>
 <option value="Man City">Man City</option>
 <option value="Man Utd">Man Utd</option>
 <option value="Newcastle">Newcastle</option>
-<option value="Norwich">Norwich</option>
+<option value="QPR">QPR</option>
 <option value="Southampton">Southampton</option>
 <option value="Stoke">Stoke</option>
 <option value="Sunderland">Sunderland</option>
 <option value="Swansea">Swansea</option>
 <option value="Tottenham">Tottenham</option>
 <option value="West Brom">West Brom</option>
-<option value="West Ham">West Ham</option>
+<option value="West Ham">West Ham</option>n>
 </select>
--->
 
 <!-- Euro 2012 -->
 <!--
@@ -116,6 +114,7 @@ v
 -->
 
 <!-- World Cup 2014 -->
+<!--
 <select name="team1">
 <option value="Algeria">Algeria</option>
 <option value="Argentina">Argentina</option>
@@ -185,6 +184,7 @@ v
 <option value="United States">United States</option>
 <option value="Uruguay">Uruguay</option>
 </select>
+-->
 
 <br>
 <br>
@@ -202,9 +202,13 @@ Enter the date for the fixture
 
 //re-use previous date if available, otherwise default to today's date
 if (!isset($_GET["date"]))
+{
 	echo "<script>DateInput('date', true, 'YYYY-MM-DD')</script>";
+}
 else
+{
 	echo "<script>DateInput('date', true, 'YYYY-MM-DD', '" . $_GET["date"] . "')</script>";
+}
 
 ?>
 <br>
