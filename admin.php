@@ -69,7 +69,7 @@ if ($_SESSION['username'] == "Admin")
 
 	echo "</table>";
 	echo "<br>";
-	echo "<a href=\"password.php\" title=\"Change your password\">Change Password</a> - <a href=\"logout.php\" title=\"Clear your current session\">Logout</a>";
+	echo "<a href=\"account.php\" title=\"account.php\">Account Settings</a> - <a href=\"logout.php\" title=\"Clear your current session\">Logout</a>";
 	echo "</center>";
 }
 	

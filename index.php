@@ -491,9 +491,9 @@ echo "<br>";
 echo "<br>";
 echo "<table border=\"1\" cellpadding=\"10\">";
 if ($_SESSION['admin'] == 1)
-	echo "<tr><th><b>[<a href=\"addplayer.php\" title=\"Add a new player\">Add</a>] Player</b></th><th><b>Avatar</b></th><th><a href=\"addbrucies.php\" title=\"Add/reset Brucie Bonuses for all players\"><b>Brucies</b></a></th><th><a href=\"update.php?month=july\" title=\"Update points for this month\">Jul</a></th><th><a href=\"update.php?month=august\" title=\"Update points for this month\">Aug</a></th><th><a href=\"update.php?month=september\" title=\"Update points for this month\">Sep</a></th><th><a href=\"update.php?month=october\" title=\"Update points for this month\">Oct</a></th><th><a href=\"update.php?month=november\" title=\"Update points for this month\">Nov</a></th><th><a href=\"update.php?month=december\" title=\"Update points for this month\">Dec</a></th><th><a href=\"update.php?month=january\" title=\"Update points for this month\">Jan</a></th><th><a href=\"update.php?month=february\" title=\"Update points for this month\">Feb</a></th><th><a href=\"update.php?month=march\" title=\"Update points for this month\">Mar</a></th><th><a href=\"update.php?month=april\" title=\"Update points for this month\">Apr</a></th><th><a href=\"update.php?month=may\" title=\"Update points for this month\">May</a></th><th><a href=\"update.php?month=june\" title=\"Update points for this month\">Jun</a></th><th><b>Bonus</b></th><th><b>Total [<a href=\"index.php?sort=az\" title=\"Sort alphabetically\">a</a>|<a href=\"index.php\" title=\"Sort by points\">p</a>]</b></th></tr>";
+	echo "<tr><th><b>Rank</b></th><th><b>[<a href=\"addplayer.php\" title=\"Add a new player\">Add</a>] Player</b></th><th><b>Avatar</b></th><th><a href=\"addbrucies.php\" title=\"Add/reset Brucie Bonuses for all players\"><b>Brucies</b></a></th><th><a href=\"update.php?month=july\" title=\"Update points for this month\">Jul</a></th><th><a href=\"update.php?month=august\" title=\"Update points for this month\">Aug</a></th><th><a href=\"update.php?month=september\" title=\"Update points for this month\">Sep</a></th><th><a href=\"update.php?month=october\" title=\"Update points for this month\">Oct</a></th><th><a href=\"update.php?month=november\" title=\"Update points for this month\">Nov</a></th><th><a href=\"update.php?month=december\" title=\"Update points for this month\">Dec</a></th><th><a href=\"update.php?month=january\" title=\"Update points for this month\">Jan</a></th><th><a href=\"update.php?month=february\" title=\"Update points for this month\">Feb</a></th><th><a href=\"update.php?month=march\" title=\"Update points for this month\">Mar</a></th><th><a href=\"update.php?month=april\" title=\"Update points for this month\">Apr</a></th><th><a href=\"update.php?month=may\" title=\"Update points for this month\">May</a></th><th><a href=\"update.php?month=june\" title=\"Update points for this month\">Jun</a></th><th><b>Bonus</b></th><th><b>Total</b></th></tr>";
 else
-	echo "<tr><th><b>Player</b></th><th><b>Avatar</b></th><th><b>Brucies</b></th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th><b>Bonus</b></th><th><b>Total [<a href=\"index.php?sort=az\" title=\"Sort alphabetically\">a</a>|<a href=\"index.php\" title=\"Sort by points\">p</a>]</b></th></tr>";
+	echo "<tr><tr><th><b>Rank</b></th><th><b>Player</b></th><th><b>Avatar</b></th><th><b>Brucies</b></th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th><b>Bonus</b></th><th><b>Total</b></th></tr>";
 
 $playerdata = mysql_query("SELECT * FROM players ORDER BY name");
 
@@ -514,33 +514,22 @@ if (mysql_num_rows($playerdata) == 0 || mysql_num_rows($playerdata) == 1)
 $playerrow = null;
 $playerdata = null;
 
-//sort by name or totals
-if ($_GET["sort"] == "az")
-{
-	ksort($totals);
-}
-else
-{
-	arsort($totals);
-}
+//sort by totals
+arsort($totals);
+
+//rank counter
+$rank = 0;
 
 foreach ($totals as $name => $totalpoints)
 {
-	//calculate total points
-	//$totalpoints = $playerrow['july'] + $playerrow['august'] + $playerrow['september'] + $playerrow['october'] + $playerrow['november'] + $playerrow['december'] + $playerrow['january'] + $playerrow['february'] + $playerrow['march'] + $playerrow['april'] + $playerrow['may'] + $playerrow['june'];
-	//if ($_SESSION['username'] != "Admin")
-	//{
-	//echo $name;
-	//echo "<br>";
-	//echo $totalpoints;
-	//echo "<br>";
-
 	$playerdata = mysql_query("SELECT * FROM players WHERE name = '" . $name . "'");
 
 	while ($playerrow = mysql_fetch_array($playerdata))
-	{
+	{		
 		if ($playerrow['name'] != "Admin")
 		{
+			$rank += 1;
+			
 			//highlight the row if it belongs to the logged in player
 			if ($playerrow['name'] == $_SESSION['username'])
 			{
@@ -556,12 +545,14 @@ foreach ($totals as $name => $totalpoints)
 			{
 				//what to show if user is a game admin
 				echo "<tr>";
+				echo "<td style=\"background-color:" . $headbg . "\"><b>" . $rank . "</b></td>";
 				echo "<td style=\"background-color:" . $rowbg . "\">[<a href=deleteplayer.php?player=" . $playerrow['player_id'] . " title=\"Delete this player\">Del</a>] <a href=\"avatar.php?player=" . $playerrow['player_id'] . "\" title=\"View or edit this player's settings\">" . $playerrow['name'] . "</a></td>";
 			}
 			else
 			{
 				//what to show if user is not a game admin
 				echo "<tr>";
+				echo "<td style=\"background-color:" . $headbg . "\"><b>" . $rank . "</b></td>";
 				echo "<td style=\"background-color:" . $rowbg . "\"><a href=\"avatar.php?player=" . $playerrow['player_id'] . "\" title=\"View this player's avatar\">" . $playerrow['name'] . "</a></td>";
 			}
 			if ($playerrow['avatar'] != "")
