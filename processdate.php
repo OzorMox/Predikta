@@ -22,38 +22,30 @@ $gamedata = mysql_query("SELECT status FROM games WHERE game_id = " . $_GET["gam
 
 $gamerow = mysql_fetch_array($gamedata);
 
-if ($_SESSION['admin'])
+if ($gamerow['status'] == "open" || $gamerow['status'] == "unlocked")
 {
-	if ($gamerow['status'] == "open" || $gamerow['status'] == "unlocked")
+	if (!mysql_query("UPDATE games SET date = '" . $_POST["date"] . "' WHERE game_id = " . $_GET["game"]))
 	{
-		if (!mysql_query("UPDATE games SET date = '" . $_POST["date"] . "' WHERE game_id = " . $_GET["game"]))
-		{
-			header('Location: error.php?error=Database+query+failed+to+complete');
-			exit();
-		}
-		if (!mysql_query("UPDATE games SET type = '" . $_POST["type"] . "' WHERE game_id = " . $_GET["game"]))
-		{
-			header('Location: error.php?error=Database+query+failed+to+complete');
-			exit();
-		}
-		include("log.php");
-		$action = "Changed game date/type: " . $_GET["game"] . ": " . $_POST["date"] . ", " . $_POST["type"];
-		writelog($action);
-		header('Location: index.php');
+		header('Location: error.php?error=Database+query+failed+to+complete');
 		exit();
 	}
-	else
+	if (!mysql_query("UPDATE games SET type = '" . $_POST["type"] . "' WHERE game_id = " . $_GET["game"]))
 	{
-		header('Location: error.php?error=This+game+is+not+open');
+		header('Location: error.php?error=Database+query+failed+to+complete');
 		exit();
 	}
+	include("log.php");
+	$action = "Changed game date/type: " . $_GET["game"] . ": " . $_POST["date"] . ", " . $_POST["type"];
+	writelog($action);
+	header('Location: index.php');
+	exit();
 }
 else
 {
-	header('Location: error.php?error=Permission+denied');
+	header('Location: error.php?error=This+game+is+not+open');
 	exit();
 }
-	
+
 mysql_close($connection)
 
 ?>

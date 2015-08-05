@@ -12,47 +12,39 @@ if ($_POST["date"] == "")
 	exit();
 }
 
-if ($_SESSION['admin'] == 1)
+if ($_POST["custom"] == "yes")
 {
-	if ($_POST["custom"] == "yes")
+	mysql_query("INSERT INTO games (team_1, team_2, date, status, type) VALUES ('" . strip_tags($_POST["customgame1"]) . "', '" . strip_tags($_POST["customgame2"]) . "', '" . $_POST["date"] . "', 'open', '" . $_POST["type"] . "')");
+	include("log.php");
+	$action = "Added custom game: " . strip_tags($_POST["customgame1"]) . " v " . strip_tags($_POST["customgame2"]) . ", " . $_POST["date"] . ", " . $_POST["type"];
+	writelog($action);
+	if ($_POST["another"] == "yes")
 	{
-		mysql_query("INSERT INTO games (team_1, team_2, date, status, type) VALUES ('" . strip_tags($_POST["customgame1"]) . "', '" . strip_tags($_POST["customgame2"]) . "', '" . $_POST["date"] . "', 'open', '" . $_POST["type"] . "')");
-		include("log.php");
-		$action = "Added custom game: " . strip_tags($_POST["customgame1"]) . " v " . strip_tags($_POST["customgame2"]) . ", " . $_POST["date"] . ", " . $_POST["type"];
-		writelog($action);
-		if ($_POST["another"] == "yes")
-		{
-			header('Location: addgame.php?date=' . $_POST["date"]);
-			exit();
-		}
-		else
-		{
-			header('Location: index.php');
-			exit();
-		}
+		header('Location: addgame.php?date=' . $_POST["date"]);
+		exit();
 	}
 	else
 	{
-		mysql_query("INSERT INTO games (team_1, team_2, date, status, type) VALUES ('" . strip_tags($_POST["team1"]) . "', '" . strip_tags($_POST["team2"]) . "', '" . $_POST["date"] . "', 'open', '" . $_POST["type"] . "')");
-		include("log.php");
-		$action = "Added game: " . strip_tags($_POST["team1"]) . " v " . strip_tags($_POST["team2"]) . ", " . $_POST["date"] . ", " . $_POST["type"];
-		writelog($action);
-		if ($_POST["another"] == "yes")
-		{
-			header('Location: addgame.php?date=' . $_POST["date"]);
-			exit();
-		}
-		else
-		{
-			header('Location: index.php');
-			exit();
-		}
+		header('Location: index.php');
+		exit();
 	}
 }
 else
 {
-	header('Location: error.php?error=Permission+denied');
-	exit();
+	mysql_query("INSERT INTO games (team_1, team_2, date, status, type) VALUES ('" . strip_tags($_POST["team1"]) . "', '" . strip_tags($_POST["team2"]) . "', '" . $_POST["date"] . "', 'open', '" . $_POST["type"] . "')");
+	include("log.php");
+	$action = "Added game: " . strip_tags($_POST["team1"]) . " v " . strip_tags($_POST["team2"]) . ", " . $_POST["date"] . ", " . $_POST["type"];
+	writelog($action);
+	if ($_POST["another"] == "yes")
+	{
+		header('Location: addgame.php?date=' . $_POST["date"]);
+		exit();
+	}
+	else
+	{
+		header('Location: index.php');
+		exit();
+	}
 }
 	
 mysql_close($connection)

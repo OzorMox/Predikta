@@ -173,10 +173,7 @@ echo "<br>";
 //build constant area of the table
 echo "<table border=1 cellpadding=10>";
 echo "<tr>";
-if ($_SESSION['admin'] == 1)
-	echo "<th><b>[<a href=\"addgame.php\" title=\"Add a new game\">Add</a>] Game</b></th><th><b>Date</b></th><th><b>Result</b></th>";
-else
-	echo "<th><b>Game</b></th><th><b>Date</b></th><th><b>Result</b></th>";
+echo "<th><b>[<a href=\"addgame.php\" title=\"Add a new game\">Add</a>] Game</b></th><th><b>Date</b></th><th><b>Result</b></th>";
 
 //build individual player columns
 while ($playerrow = mysql_fetch_array($playerdata))
@@ -223,7 +220,7 @@ while($gamerow = mysql_fetch_array($gamedata))
 			else
 			{
 				echo "<td style=\"background-color:#ccffcc\">" . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-				echo "<td style=\"background-color:#ccffcc\">" . formatdate($gamerow["date"]) . "</td>";
+				echo "<td style=\"background-color:#ccffcc\"><a href=\"changedate.php?game=" . $gamerow['game_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Change the date of this game\">" . formatdate($gamerow["date"]) . "</a></td>";
 				echo "<td style=\"background-color:#ccffcc\" title=\"" . $typealttext . "\">" . $typetext . "</td>";
 			}
 			break;
@@ -290,7 +287,7 @@ while($gamerow = mysql_fetch_array($gamedata))
 				$resultrow = mysql_fetch_array($resultdata);
 				//check if game is active
 				if ($gamerow['status'] == "set")
-					{
+				{
 					$playerscore1 = $resultrow['score_1'];
 					$playerscore2 = $resultrow['score_2'];
 					$brucie = $resultrow['brucie'];
@@ -316,9 +313,13 @@ while($gamerow = mysql_fetch_array($gamedata))
 							break;
 					}
 				}
+				
 				//white cell colour if the calculation has not been done yet
 				if (!isset($cellcolour))
+				{
 					$cellcolour = "#dddddd";
+				}
+				
 				switch ($gamerow['status'])
 				{
 					case "set":
@@ -718,6 +719,10 @@ function bruciepredicts($gameid, $team1, $team2)
         }
         if ($team1score < 0) { $team1score = 0; }
         if ($team2score < 0) { $team2score = 0; }
+        
+        //don't predict more than 3 goals on either side
+        if ($team1score > 3) { $team1score = 3; }
+        if ($team2score > 3) { $team2score = 3; }
         
         //decide whether Brucie should use a Brucie (ha!)
         $bruciebonus = 0;
