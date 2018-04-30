@@ -10,7 +10,7 @@ if ($_SESSION['admin'] == 1)
 {
 	if ($_POST["reset"] == "reset")
 	{
-        mysql_query("UPDATE players SET brucies = 0 WHERE player_id = " . $_GET["player"]);
+        mysqli_query($connection, "UPDATE players SET brucies = 0 WHERE player_id = " . $_GET["player"]);
 
 		include("log.php");
 		$action = "Reset Brucies: " . $_POST["brucies"] . " for player: " . $_GET["player"];
@@ -22,12 +22,12 @@ if ($_SESSION['admin'] == 1)
 	{
 		if (is_numeric($_POST["brucies"]))
 		{
-            $playerdata = mysql_query("SELECT * FROM players WHERE player_id = " . $_GET["player"]);
+            $playerdata = mysqli_query($connection, "SELECT * FROM players WHERE player_id = " . $_GET["player"]);
             
-			while ($playerrow = mysql_fetch_array($playerdata))
+			while ($playerrow = mysqli_fetch_array($playerdata))
 			{
                 $brucies = $playerrow['brucies'] + $_POST["brucies"];
-                mysql_query("UPDATE players SET brucies = " . $brucies . " WHERE player_id = " . $_GET["player"]);
+                mysqli_query($connection, "UPDATE players SET brucies = " . $brucies . " WHERE player_id = " . $_GET["player"]);
 			}
 			include("log.php");
 			$action = "Added Brucies: " . $_POST["brucies"] . " for player: " . $_GET["player"];
@@ -48,6 +48,6 @@ else
 	exit();
 }
 	
-mysql_close($connection)
+mysqli_close($connection)
 
 ?>

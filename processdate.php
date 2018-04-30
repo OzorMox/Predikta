@@ -18,18 +18,18 @@ if ($_POST["date"] == "")
 	exit();
 }
 
-$gamedata = mysql_query("SELECT status FROM games WHERE game_id = " . $_GET["game"]);
+$gamedata = mysqli_query($connection, "SELECT status FROM games WHERE game_id = " . $_GET["game"]);
 
-$gamerow = mysql_fetch_array($gamedata);
+$gamerow = mysqli_fetch_array($gamedata);
 
 if ($gamerow['status'] == "open" || $gamerow['status'] == "unlocked")
 {
-	if (!mysql_query("UPDATE games SET date = '" . $_POST["date"] . "' WHERE game_id = " . $_GET["game"]))
+	if (!mysqli_query($connection, "UPDATE games SET date = '" . $_POST["date"] . "' WHERE game_id = " . $_GET["game"]))
 	{
 		header('Location: error.php?error=Database+query+failed+to+complete');
 		exit();
 	}
-	if (!mysql_query("UPDATE games SET type = '" . $_POST["type"] . "' WHERE game_id = " . $_GET["game"]))
+	if (!mysqli_query($connection, "UPDATE games SET type = '" . $_POST["type"] . "' WHERE game_id = " . $_GET["game"]))
 	{
 		header('Location: error.php?error=Database+query+failed+to+complete');
 		exit();
@@ -46,6 +46,6 @@ else
 	exit();
 }
 
-mysql_close($connection)
+mysqli_close($connection)
 
 ?>

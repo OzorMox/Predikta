@@ -12,28 +12,28 @@ if ($_GET["game"] == "" || $_GET["player"] == "")
 	exit();
 }
 
-$playerdata = mysql_query("SELECT * FROM players WHERE player_id = " . $_GET["player"]);
+$playerdata = mysqli_query($connection, "SELECT * FROM players WHERE player_id = " . $_GET["player"]);
 
-$playerrow = mysql_fetch_array($playerdata);
+$playerrow = mysqli_fetch_array($playerdata);
 
-$gamedata = mysql_query("SELECT status FROM games WHERE game_id = " . $_GET["game"]);
+$gamedata = mysqli_query($connection, "SELECT status FROM games WHERE game_id = " . $_GET["game"]);
 
-$gamerow = mysql_fetch_array($gamedata);
+$gamerow = mysqli_fetch_array($gamedata);
 
-$resultdata = mysql_query("SELECT brucie FROM results WHERE game_id = " . $_GET["game"] . " AND player_id = " . $_GET["player"]);
+$resultdata = mysqli_query($connection, "SELECT brucie FROM results WHERE game_id = " . $_GET["game"] . " AND player_id = " . $_GET["player"]);
 
-$resultrow = mysql_fetch_array($resultdata);
+$resultrow = mysqli_fetch_array($resultdata);
 
 if ($playerrow['name'] == $_SESSION['username'])
 {
 	if ($gamerow['status'] == "open" || $gamerow['status'] == "unlocked")
 	{
-		mysql_query("DELETE FROM results WHERE game_id = " . $_GET["game"] . " AND player_id = " . $_GET["player"]);
+		mysqli_query($connection, "DELETE FROM results WHERE game_id = " . $_GET["game"] . " AND player_id = " . $_GET["player"]);
 		//add Brucie Bonus back on if there was one set
 		if ($resultrow['brucie'] == 1)
 		{
 			$updbrucies = $playerrow['brucies'] + 1;
-			mysql_query("UPDATE players SET brucies = " . $updbrucies . " WHERE player_id = " . $playerrow['player_id']);
+			mysqli_query($connection, "UPDATE players SET brucies = " . $updbrucies . " WHERE player_id = " . $playerrow['player_id']);
 		}
 		include("log.php");
 		$action = "Deleted prediction: " . $_GET["game"];
@@ -53,6 +53,6 @@ else
 	exit();
 }
 	
-mysql_close($connection)
+mysqli_close($connection)
 
 ?>

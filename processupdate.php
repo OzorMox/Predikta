@@ -17,8 +17,8 @@ if ($_SESSION['admin'] == 1)
 	//read player points from session variables and add them to existing points totals for the selected month in the database
 	foreach($_SESSION['playerpoints'] as $id => $total)
 	{
-		$playerdata = mysql_query("SELECT * FROM players WHERE player_id = " . $id);
-		$playerrow = mysql_fetch_array($playerdata);
+		$playerdata = mysqli_query($connection, "SELECT * FROM players WHERE player_id = " . $id);
+		$playerrow = mysqli_fetch_array($playerdata);
 		if ($_GET["month"] == july)
 			$selectedmonth = $playerrow['july'];
 		if ($_GET["month"] == august)
@@ -45,18 +45,18 @@ if ($_SESSION['admin'] == 1)
 			$selectedmonth = $playerrow['june'];
 		$newtotal = $selectedmonth + $total;
 
-		if (!mysql_query("UPDATE players SET " . $_GET["month"] . " = " . $newtotal . " WHERE player_id = " . $id))
+		if (!mysqli_query($connection, "UPDATE players SET " . $_GET["month"] . " = " . $newtotal . " WHERE player_id = " . $id))
 		{
 			header('Location: error.php?error=Database+query+failed+to+complete');
 			exit();
 		}
 	}
 	//delete all current games, results and messages
-	mysql_query("DELETE FROM games");
-	mysql_query("DELETE FROM results");
+	mysqli_query($connection, "DELETE FROM games");
+	mysqli_query($connection, "DELETE FROM results");
 	
 	//reset Brucies to zero
-	mysql_query("UPDATE players SET brucies = 0");
+	mysqli_query($connection, "UPDATE players SET brucies = 0");
 
 	include("log.php");
 	$action = "Updated month: " . $_GET["month"];
@@ -70,6 +70,6 @@ else
 	exit();
 }
 	
-mysql_close($connection)
+mysqli_close($connection)
 
 ?>

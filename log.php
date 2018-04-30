@@ -30,7 +30,7 @@ function writelog($action)
 
 	if ($action != "")
 	{
-		mysql_query("INSERT INTO log (action, user, datetime) VALUES ('" . $action . "', '" . $user . "', '" . $datetime . "')");
+		mysqli_query($connection, "INSERT INTO log (action, user, datetime) VALUES ('" . $action . "', '" . $user . "', '" . $datetime . "')");
 	}
 }
 

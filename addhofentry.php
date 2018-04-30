@@ -15,11 +15,11 @@ if (isset($_SESSION['username']))
 
 	if ($entry != "" && $awardedto != "")
 	{
-        $playerexists = mysql_query("SELECT * FROM players WHERE name = '" . $awardedto . "'");
+        $playerexists = mysqli_query($connection, "SELECT * FROM players WHERE name = '" . $awardedto . "'");
         
-        if (mysql_num_rows($playerexists) != 0)
+        if (mysqli_num_rows($playerexists) != 0)
         {
-            mysql_query("INSERT INTO halloffame (entry, awardedto, awardedby, datetime) VALUES ('" . strip_tags($entry) . "', '" . strip_tags($awardedto) . "', '" . $awardedby . "', '" . $datetime . "')");
+            mysqli_query($connection, "INSERT INTO halloffame (entry, awardedto, awardedby, datetime) VALUES ('" . strip_tags($entry) . "', '" . strip_tags($awardedto) . "', '" . $awardedby . "', '" . $datetime . "')");
             include("log.php");
             $action = "Added Hall Of Fame entry";
             writelog($action);

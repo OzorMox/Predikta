@@ -6,17 +6,17 @@ session_start();
 //connect to the database
 include("connect.php");
 
-$playerdata = mysql_query("SELECT * FROM players");
+$playerdata = mysqli_query($connection, "SELECT * FROM players");
 
 if ($_SESSION['admin'] == 1)
 {
 	if ($_POST["reset"] == "reset")
 	{
-		while ($playerrow = mysql_fetch_array($playerdata))
+		while ($playerrow = mysqli_fetch_array($playerdata))
 		{
 			if ($playerrow['name'] != "Admin")
 			{
-				mysql_query("UPDATE players SET brucies = 0 WHERE player_id = " . $playerrow['player_id']);
+				mysqli_query($connection, "UPDATE players SET brucies = 0 WHERE player_id = " . $playerrow['player_id']);
 			}
 		}
 		include("log.php");
@@ -29,12 +29,12 @@ if ($_SESSION['admin'] == 1)
 	{
 		if (is_numeric($_POST["brucies"]))
 		{
-			while ($playerrow = mysql_fetch_array($playerdata))
+			while ($playerrow = mysqli_fetch_array($playerdata))
 			{
 				if ($playerrow['name'] != "Admin")
 				{
 					$brucies = $playerrow['brucies'] + $_POST["brucies"];
-					mysql_query("UPDATE players SET brucies = " . $brucies . " WHERE player_id = " . $playerrow['player_id']);
+					mysqli_query($connection, "UPDATE players SET brucies = " . $brucies . " WHERE player_id = " . $playerrow['player_id']);
 				}
 			}
 			include("log.php");
@@ -56,6 +56,6 @@ else
 	exit();
 }
 	
-mysql_close($connection)
+mysqli_close($connection)
 
 ?>

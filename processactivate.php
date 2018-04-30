@@ -32,7 +32,7 @@ if ($_GET["game"] == "")
 
 if ($_SESSION['admin'] == 1)
 {
-	if (!mysql_query("UPDATE games SET actual_1 = " . $_POST["score1"] . ", actual_2 = " . $_POST["score2"] . ", status = 'set' WHERE game_id = " . $_GET["game"]))
+	if (!mysqli_query($connection, "UPDATE games SET actual_1 = " . $_POST["score1"] . ", actual_2 = " . $_POST["score2"] . ", status = 'set' WHERE game_id = " . $_GET["game"]))
 	{
 		header('Location: error.php?error=Database+query+failed+to+complete');
 		exit();
@@ -52,6 +52,6 @@ else
 	exit();
 }
 	
-mysql_close($connection)
+mysqli_close($connection)
 
 ?>

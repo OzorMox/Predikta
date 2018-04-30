@@ -16,7 +16,7 @@ session_start();
 //connect to the database
 include("connect.php");
 
-$hofdata = mysql_query("SELECT * FROM halloffame ORDER BY datetime");
+$hofdata = mysqli_query($connection, "SELECT * FROM halloffame ORDER BY datetime");
 
 echo "<center>";
 include("title");
@@ -26,13 +26,13 @@ echo "<br>";
 //table headers
 echo "<table border=1 cellpadding=10>";
 echo "<tr><th><b>Entry</b></th><th><b>Awarded To</b></th><th><b>Awarded By</b></th></tr>";
-if (mysql_num_rows($hofdata) == 0)
+if (mysqli_num_rows($hofdata) == 0)
 {
 	echo "<tr><td colspan=\"4\"><center>No Hall Of Fame Data</center></td></tr>";
 }
 else
 {
-	while ($hofrow = mysql_fetch_array($hofdata))
+	while ($hofrow = mysqli_fetch_array($hofdata))
 	{
         if ($_SESSION['admin'] == 1)
         {
@@ -59,7 +59,7 @@ echo "<br>";
 echo "<a href=\"index.php\">Back</a>";
 echo "</center>";
 	
-mysql_close($connection)
+mysqli_close($connection)
 
 ?>
 

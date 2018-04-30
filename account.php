@@ -1,7 +1,7 @@
 <?php
   session_start();
 
-  if ($_SESSION['username'] == "")
+  if (!isset($_SESSION['username']))
   {
     header('Location: error.php?error=No+session');
     exit();
@@ -21,13 +21,13 @@
     
     if ($_POST["oldpassword"] != "")
     {
-		$playerdata = mysql_query("SELECT * FROM players WHERE name = '" . $_SESSION['username'] . "'");
+		$playerdata = mysqli_query($connection, "SELECT * FROM players WHERE name = '" . $_SESSION['username'] . "'");
 
-		$playerrow = mysql_fetch_array($playerdata);
+		$playerrow = mysqli_fetch_array($playerdata);
 		
 		if ($playerrow['password'] == $_POST["oldpassword"])
 		{
-			mysql_query("UPDATE players SET password = '" . $_POST["newpassword"] . "' WHERE name = '" . $_SESSION['username'] . "'");
+			mysqli_query($connection, "UPDATE players SET password = '" . $_POST["newpassword"] . "' WHERE name = '" . $_SESSION['username'] . "'");
 			include("log.php");
 			$action = "Changed password";
 			writelog($action);
@@ -45,9 +45,9 @@
                "`email` = '" . $_POST['email'] . "', " . 
                "`avatar` = '" . $_POST['avatar'] . "', " . 
                "`send_reminder_email` = " . $t_reminder . " " . 
-             "WHERE `name` = '" . mysql_real_escape_string($_SESSION['username']) . "'";
+             "WHERE `name` = '" . mysqli_real_escape_string($_SESSION['username']) . "'";
 
-    mysql_query($t_sql);
+    mysqli_query($connection, $t_sql);
   }
 
   $t_email = "";
@@ -56,11 +56,11 @@
 
   // Get account settings from database for this user
   $t_sql = "SELECT `email`, `send_reminder_email`, `avatar` FROM `players` " . 
-	   "WHERE `name` = '" . mysql_real_escape_string($_SESSION['username']) . "'";
+	   "WHERE `name` = '" . $_SESSION['username'] . "'";
 
-  $t_result = mysql_query($t_sql);
+  $t_result = mysqli_query($connection, $t_sql);
   
-  while ($t_row = mysql_fetch_assoc($t_result))
+  while ($t_row = mysqli_fetch_assoc($t_result))
   {
     if ($t_row['email'] != null && strlen($t_row['email']) > 0)
     {

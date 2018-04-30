@@ -12,14 +12,14 @@ if ($_POST["username"] == "")
 	exit();
 }
 
-$playerdata = mysql_query("SELECT * FROM players WHERE name = '" . $_POST["username"] . "'");
+$playerdata = mysqli_query($connection, "SELECT * FROM players WHERE name = '" . $_POST["username"] . "'");
 
-$playerrow = mysql_fetch_array($playerdata);
+$playerrow = mysqli_fetch_array($playerdata);
 
 //check for admin user
-$admindata = mysql_query("SELECT * FROM players WHERE name = 'Admin'");
+$admindata = mysqli_query($connection, "SELECT * FROM players WHERE name = 'Admin'");
 
-$admincheck = mysql_num_rows($admindata);
+$admincheck = mysqli_num_rows($admindata);
 
 if ($admincheck == 1)
 {
@@ -61,6 +61,6 @@ else
 	exit();
 }
 
-mysql_close($connection)
+mysqli_close($connection)
 
 ?>

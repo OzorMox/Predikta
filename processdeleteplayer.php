@@ -15,12 +15,12 @@ if ($_GET["player"] == "")
 if ($_SESSION['admin'] == 1)
 {
 	//check that this isn't the admin user
-	$playerdata = mysql_query("SELECT * FROM players WHERE player_id = " . $_GET["player"]);
-	$playerrow = mysql_fetch_array($playerdata);
+	$playerdata = mysqli_query($connection, "SELECT * FROM players WHERE player_id = " . $_GET["player"]);
+	$playerrow = mysqli_fetch_array($playerdata);
 	if ($playerrow['name'] != "Admin")
 	{
-		mysql_query("DELETE FROM players WHERE player_id = " . $_GET["player"]);
-		mysql_query("DELETE FROM results WHERE player_id = " . $_GET["player"]);
+		mysqli_query($connection, "DELETE FROM players WHERE player_id = " . $_GET["player"]);
+		mysqli_query($connection, "DELETE FROM results WHERE player_id = " . $_GET["player"]);
 		include("log.php");
 		$action = "Deleted player: " . $_GET["player"];
 		writelog($action);
@@ -38,6 +38,6 @@ else
 	exit();
 }
 
-mysql_close($connection);
+mysqli_close($connection);
 
 ?>

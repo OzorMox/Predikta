@@ -17,9 +17,9 @@
               "FROM `players` " . 
               "WHERE `email` IS NOT NULL AND `send_reminder_email` = 1;";
 
-    if ($t_rs = mysql_query($t_sql))
+    if ($t_rs = mysqli_query($connection, $t_sql))
     {
-      while ($t_row = mysql_fetch_assoc($t_rs))
+      while ($t_row = mysqli_fetch_assoc($t_rs))
       {
         array_push($t_player_array, array("name" => $t_row['name'], "email" => $t_row['email']));
       }
@@ -43,11 +43,11 @@
               "FROM `games` " . 
               "WHERE `date` = DATE(DATE_ADD(NOW(), INTERVAL " . $REMIND_DAYS . " DAY));";
 
-    if ($t_rs = mysql_query($t_sql))
+    if ($t_rs = mysqli_query($connection, $t_sql))
     {
       // Build a list of upcoming games (to display in email)
       $t_upcoming_games = "";      
-      while ($t_row = mysql_fetch_assoc($t_rs))
+      while ($t_row = mysqli_fetch_assoc($t_rs))
       {
         $t_upcoming_games .= $t_row['date'] . ': ' . $t_row['team_1'] . " v " . $t_row['team_2'] . "\n";
       }
@@ -108,7 +108,7 @@
     }
     else
     {
-      echo "Failed to query upcoming games: " . mysql_error() . "\n";
+      echo "Failed to query upcoming games: " . mysqli_error() . "\n";
     }
 
   }

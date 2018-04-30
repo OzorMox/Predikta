@@ -30,13 +30,13 @@ if ($_POST["score1"] < 0 || $_POST["score2"] < 0)
 	exit();
 }
 
-$playerdata = mysql_query("SELECT * FROM players WHERE player_id = " . $_GET["player"]);
+$playerdata = mysqli_query($connection, "SELECT * FROM players WHERE player_id = " . $_GET["player"]);
 
-$playerrow = mysql_fetch_array($playerdata);
+$playerrow = mysqli_fetch_array($playerdata);
 
-$gamedata = mysql_query("SELECT status FROM games WHERE game_id = " . $_GET["game"]);
+$gamedata = mysqli_query($connection, "SELECT status FROM games WHERE game_id = " . $_GET["game"]);
 
-$gamerow = mysql_fetch_array($gamedata);
+$gamerow = mysqli_fetch_array($gamedata);
 
 if ($playerrow['name'] == $_SESSION['username']){
 	if ($gamerow['status'] == "open" || $gamerow['status'] == "unlocked")
@@ -46,8 +46,8 @@ if ($playerrow['name'] == $_SESSION['username']){
 			if ($playerrow['brucies'] > 0)
 			{
 				$updbrucies = $playerrow['brucies'] - 1;
-				mysql_query("UPDATE players SET brucies = " . $updbrucies . " WHERE player_id = " . $playerrow['player_id']);
-				mysql_query("INSERT INTO results (score_1, score_2, brucie, game_id, player_id) VALUES (" . (int)$_POST["score1"] . ", " . (int)$_POST["score2"] . ", 1, " . $_GET["game"] . ", " . $_GET["player"] . ")");
+				mysqli_query($connection, "UPDATE players SET brucies = " . $updbrucies . " WHERE player_id = " . $playerrow['player_id']);
+				mysqli_query($connection, "INSERT INTO results (score_1, score_2, brucie, game_id, player_id) VALUES (" . (int)$_POST["score1"] . ", " . (int)$_POST["score2"] . ", 1, " . $_GET["game"] . ", " . $_GET["player"] . ")");
 				include("log.php");
 				$action = "Set prediction: " . $_GET["game"];
 				writelog($action);
@@ -70,7 +70,7 @@ if ($playerrow['name'] == $_SESSION['username']){
 		}
 		else
 		{
-			mysql_query("INSERT INTO results (score_1, score_2, brucie, game_id, player_id) VALUES (" . (int)$_POST["score1"] . ", " . (int)$_POST["score2"] . ", 0, " . $_GET["game"] . ", " . $_GET["player"] . ")");
+			mysqli_query($connection, "INSERT INTO results (score_1, score_2, brucie, game_id, player_id) VALUES (" . (int)$_POST["score1"] . ", " . (int)$_POST["score2"] . ", 0, " . $_GET["game"] . ", " . $_GET["player"] . ")");
 			include("log.php");
 			$action = "Set prediction: " . $_GET["game"];
 			writelog($action);
@@ -99,6 +99,6 @@ else
 	exit();
 }
 	
-mysql_close($connection)
+mysqli_close($connection)
 
 ?>

@@ -14,7 +14,7 @@ if (isset($_SESSION['username']))
 
 	if ($bruciesays != "")
 	{
-        mysql_query("INSERT INTO bruciesays (bruciesays, user, datetime) VALUES ('" . strip_tags($bruciesays) . "', '" . $user . "', '" . $datetime . "')");
+        mysqli_query($connection, "INSERT INTO bruciesays (bruciesays, user, datetime) VALUES ('" . strip_tags($bruciesays) . "', '" . $user . "', '" . $datetime . "')");
         include("log.php");
         $action = "Added Brucie Says";
         writelog($action);

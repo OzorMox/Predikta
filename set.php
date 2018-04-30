@@ -17,13 +17,13 @@ session_start();
 //connect to the database
 include("connect.php");
 
-$playerdata = mysql_query("SELECT brucies FROM players WHERE player_id = " . $_GET["player"]);
+$playerdata = mysqli_query($connection, "SELECT brucies FROM players WHERE player_id = " . $_GET["player"]);
 
-$playerrow = mysql_fetch_array($playerdata);
+$playerrow = mysqli_fetch_array($playerdata);
 
-$bruciesaysdata = mysql_query("SELECT bruciesays FROM bruciesays ORDER BY RAND() LIMIT 1");
+$bruciesaysdata = mysqli_query($connection, "SELECT bruciesays FROM bruciesays ORDER BY RAND() LIMIT 1");
 
-$bruciesaysrow = mysql_fetch_array($bruciesaysdata);
+$bruciesaysrow = mysqli_fetch_array($bruciesaysdata);
 
 if ($bruciesaysrow['bruciesays'] == "")
 {

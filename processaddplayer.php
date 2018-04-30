@@ -22,7 +22,7 @@ if ($_SESSION['admin'] == 1)
 {
 	if ($_POST["player"] != "Admin")
 	{
-		mysql_query("INSERT INTO players (name, password, admin, brucies) VALUES ('" . strip_tags($_POST["player"]) . "', 'default', 0, " . $_POST["brucies"] . ")");
+		mysqli_query($connection, "INSERT INTO players (name, password, admin, brucies) VALUES ('" . strip_tags($_POST["player"]) . "', 'default', 0, " . $_POST["brucies"] . ")");
 		include("log.php");
 		$action = "Added player: " . strip_tags($_POST["player"]) . ", " . $_POST["brucies"] . " Brucies";
 		writelog($action);
@@ -41,6 +41,6 @@ else
 	exit();
 }
 	
-mysql_close($connection)
+mysqli_close($connection)
 
 ?>

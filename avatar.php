@@ -24,9 +24,9 @@ if ($_GET["player"] == "")
 //connect to the database
 include("connect.php");
 
-$playerdata = mysql_query("SELECT * FROM players WHERE player_id = " . $_GET["player"]);
+$playerdata = mysqli_query($connection, "SELECT * FROM players WHERE player_id = " . $_GET["player"]);
 
-$playerrow = mysql_fetch_array($playerdata);
+$playerrow = mysqli_fetch_array($playerdata);
 
 echo "<center>";
 include("title");
@@ -57,7 +57,7 @@ echo "<br>";
 echo "<a href=\"index.php\">Back</a>";
 echo "</center>";
 	
-mysql_close($connection)
+mysqli_close($connection)
 
 ?>
 

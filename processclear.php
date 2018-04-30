@@ -8,7 +8,7 @@ include("connect.php");
 
 if ($_SESSION['admin'] == 1)
 {
-	mysql_query("DELETE FROM log");
+	mysqli_query($connection, "DELETE FROM log");
 	header('Location: viewlog.php');
 	exit();
 }
@@ -18,6 +18,6 @@ else
 	exit();
 }
 
-mysql_close($connection);
+mysqli_close($connection);
 
 ?>

@@ -10,11 +10,11 @@ if ($_SESSION['username'] != "Admin")
 include("connect.php");
 
 //check for admin user - redirect if missing
-$admindata = mysql_query("SELECT * FROM players WHERE name = 'Admin'");
+$admindata = mysqli_query($connection, "SELECT * FROM players WHERE name = 'Admin'");
 
-$adminrow = mysql_fetch_array($admindata);
+$adminrow = mysqli_fetch_array($admindata);
 
-$adminnumcheck = mysql_num_rows($admindata);
+$adminnumcheck = mysqli_num_rows($admindata);
 $admintypecheck = $adminrow['admin'];
 
 if ($adminnumcheck != 1 || $admintypecheck != 1)
@@ -48,8 +48,8 @@ if ($_SESSION['username'] == "Admin")
 	echo "<table border=\"1\" cellpadding=\"10\">";
 	echo "<tr><th><b>ID</b></th><th><b>Player</b></th><th><b>Admin</b></th></tr>";
 
-	$playerdata = mysql_query("SELECT * FROM players ORDER BY name");
-	while ($playerrow = mysql_fetch_array($playerdata))
+	$playerdata = mysqli_query($connection, "SELECT * FROM players ORDER BY name");
+	while ($playerrow = mysqli_fetch_array($playerdata))
 	{
 		//show player table and ignore Admin user as they should not ever be modified
 		if ($playerrow['name'] != "Admin")
@@ -64,7 +64,7 @@ if ($_SESSION['username'] == "Admin")
 	}
 
 	//display No Players if there are none
-	if (mysql_num_rows($playerdata) == 0 || mysql_num_rows($playerdata) == 1)
+	if (mysqli_num_rows($playerdata) == 0 || mysqli_num_rows($playerdata) == 1)
 		echo "<tr><td colspan=\"15\"><center>No Players</center></td></tr>";
 
 	echo "</table>";
@@ -73,7 +73,7 @@ if ($_SESSION['username'] == "Admin")
 	echo "</center>";
 }
 	
-mysql_close($connection)
+mysqli_close($connection)
 
 ?>
 

@@ -23,7 +23,7 @@ if (isset($_SESSION['username']))
 				header('Location: index.php?scott=yes');
 				break;
 			default:
-				mysql_query("INSERT INTO messages (message, user, datetime) VALUES ('" . strip_tags($message) . "', '" . $user . "', '" . $datetime . "')");
+				mysqli_query($connection, "INSERT INTO messages (message, user, datetime) VALUES ('" . strip_tags($message) . "', '" . $user . "', '" . $datetime . "')");
 				include("log.php");
 				$action = "Added message";
 				writelog($action);

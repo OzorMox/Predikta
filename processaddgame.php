@@ -14,7 +14,7 @@ if ($_POST["date"] == "")
 
 if ($_POST["custom"] == "yes")
 {
-	mysql_query("INSERT INTO games (team_1, team_2, date, status, type) VALUES ('" . strip_tags($_POST["customgame1"]) . "', '" . strip_tags($_POST["customgame2"]) . "', '" . $_POST["date"] . "', 'open', '" . $_POST["type"] . "')");
+	mysqli_query($connection, "INSERT INTO games (team_1, team_2, date, status, type) VALUES ('" . strip_tags($_POST["customgame1"]) . "', '" . strip_tags($_POST["customgame2"]) . "', '" . $_POST["date"] . "', 'open', '" . $_POST["type"] . "')");
 	include("log.php");
 	$action = "Added custom game: " . strip_tags($_POST["customgame1"]) . " v " . strip_tags($_POST["customgame2"]) . ", " . $_POST["date"] . ", " . $_POST["type"];
 	writelog($action);
@@ -31,7 +31,7 @@ if ($_POST["custom"] == "yes")
 }
 else
 {
-	mysql_query("INSERT INTO games (team_1, team_2, date, status, type) VALUES ('" . strip_tags($_POST["team1"]) . "', '" . strip_tags($_POST["team2"]) . "', '" . $_POST["date"] . "', 'open', '" . $_POST["type"] . "')");
+	mysqli_query($connection, "INSERT INTO games (team_1, team_2, date, status, type) VALUES ('" . strip_tags($_POST["team1"]) . "', '" . strip_tags($_POST["team2"]) . "', '" . $_POST["date"] . "', 'open', '" . $_POST["type"] . "')");
 	include("log.php");
 	$action = "Added game: " . strip_tags($_POST["team1"]) . " v " . strip_tags($_POST["team2"]) . ", " . $_POST["date"] . ", " . $_POST["type"];
 	writelog($action);
@@ -47,6 +47,6 @@ else
 	}
 }
 	
-mysql_close($connection)
+mysqli_close($connection)
 
 ?>

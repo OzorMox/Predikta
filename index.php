@@ -2,15 +2,33 @@
 //create session
 session_start();
 
+if (isset($_SESSION['username']))
+{
+	$username = $_SESSION['username'];
+}
+else
+{
+	$username = "";
+}
+
+if (isset($_SESSION['admin']))
+{
+	$admin = $_SESSION['admin'];
+}
+else
+{
+	$admin = 0;
+}
+
 //connect to the database
 include("connect.php");
 
 //check for admin user - redirect if missing
-$admindata = mysql_query("SELECT * FROM players WHERE name = 'Admin'");
+$admindata = mysqli_query($connection, "SELECT * FROM players WHERE name = 'Admin'");
 
-$adminrow = mysql_fetch_array($admindata);
+$adminrow = mysqli_fetch_array($admindata);
 
-$adminnumcheck = mysql_num_rows($admindata);
+$adminnumcheck = mysqli_num_rows($admindata);
 $admintypecheck = $adminrow['admin'];
 
 if ($adminnumcheck != 1 || $admintypecheck != 1)
@@ -20,7 +38,7 @@ if ($adminnumcheck != 1 || $admintypecheck != 1)
 }
 
 //redirect to player administration if logged in as the Admin user
-if ($_SESSION['username'] == "Admin")
+if (isset($username) && $username == "Admin")
 {
 	header('Location: admin.php');
 }
@@ -42,9 +60,9 @@ include("title");
 include("log.php");
 
 //automatically lock games if they have not been manually unlocked and the game date has been reached
-$opengamedata = mysql_query("SELECT * FROM games WHERE status = 'open'");
+$opengamedata = mysqli_query($connection, "SELECT * FROM games WHERE status = 'open'");
 
-while ($opengamerow = mysql_fetch_array($opengamedata))
+while ($opengamerow = mysqli_fetch_array($opengamedata))
 {
 	$curdate = strtotime(date("Y/m/d"));
 	$gamedate = strtotime($opengamerow['date']);
@@ -59,7 +77,7 @@ while ($opengamerow = mysql_fetch_array($opengamedata))
 			//if it has gone noon
 			if (date("H") >= 12)
 			{
-				mysql_query("UPDATE games SET status = 'locked' WHERE game_id = " . $opengamerow['game_id']);
+				mysqli_query($connection, "UPDATE games SET status = 'locked' WHERE game_id = " . $opengamerow['game_id']);
 				$action = "Automatically locked game: " . $opengamerow["game_id"];
 				writelog($action);
 			}
@@ -69,7 +87,7 @@ while ($opengamerow = mysql_fetch_array($opengamedata))
 			//if it has gone 7pm
 			if (date("H") >= 19)
 			{
-				mysql_query("UPDATE games SET status = 'locked' WHERE game_id = " . $opengamerow['game_id']);
+				mysqli_query($connection, "UPDATE games SET status = 'locked' WHERE game_id = " . $opengamerow['game_id']);
 				$action = "Automatically locked game: " . $opengamerow["game_id"];
 				writelog($action);
 			}
@@ -79,20 +97,20 @@ while ($opengamerow = mysql_fetch_array($opengamedata))
 	//if the game date has passed
 	if ($curdate > $gamedate)
 	{
-		mysql_query("UPDATE games SET status = 'locked' WHERE game_id = " . $opengamerow['game_id']);
+		mysqli_query($connection, "UPDATE games SET status = 'locked' WHERE game_id = " . $opengamerow['game_id']);
 		$action = "Automatically locked game: " . $opengamerow["game_id"];
 		writelog($action);
 	}
 }
 
-$gamedata = mysql_query("SELECT * FROM games ORDER BY date, team_1");
+$gamedata = mysqli_query($connection, "SELECT * FROM games ORDER BY date, team_1");
 
-$playerdata = mysql_query("SELECT * FROM players ORDER BY (name = '" . $_SESSION['username'] . "') desc, name");
+$playerdata = mysqli_query($connection, "SELECT * FROM players ORDER BY (name = '" . $username . "') desc, name");
 
 //store a running total of player points
 $playerpoints = array();
 
-if ($_GET["brucie"] == "yes")
+if (isset($_GET["brucie"]) && $_GET["brucie"] == "yes")
 {
 	echo "<img src=\"brucie.jpg\"/>";
 	echo "<br>";
@@ -101,7 +119,7 @@ if ($_GET["brucie"] == "yes")
 	echo "<br>";
 }
 
-if ($_GET["scott"] == "yes")
+if (isset($_GET["scott"]) && $_GET["scott"] == "yes")
 {
 	echo "<img src=\"scott.gif\"/>";
 	echo "<br>";
@@ -110,7 +128,7 @@ if ($_GET["scott"] == "yes")
 	echo "<br>";
 }
 
-if ($_GET["sixnil"] == "yes")
+if (isset($_GET["sixnil"]) && $_GET["sixnil"] == "yes")
 {
 	echo "6-0?! This isn't <a href=\"http://news.bbc.co.uk/sport1/hi/football/eng_prem/6205803.stm\">Reading v West Ham</a>!";
 	echo "<br>";
@@ -176,11 +194,11 @@ echo "<tr>";
 echo "<th><b>[<a href=\"addgame.php\" title=\"Add a new game\">Add</a>] Game</b></th><th><b>Date</b></th><th><b>Result</b></th>";
 
 //build individual player columns
-while ($playerrow = mysql_fetch_array($playerdata))
+while ($playerrow = mysqli_fetch_array($playerdata))
 {
 	if ($playerrow['name'] != "Admin")
 	{
-		if ($playerrow['name'] == $_SESSION['username'])
+		if ($playerrow['name'] == $username)
 			echo "<th style=\"background-color:#ccffcc\">" . $playerrow['name'] . "</th>";
 		else
 			echo "<th>" . $playerrow['name'] . "</th>";
@@ -190,7 +208,7 @@ while ($playerrow = mysql_fetch_array($playerdata))
 echo "</tr>";
 
 //populate table with each game
-while($gamerow = mysql_fetch_array($gamedata))
+while($gamerow = mysqli_fetch_array($gamedata))
 {
     //check if Brucie has predicted on this game
     bruciepredicts($gamerow['game_id'], $gamerow['team_1'], $gamerow['team_2']);
@@ -211,7 +229,7 @@ while($gamerow = mysql_fetch_array($gamedata))
 	switch ($gamerow['status'])
 	{
 		case "open":
-			if ($_SESSION['admin'] == 1)
+			if ($admin == 1)
 			{
 				echo "<td style=\"background-color:#ccffcc\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
 				echo "<td style=\"background-color:#ccffcc\"><a href=\"changedate.php?game=" . $gamerow['game_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Change the date of this game\">" . formatdate($gamerow["date"]) . "</a></td>";
@@ -225,7 +243,7 @@ while($gamerow = mysql_fetch_array($gamedata))
 			}
 			break;
 		case "locked":
-			if ($_SESSION['admin'] == 1)
+			if ($admin == 1)
 			{
 				echo "<td style=\"background-color:#ffffcc\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
 				echo "<td style=\"background-color:#ffffcc\">" . formatdate($gamerow["date"]) . "</td>";
@@ -239,7 +257,7 @@ while($gamerow = mysql_fetch_array($gamedata))
 			}
 			break;
 		case "set":
-			if ($_SESSION['admin'] == 1)
+			if ($admin == 1)
 			{
 				echo "<td style=\"background-color:#ffcccc\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
 				echo "<td style=\"background-color:#ffcccc\">" . formatdate($gamerow["date"]) . "</td>";
@@ -253,16 +271,16 @@ while($gamerow = mysql_fetch_array($gamedata))
 			}
 			break;
 	}
-	$playerdata = mysql_query("SELECT * FROM players ORDER BY (name = '" . $_SESSION['username'] . "') desc, name");
+	$playerdata = mysqli_query($connection, "SELECT * FROM players ORDER BY (name = '" . $username . "') desc, name");
 	//read each player's predictions for the current game
-	while ($playerrow = mysql_fetch_array($playerdata))
+	while ($playerrow = mysqli_fetch_array($playerdata))
 	{
 		if ($playerrow['name'] != "Admin")
 		{
-			$resultdata = mysql_query("SELECT * FROM results WHERE game_id = " . $gamerow['game_id'] . " AND player_id = " . $playerrow['player_id']);
-			if (mysql_num_rows($resultdata) == 0)
+			$resultdata = mysqli_query($connection, "SELECT * FROM results WHERE game_id = " . $gamerow['game_id'] . " AND player_id = " . $playerrow['player_id']);
+			if (mysqli_num_rows($resultdata) == 0)
 			{
-				if ($playerrow['name'] == $_SESSION['username'])
+				if ($playerrow['name'] == $username)
 				{
 					if ($gamerow['status'] == "open" || $gamerow['status'] == "unlocked")
                     {
@@ -284,7 +302,7 @@ while($gamerow = mysql_fetch_array($gamedata))
 				//nuke cellcolour variable first
 				$cellcolour = null;
 				//get results
-				$resultrow = mysql_fetch_array($resultdata);
+				$resultrow = mysqli_fetch_array($resultdata);
 				//check if game is active
 				if ($gamerow['status'] == "set")
 				{
@@ -374,37 +392,37 @@ while($gamerow = mysql_fetch_array($gamedata))
 }
 
 //display No Games if there are none
-if (mysql_num_rows($gamedata) == 0)
+if (mysqli_num_rows($gamedata) == 0)
 {
 	//get the correct value for colspan
-	$spanlength = mysql_num_rows($playerdata) + 3;
+	$spanlength = mysqli_num_rows($playerdata) + 3;
 	echo "<tr><td colspan=\"" . $spanlength . "\"><center>No Games</center></td></tr>";
 }
 
 echo "<th colspan=\"3\"><div align=\"right\"><b>Points:</b></div></th>";
 //display player points totals
-if (mysql_num_rows($gamedata) == 0)
+if (mysqli_num_rows($gamedata) == 0)
 {
-	echo "<th colspan=\"" . (mysql_num_rows($playerdata) - 1) . "\">--</th>";
+	echo "<th colspan=\"" . (mysqli_num_rows($playerdata) - 1) . "\">--</th>";
 }
 else
 {
-	$playerdata = mysql_query("SELECT * FROM players ORDER BY (name = '" . $_SESSION['username'] . "') desc, name");
-	while ($playerrow = mysql_fetch_array($playerdata))
+	$playerdata = mysqli_query($connection, "SELECT * FROM players ORDER BY (name = '" . $username . "') desc, name");
+	while ($playerrow = mysqli_fetch_array($playerdata))
 	{
 		if ($playerrow['name'] != "Admin")
 		{
 			$playerid = $playerrow['player_id'];
 			if (!isset($playerpoints[$playerid]))
 			{
-				if ($playerrow['name'] == $_SESSION['username'])
+				if ($playerrow['name'] == $username)
 					echo "<th style=\"background-color:#ccffcc\" title=\"" . $playerrow['name'] . "\">0</th>";
 				else
 					echo "<th title=\"" . $playerrow['name'] . "\">0</th>";
 			}
 			else
 			{
-				if ($playerrow['name'] == $_SESSION['username'])
+				if ($playerrow['name'] == $username)
 					echo "<th style=\"background-color:#ccffcc\" title=\"" . $playerrow['name'] . "\">" . $playerpoints[$playerid] . "</th>";
 				else
 					echo "<th title=\"" . $playerrow['name'] . "\">" . $playerpoints[$playerid] . "</th>";
@@ -427,24 +445,24 @@ echo "<br>";
 echo "<table border=\"1\" cellpadding=\"10\">";
 echo "<tr><th><b>[<a href=\"index.php?all=yes\" title=\"Show all messages\">All</a>] Message</b></th><th>User</th><th>Date/Time</th></tr>";
 
-if ($_GET["all"] == "yes")
+if (isset($_GET['all']) && $_GET["all"] == "yes")
 {
-	$messagedata = mysql_query("SELECT * FROM messages ORDER BY datetime");
+	$messagedata = mysqli_query($connection, "SELECT * FROM messages ORDER BY datetime");
 }
 else
 {
 	//get total number of messages first so that the correct values for LIMIT can be calculated
-	$nummessages = mysql_query("SELECT message_id FROM messages");
-	$upper_limit = mysql_num_rows($nummessages);
+	$nummessages = mysqli_query($connection, "SELECT message_id FROM messages");
+	$upper_limit = mysqli_num_rows($nummessages);
 	$lower_limit = $upper_limit - 10;
 	if ($lower_limit < 0)
 		$lower_limit = 0;
-	$messagedata = mysql_query("SELECT * FROM messages ORDER BY datetime LIMIT " . $lower_limit . ", " . $upper_limit);
+	$messagedata = mysqli_query($connection, "SELECT * FROM messages ORDER BY datetime LIMIT " . $lower_limit . ", " . $upper_limit);
 }
 
-while ($messagerow = mysql_fetch_array($messagedata))
+while ($messagerow = mysqli_fetch_array($messagedata))
 {
-	if ($messagerow['user'] == $_SESSION['username'] && $_SESSION['username'] != "")
+	if ($messagerow['user'] == $username && $username != "")
 	{
 		echo "<tr style=\"background-color: #ccffcc\"><td>" . $messagerow['message'] . "</td><td>" . $messagerow['user'] . "</td><td>" . formatdatetime($messagerow['datetime']) . "</td></tr>";
 	}
@@ -454,7 +472,7 @@ while ($messagerow = mysql_fetch_array($messagedata))
 	}
 }
 
-if (mysql_num_rows($messagedata) == 0)
+if (mysqli_num_rows($messagedata) == 0)
 {
 	echo "<tr><td colspan=\"3\"><center>No Messages</center></td></tr>";
 }
@@ -462,7 +480,7 @@ if (mysql_num_rows($messagedata) == 0)
 echo "</table>";
 
 //only display message form if a user is logged in
-if ($_SESSION['username'] != null)
+if ($username != null)
 {
 	echo "<br>";
 	echo "<form name=\"message\" action=\"addmessage.php\" method=\"post\">";
@@ -471,7 +489,7 @@ if ($_SESSION['username'] != null)
 	echo "</form>";
 }
 
-if ($_SESSION['username'] != null)
+if ($username != null)
 {
     echo "Or give Brucie something to say while people are predicting!";
     echo "<br>";
@@ -491,23 +509,23 @@ echo "<b>Points</b>";
 echo "<br>";
 echo "<br>";
 echo "<table border=\"1\" cellpadding=\"10\">";
-if ($_SESSION['admin'] == 1)
+if ($admin == 1)
 	echo "<tr><th><b>Rank</b></th><th><b>[<a href=\"addplayer.php\" title=\"Add a new player\">Add</a>] Player</b></th><th><b>Avatar</b></th><th><a href=\"addbrucies.php\" title=\"Add/reset Brucie Bonuses for all players\"><b>Brucies</b></a></th><th><a href=\"update.php?month=july\" title=\"Update points for this month\">Jul</a></th><th><a href=\"update.php?month=august\" title=\"Update points for this month\">Aug</a></th><th><a href=\"update.php?month=september\" title=\"Update points for this month\">Sep</a></th><th><a href=\"update.php?month=october\" title=\"Update points for this month\">Oct</a></th><th><a href=\"update.php?month=november\" title=\"Update points for this month\">Nov</a></th><th><a href=\"update.php?month=december\" title=\"Update points for this month\">Dec</a></th><th><a href=\"update.php?month=january\" title=\"Update points for this month\">Jan</a></th><th><a href=\"update.php?month=february\" title=\"Update points for this month\">Feb</a></th><th><a href=\"update.php?month=march\" title=\"Update points for this month\">Mar</a></th><th><a href=\"update.php?month=april\" title=\"Update points for this month\">Apr</a></th><th><a href=\"update.php?month=may\" title=\"Update points for this month\">May</a></th><th><a href=\"update.php?month=june\" title=\"Update points for this month\">Jun</a></th><th><b>Bonus</b></th><th><b>Total</b></th></tr>";
 else
 	echo "<tr><tr><th><b>Rank</b></th><th><b>Player</b></th><th><b>Avatar</b></th><th><b>Brucies</b></th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th><b>Bonus</b></th><th><b>Total</b></th></tr>";
 
-$playerdata = mysql_query("SELECT * FROM players ORDER BY name");
+$playerdata = mysqli_query($connection, "SELECT * FROM players ORDER BY name");
 
 $totals = array();
 
 //get all players and their totals
-while ($playerrow = mysql_fetch_array($playerdata))
+while ($playerrow = mysqli_fetch_array($playerdata))
 {
 	$totals[$playerrow['name']] = $playerrow['july'] + $playerrow['august'] + $playerrow['september'] + $playerrow['october'] + $playerrow['november'] + $playerrow['december'] + $playerrow['january'] + $playerrow['february'] + $playerrow['march'] + $playerrow['april'] + $playerrow['may'] + $playerrow['june'] + $playerrow['bonus'];
 }
 
 $noplayers = false;
-if (mysql_num_rows($playerdata) == 0 || mysql_num_rows($playerdata) == 1)
+if (mysqli_num_rows($playerdata) == 0 || mysqli_num_rows($playerdata) == 1)
 {
 	$noplayers = true;
 }
@@ -523,16 +541,16 @@ $rank = 0;
 
 foreach ($totals as $name => $totalpoints)
 {
-	$playerdata = mysql_query("SELECT * FROM players WHERE name = '" . $name . "'");
+	$playerdata = mysqli_query($connection, "SELECT * FROM players WHERE name = '" . $name . "'");
 
-	while ($playerrow = mysql_fetch_array($playerdata))
+	while ($playerrow = mysqli_fetch_array($playerdata))
 	{		
 		if ($playerrow['name'] != "Admin")
 		{
 			$rank += 1;
 			
 			//highlight the row if it belongs to the logged in player
-			if ($playerrow['name'] == $_SESSION['username'])
+			if ($playerrow['name'] == $username)
 			{
 				$rowbg = "#ccffcc";
 				$headbg = "#ccffcc";
@@ -542,7 +560,7 @@ foreach ($totals as $name => $totalpoints)
 				$rowbg = "#ffffff";
 				$headbg = "#dddddd";
 			}
-			if ($_SESSION['admin'] == 1)
+			if ($admin == 1)
 			{
 				//what to show if user is a game admin
 				echo "<tr>";
@@ -564,7 +582,7 @@ foreach ($totals as $name => $totalpoints)
 			{
 				echo "<td style=\"background-color:" . $rowbg . "\">Not Set</td>";				
 			}
-            if ($_SESSION['admin'] == 1)
+            if ($admin == 1)
             {
                 echo "<td style=\"background-color:" . $rowbg . "\"><a href=\"setbrucies.php?player=" . $playerrow['player_id'] . "\" title=\"Add/reset Brucie Bonuses for this player\">" . $playerrow['brucies'] . "B</a></td>";
             }
@@ -584,7 +602,7 @@ foreach ($totals as $name => $totalpoints)
 			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['april'] . "</td>";
 			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['may'] . "</td>";
 			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['june'] . "</td>";
-			if ($_SESSION['admin'] == 1)
+			if ($admin == 1)
 			{
 				echo "<td style=\"background-color:" . $rowbg . "\"><a href=\"setbonus.php\">" . $playerrow['bonus'] . "</a></td>";
 			}
@@ -618,7 +636,7 @@ if (!isset($_SESSION['username']))
 }
 else
 {
-	echo "User: " . $_SESSION['username'];
+	echo "User: " . $username;
 	echo "<br>";
 }
 
@@ -641,7 +659,7 @@ if (isset($_SESSION['username']) && $_SESSION['username'] != "")
 }
 echo "<a href=\"about.php\" title=\"About Predikta\">About</a>";
 
-//functions to format MySQL dates and times
+//functions to format mysqli dates and times
 function formatdate($date)
 {
 	return date("d/m/Y", strtotime($date));
@@ -683,13 +701,13 @@ function pointscalc($playerscore1, $playerscore2, $brucie, $actualscore1, $actua
 
 function bruciepredicts($gameid, $team1, $team2)
 {
-    $brucieid = 34; //this should not change as long as the player Brucie is never deleted
-                    //TODO: prevent Brucie from being deleted in code
+    $brucieid = 3; //this should not change as long as the player Brucie is never deleted
+                   //TODO: prevent Brucie from being deleted in code
 
-    $brucieresultdata = mysql_query("SELECT * FROM results WHERE game_id = " . $gameid . " AND player_id = " . $brucieid);
+    $brucieresultdata = mysqli_query($connection, "SELECT * FROM results WHERE game_id = " . $gameid . " AND player_id = " . $brucieid);
     
     //check if Brucie has made a prediction yet for this game, if not, do it
-    if (mysql_num_rows($brucieresultdata) == 0)
+    if (mysqli_num_rows($brucieresultdata) == 0)
     {
         $team1rank = brucieranking($team1);
         $team2rank = brucieranking($team2);
@@ -728,19 +746,19 @@ function bruciepredicts($gameid, $team1, $team2)
         $bruciebonus = 0;
         if (abs($team1score - $team2score) >= 2)
         {
-            $bruciedata = mysql_query("SELECT brucies FROM players WHERE player_id = " . $brucieid);
-            $brucierow = mysql_fetch_array($bruciedata);
+            $bruciedata = mysqli_query($connection, "SELECT brucies FROM players WHERE player_id = " . $brucieid);
+            $brucierow = mysqli_fetch_array($bruciedata);
             if ($brucierow['brucies'] > 0)
             {
                 $bruciebonus = 1;
                 $updbrucies = $brucierow["brucies"] - 1;
-                mysql_query("UPDATE players SET brucies = " . $updbrucies . " WHERE player_id = " . $brucieid);
+                mysqli_query($connection, "UPDATE players SET brucies = " . $updbrucies . " WHERE player_id = " . $brucieid);
             }
         }
         
         writelog("Brucie predicted on game: " . $gameid);
         
-        mysql_query("INSERT INTO results (score_1, score_2, brucie, game_id, player_id) VALUES (" . (int)$team1score . ", " . (int)$team2score . ", " . $bruciebonus . ", " . $gameid . ", " . $brucieid . ")");
+        mysqli_query($connection, "INSERT INTO results (score_1, score_2, brucie, game_id, player_id) VALUES (" . (int)$team1score . ", " . (int)$team2score . ", " . $bruciebonus . ", " . $gameid . ", " . $brucieid . ")");
     }
 }
 

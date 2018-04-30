@@ -13,19 +13,19 @@ if ($_GET["game"] == "")
 }
 
 //find which predictions have Brucies set
-$resultdata = mysql_query("SELECT player_id FROM results WHERE brucie = 1 AND game_id = " . $_GET["game"]);
+$resultdata = mysqli_query($connection, "SELECT player_id FROM results WHERE brucie = 1 AND game_id = " . $_GET["game"]);
 
 if ($_SESSION['admin'] == 1)
 {
-	while ($resultrow = mysql_fetch_array($resultdata))
+	while ($resultrow = mysqli_fetch_array($resultdata))
 	{
 		//get current number of Brucies and update
-		$playerdata = mysql_query("SELECT brucies FROM players WHERE player_id = " . $resultrow['player_id']);
-		$playerrow = mysql_fetch_array($playerdata);
-		mysql_query("UPDATE players SET brucies = " . ($playerrow['brucies'] + 1) . " WHERE player_id = " . $resultrow['player_id']);
+		$playerdata = mysqli_query($connection, "SELECT brucies FROM players WHERE player_id = " . $resultrow['player_id']);
+		$playerrow = mysqli_fetch_array($playerdata);
+		mysqli_query($connection, "UPDATE players SET brucies = " . ($playerrow['brucies'] + 1) . " WHERE player_id = " . $resultrow['player_id']);
 	}
-	mysql_query("DELETE FROM games WHERE game_id = " . $_GET["game"]);
-	mysql_query("DELETE FROM results WHERE game_id = " . $_GET["game"]);
+	mysqli_query($connection, "DELETE FROM games WHERE game_id = " . $_GET["game"]);
+	mysqli_query($connection, "DELETE FROM results WHERE game_id = " . $_GET["game"]);
 	include("log.php");
 	$action = "Deleted game: " . $_GET["game"];
 	writelog($action);
@@ -38,6 +38,6 @@ else
 	exit();
 }
 
-mysql_close($connection);
+mysqli_close($connection);
 
 ?>
