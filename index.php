@@ -350,7 +350,7 @@ while($gamerow = mysqli_fetch_array($gamedata))
 						break;
 					case "locked":
 						//if the game has been locked, show only this player's predictions and do not allow them to delete
-						if ($playerrow['name'] == $_SESSION["username"])
+						if ($playerrow['name'] == $username)
 							{
 							if ($resultrow['brucie'] == 0)
 								echo "<td style=\"background-color:" . $cellcolour . "\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . "</td>";
@@ -374,7 +374,7 @@ while($gamerow = mysqli_fetch_array($gamedata))
 						break;
 					case "open":
 						//if the actual score has not been set, show only this player's predictions and allow them to delete
-						if ($playerrow['name'] == $_SESSION["username"])
+						if ($playerrow['name'] == $username)
 						{
 							if ($resultrow['brucie'] == 0)
 								echo "<td style=\"background-color:" . $cellcolour . "\"><a href=\"deleteprediction.php?game=" . $gamerow["game_id"] . "&player=" . $playerrow['player_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Delete your prediction for this game\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . "</a></td>";
@@ -701,6 +701,8 @@ function pointscalc($playerscore1, $playerscore2, $brucie, $actualscore1, $actua
 
 function bruciepredicts($gameid, $team1, $team2)
 {
+	include("connect.php");
+	
     $brucieid = 3; //this should not change as long as the player Brucie is never deleted
                    //TODO: prevent Brucie from being deleted in code
 
@@ -766,46 +768,70 @@ function brucieranking($team)
 {
     switch ($team)
     {
-        case "Man City":
-            return 20;
-        case "Liverpool":
-            return 19;
-        case "Chelsea":
-            return 18;
-        case "Arsenal":
-            return 17;
-        case "Everton":
-            return 16;
-        case "Tottenham":
-            return 15;
-        case "Man Utd":
-            return 14;
-        case "Southampton":
-            return 13;
-        case "Stoke":
-            return 12;
-        case "Newcastle":
-            return 11;
-        case "Crystal Palace":
-            return 10;
-        case "Swansea":
-            return 9;
-        case "West Ham":
-            return 8;
-        case "Sunderland":
-            return 7;
-        case "Aston Villa":
-            return 6;
-        case "Hull":
-            return 5;
-        case "West Brom":
-            return 4;
-        case "Leicester":
-            return 3;
-        case "Burnley":
-            return 2;
-        case "QPR":
-            return 1;
+        case "Germany":
+			return 32;
+		case "Brazil":
+			return 31;
+		case "Belgium":
+			return 30;
+		case "Portugal":
+			return 29;
+		case "Argentina":
+			return 28;
+		case "Switzerland":
+			return 27;
+		case "France":
+			return 26;
+		case "Spain":
+			return 25;
+		case "Poland":
+			return 24;
+		case "Peru":
+			return 23;
+		case "Denmark":
+			return 22;
+		case "England":
+			return 21;
+		case "Tunisia":
+			return 20;
+		case "Mexico":
+			return 19;
+		case "Colombia":
+			return 18;
+		case "Uruguay":
+			return 17;
+		case "Croatia":
+			return 16;
+		case "Iceland":
+			return 15;
+		case "Sweden":
+			return 14;
+		case "Costa Rica":
+			return 13;
+		case "Senegal":
+			return 12;
+		case "Serbia":
+			return 11;
+		case "Iran":
+			return 10;
+		case "Australia":
+			return 9;
+		case "Morocco":
+			return 8;
+		case "Egypt":
+			return 7;
+		case "Nigeria":
+			return 6;
+		case "Panama":
+			return 5;
+		case "Japan":
+			return 4;
+		case "South Korea":
+			return 3;
+		case "Russia":
+			return 2;
+		case "Saudi Arabia":
+			return 1;
     }
 }
 
