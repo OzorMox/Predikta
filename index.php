@@ -313,7 +313,14 @@ while($gamerow = mysqli_fetch_array($gamedata))
 					$actualscore2 = $gamerow['actual_2'];
 					$playerid = $playerrow['player_id'];
 					$cellpoints = pointscalc($playerscore1, $playerscore2, $brucie, $actualscore1, $actualscore2, $playerid);
-					$playerpoints[$playerid] = $playerpoints[$playerid] + $cellpoints;
+					if (!isset($playerpoints[$playerid]))
+					{
+						$playerpoints[$playerid] = $cellpoints;
+					}
+					else
+					{
+						$playerpoints[$playerid] = $playerpoints[$playerid] + $cellpoints;
+					}
 					//determine which colour is needed for this cell
 					switch ($cellpoints)
 					{
