@@ -1,8 +1,8 @@
 <?php
 
 //connect to the database
-//$connection = mysqli_connect("jkhemming.dns-systems.net", "jkhemming_prd", "ffzetecs16d");
-$connection = mysqli_connect("localhost", "root", "", "predikta");
+$connection = mysqli_connect("localhost:3306", "predikta", "k5zoM0@8", "predikta");
+
 if (!$connection)
 {
 	header('Location: error.php?error=Failed+to+connect+to+database');
