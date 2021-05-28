@@ -20,7 +20,7 @@ function writelog($action)
 
 	if ($_SESSION['username'] != "")
 	{
-		if (strpos($action, $autolockgame) === false || strpos($action, $bruciepredicts) === false)
+		if (strpos($action, $autolockgame) === false && strpos($action, $bruciepredicts) === false)
 		{
 			$user = $_SESSION['username'];
 		}
