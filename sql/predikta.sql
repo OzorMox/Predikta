@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 28, 2021 at 12:44 AM
+-- Generation Time: May 28, 2021 at 02:48 PM
 -- Server version: 10.0.38-MariaDB-0+deb8u1
 -- PHP Version: 7.3.18
 
@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `bruciesays` (
   `bruciesays_id` int(10) NOT NULL,
-  `bruciesays` varchar(5000) COLLATE latin1_general_ci NOT NULL,
-  `user` int(100) NOT NULL,
+  `bruciesays` text COLLATE latin1_general_ci NOT NULL,
+  `user` varchar(100) COLLATE latin1_general_ci NOT NULL,
   `datetime` datetime NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 

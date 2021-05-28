@@ -19,7 +19,6 @@ if (isset($_SESSION['username']))
         $action = "Added Brucie Says";
         writelog($action);
         header('Location: index.php');
-        break;
 	}
 	else
 	{

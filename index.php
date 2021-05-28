@@ -518,7 +518,7 @@ if ($username != null)
     echo "<br>";
     echo "<br>";
 	echo "<form name=\"message\" action=\"addbruciesays.php\" method=\"post\">";
-	echo "Brucie Says: <input type=\"text\" name=\"bruciesays\" size=\"50\" maxlength=\"100\" />";
+	echo "Brucie Says: <input type=\"text\" name=\"bruciesays\" size=\"50\" maxlength=\"200\" />";
 	echo "&nbsp;<input type=\"submit\" value=\"Add\">";
 	echo "</form>";
 }
