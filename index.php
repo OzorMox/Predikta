@@ -831,69 +831,53 @@ function brucieranking($team)
 {
     switch ($team)
     {
-        case "Germany":
-			return 32;
-		case "Brazil":
-			return 31;
 		case "Belgium":
-			return 30;
-		case "Portugal":
-			return 29;
-		case "Argentina":
-			return 28;
-		case "Switzerland":
-			return 27;
-		case "France":
-			return 26;
-		case "Spain":
-			return 25;
-		case "Poland":
 			return 24;
-		case "Peru":
+		case "France":
 			return 23;
-		case "Denmark":
-			return 22;
 		case "England":
+			return 22;
+		case "Portugal":
 			return 21;
-		case "Tunisia":
+		case "Spain":
 			return 20;
-		case "Mexico":
+		case "Italy":
 			return 19;
-		case "Colombia":
+		case "Denmark":
 			return 18;
-		case "Uruguay":
+		case "Germany":
 			return 17;
-		case "Croatia":
+		case "Switzerland":
 			return 16;
-		case "Iceland":
+		case "Croatia":
 			return 15;
-		case "Sweden":
+		case "Netherlands":
 			return 14;
-		case "Costa Rica":
+		case "Wales":
 			return 13;
-		case "Senegal":
+		case "Sweden":
 			return 12;
-		case "Serbia":
+		case "Poland":
 			return 11;
-		case "Iran":
+		case "Austria":
 			return 10;
-		case "Australia":
+		case "Ukraine":
 			return 9;
-		case "Morocco":
+		case "Turkey":
 			return 8;
-		case "Egypt":
+		case "Slovakia":
 			return 7;
-		case "Nigeria":
+		case "Hungary":
 			return 6;
-		case "Panama":
-			return 5;
-		case "Japan":
-			return 4;
-		case "South Korea":
-			return 3;
 		case "Russia":
+			return 5;
+		case "Czech Republic":
+			return 4;
+		case "Scotland":
+			return 3;
+		case "Finland":
 			return 2;
-		case "Saudi Arabia":
+		case "North Macedonia":
 			return 1;
     }
 }
