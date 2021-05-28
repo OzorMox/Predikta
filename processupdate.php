@@ -8,13 +8,13 @@ include("connect.php");
 
 if ($_GET["month"] == "")
 {
-	header('Location: error.php?error=No+month+found');
+	header('Location: error.php?error=No+month/stage+found');
 	exit();
 }
 
 if ($_SESSION['admin'] == 1)
 {
-	//read player points from session variables and add them to existing points totals for the selected month in the database
+	//read player points from session variables and add them to existing points totals for the selected month/stage in the database
 	foreach($_SESSION['playerpoints'] as $id => $total)
 	{
 		$playerdata = mysqli_query($connection, "SELECT * FROM players WHERE player_id = " . $id);
@@ -43,6 +43,10 @@ if ($_SESSION['admin'] == 1)
 			$selectedmonth = $playerrow['may'];
 		if ($_GET["month"] == june)
 			$selectedmonth = $playerrow['june'];
+		if ($_GET["month"] == groupstage)
+			$selectedmonth = $playerrow['groupstage'];
+		if ($_GET["month"] == knockout)
+			$selectedmonth = $playerrow['knockout'];
 		$newtotal = $selectedmonth + $total;
 
 		if (!mysqli_query($connection, "UPDATE players SET " . $_GET["month"] . " = " . $newtotal . " WHERE player_id = " . $id))
@@ -59,7 +63,7 @@ if ($_SESSION['admin'] == 1)
 	mysqli_query($connection, "UPDATE players SET brucies = 0");
 
 	include("log.php");
-	$action = "Updated month: " . $_GET["month"];
+	$action = "Updated month/stage: " . $_GET["month"];
 	writelog($action);
 	header('Location: index.php');
 	exit();

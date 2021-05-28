@@ -1,82 +1,83 @@
 <?php
-  session_start();
+session_start();
 
-  if (!isset($_SESSION['username']))
+if (!isset($_SESSION['username']))
+{
+  header('Location: error.php?error=No+session');
+  exit();
+}
+
+// Connect to the database
+include("connect.php");
+
+// If the submit button has been pressed, change the settings
+if (isset($_POST['submit']) && $_POST['submit'])
+{
+  $t_reminder = 0;
+  if ($_POST['reminder'])
   {
-    header('Location: error.php?error=No+session');
-    exit();
+    $t_reminder = 1;
   }
-
-  // Connect to the database
-  include("connect.php");
-
-  // If the submit button has been pressed, change the settings
-  if (isset($_POST['submit']) && $_POST['submit'])
-  {
-    $t_reminder = 0;
-    if ($_POST['reminder'])
-    {
-      $t_reminder = 1;
-    }
-    
-    if ($_POST["oldpassword"] != "")
-    {
-		$playerdata = mysqli_query($connection, "SELECT * FROM players WHERE name = '" . $_SESSION['username'] . "'");
-
-		$playerrow = mysqli_fetch_array($playerdata);
-		
-		if ($playerrow['password'] == $_POST["oldpassword"])
-		{
-			mysqli_query($connection, "UPDATE players SET password = '" . $_POST["newpassword"] . "' WHERE name = '" . $_SESSION['username'] . "'");
-			include("log.php");
-			$action = "Changed password";
-			writelog($action);
-			header('Location: index.php?message=You+have+changed+your+password');
-			exit();
-		}
-		else
-		{
-			header('Location: error.php?error=Incorrect+current+password');
-			exit();
-		}
-	}
-
-    $t_sql = "UPDATE `players` SET " . 
-               "`email` = '" . $_POST['email'] . "', " . 
-               "`avatar` = '" . $_POST['avatar'] . "', " . 
-               "`send_reminder_email` = " . $t_reminder . " " . 
-             "WHERE `name` = '" . mysqli_real_escape_string($_SESSION['username']) . "'";
-
-    mysqli_query($connection, $t_sql);
-  }
-
-  $t_email = "";
-  $t_show_reminder = false;
-  $t_avatar = "";
-
-  // Get account settings from database for this user
-  $t_sql = "SELECT `email`, `send_reminder_email`, `avatar` FROM `players` " . 
-	   "WHERE `name` = '" . $_SESSION['username'] . "'";
-
-  $t_result = mysqli_query($connection, $t_sql);
   
-  while ($t_row = mysqli_fetch_assoc($t_result))
+  if ($_POST["oldpassword"] != "")
   {
-    if ($t_row['email'] != null && strlen($t_row['email']) > 0)
-    {
-      $t_email = $t_row['email'];
-    }
+    $playerdata = mysqli_query($connection, "SELECT * FROM players WHERE name = '" . $_SESSION['username'] . "'");
 
-    if ($t_row['send_reminder_email'])
+    $playerrow = mysqli_fetch_array($playerdata);
+    
+    if ($playerrow['password'] == $_POST["oldpassword"])
     {
-      $t_show_reminder = $t_row['send_reminder_email'];
+      mysqli_query($connection, "UPDATE players SET password = '" . $_POST["newpassword"] . "' WHERE name = '" . $_SESSION['username'] . "'");
+      include("log.php");
+      $action = "Changed password";
+      writelog($action);
+      header('Location: index.php?message=You+have+changed+your+password');
+      exit();
     }
-
-    if ($t_row['avatar'] != null && strlen($t_row['avatar']) > 0)
+    else
     {
-      $t_avatar = $t_row['avatar'];
+      header('Location: error.php?error=Incorrect+current+password');
+      exit();
     }
   }
+
+  $t_sql = "UPDATE `players` SET " . 
+              "`email` = '" . $_POST['email'] . "', " . 
+              "`avatar` = '" . $_POST['avatar'] . "', " . 
+              "`send_reminder_email` = " . $t_reminder . " " . 
+            "WHERE `name` = '" . $_SESSION['username'] . "'";
+
+  mysqli_query($connection, $t_sql);
+}
+
+$t_email = "";
+$t_show_reminder = false;
+$t_avatar = "";
+
+// Get account settings from database for this user
+$t_sql = "SELECT `email`, `send_reminder_email`, `avatar` FROM `players` " . 
+    "WHERE `name` = '" . $_SESSION['username'] . "'";
+
+$t_result = mysqli_query($connection, $t_sql);
+
+while ($t_row = mysqli_fetch_assoc($t_result))
+{
+  if ($t_row['email'] != null && strlen($t_row['email']) > 0)
+  {
+    $t_email = $t_row['email'];
+  }
+
+  if ($t_row['send_reminder_email'])
+  {
+    $t_show_reminder = $t_row['send_reminder_email'];
+  }
+
+  if ($t_row['avatar'] != null && strlen($t_row['avatar']) > 0)
+  {
+    $t_avatar = $t_row['avatar'];
+  }
+}
+
 ?>
 <html>
 <head>
@@ -86,7 +87,7 @@
 
 <body>
 <center>
-<?
+<?php
 
 include("title");
 

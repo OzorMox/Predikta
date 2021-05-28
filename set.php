@@ -44,7 +44,8 @@ else
 if ($_GET["team2"] == "")
 	$team2 = "Unknown";
 else
-	$team2 = $_GET["team2"];
+	$team2 = $_GET["team2"];
+
 echo "<form name=\"set\" action=\"processset.php?game=" . $_GET["game"] . "&player=" . $_GET["player"] . "\" method=\"post\">";
 echo "Brucie Says: " . $bruciesays;
 echo "<br>";
@@ -60,7 +61,7 @@ echo "<br>";
 echo "<input type=\"checkbox\" name=\"brucie\" value=\"brucie\"> Brucie Bonus";
 echo "<br>";
 echo "<br>";
-echo "You have " . $playerrow['brucies'] . " Brucies left. Don't forget to use them all by the end of the month!";
+echo "You have " . $playerrow['brucies'] . " Brucies left. Don't forget to use them all by the end of the month/stage!";
 echo "<br>";
 echo "<br>";
 echo "<input type=\"submit\" value=\"OK\">";

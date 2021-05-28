@@ -31,9 +31,18 @@ $adminrow = mysqli_fetch_array($admindata);
 $adminnumcheck = mysqli_num_rows($admindata);
 $admintypecheck = $adminrow['admin'];
 
+//set competition type
+$competition = $adminrow['competition'];
+
 if ($adminnumcheck != 1 || $admintypecheck != 1)
 {
 	header('Location: error.php?error=Bad+admin+configuration,+Brucie+is+not+happy!');
+	exit();
+}
+
+if ($competition != "league" && $competition != "cup")
+{
+	header('Location: error.php?error=Competition+type+not+set,+Brucie+is+not+happy!');
 	exit();
 }
 
@@ -191,7 +200,14 @@ echo "<br>";
 //build constant area of the table
 echo "<table border=1 cellpadding=10>";
 echo "<tr>";
-echo "<th><b>[<a href=\"addgame.php\" title=\"Add a new game\">Add</a>] Game</b></th><th><b>Date</b></th><th><b>Result</b></th>";
+if (isset($_SESSION['username']))
+{
+	echo "<th><b>[<a href=\"addgame.php\" title=\"Add a new game\">Add</a>] Game</b></th><th><b>Date</b></th><th><b>Result</b></th>";
+}
+else
+{
+	echo "<th><b>Game</b></th><th><b>Date</b></th><th><b>Result</b></th>";
+}
 
 //build individual player columns
 while ($playerrow = mysqli_fetch_array($playerdata))
@@ -238,7 +254,7 @@ while($gamerow = mysqli_fetch_array($gamedata))
 			else
 			{
 				echo "<td style=\"background-color:#ccffcc\">" . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-				echo "<td style=\"background-color:#ccffcc\"><a href=\"changedate.php?game=" . $gamerow['game_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Change the date of this game\">" . formatdate($gamerow["date"]) . "</a></td>";
+				echo "<td style=\"background-color:#ccffcc\">" . formatdate($gamerow["date"]) . "</td>";
 				echo "<td style=\"background-color:#ccffcc\" title=\"" . $typealttext . "\">" . $typetext . "</td>";
 			}
 			break;
@@ -517,9 +533,27 @@ echo "<br>";
 echo "<br>";
 echo "<table border=\"1\" cellpadding=\"10\">";
 if ($admin == 1)
-	echo "<tr><th><b>Rank</b></th><th><b>[<a href=\"addplayer.php\" title=\"Add a new player\">Add</a>] Player</b></th><th><b>Avatar</b></th><th><a href=\"addbrucies.php\" title=\"Add/reset Brucie Bonuses for all players\"><b>Brucies</b></a></th><th><a href=\"update.php?month=july\" title=\"Update points for this month\">Jul</a></th><th><a href=\"update.php?month=august\" title=\"Update points for this month\">Aug</a></th><th><a href=\"update.php?month=september\" title=\"Update points for this month\">Sep</a></th><th><a href=\"update.php?month=october\" title=\"Update points for this month\">Oct</a></th><th><a href=\"update.php?month=november\" title=\"Update points for this month\">Nov</a></th><th><a href=\"update.php?month=december\" title=\"Update points for this month\">Dec</a></th><th><a href=\"update.php?month=january\" title=\"Update points for this month\">Jan</a></th><th><a href=\"update.php?month=february\" title=\"Update points for this month\">Feb</a></th><th><a href=\"update.php?month=march\" title=\"Update points for this month\">Mar</a></th><th><a href=\"update.php?month=april\" title=\"Update points for this month\">Apr</a></th><th><a href=\"update.php?month=may\" title=\"Update points for this month\">May</a></th><th><a href=\"update.php?month=june\" title=\"Update points for this month\">Jun</a></th><th><b>Bonus</b></th><th><b>Total</b></th></tr>";
+{
+	if ($competition == "league")
+	{
+		echo "<tr><th><b>Rank</b></th><th><b>[<a href=\"addplayer.php\" title=\"Add a new player\">Add</a>] Player</b></th><th><b>Avatar</b></th><th><a href=\"addbrucies.php\" title=\"Add/reset Brucie Bonuses for all players\"><b>Brucies</b></a></th><th><a href=\"update.php?month=july\" title=\"Update points for this month\">Jul</a></th><th><a href=\"update.php?month=august\" title=\"Update points for this month\">Aug</a></th><th><a href=\"update.php?month=september\" title=\"Update points for this month\">Sep</a></th><th><a href=\"update.php?month=october\" title=\"Update points for this month\">Oct</a></th><th><a href=\"update.php?month=november\" title=\"Update points for this month\">Nov</a></th><th><a href=\"update.php?month=december\" title=\"Update points for this month\">Dec</a></th><th><a href=\"update.php?month=january\" title=\"Update points for this month\">Jan</a></th><th><a href=\"update.php?month=february\" title=\"Update points for this month\">Feb</a></th><th><a href=\"update.php?month=march\" title=\"Update points for this month\">Mar</a></th><th><a href=\"update.php?month=april\" title=\"Update points for this month\">Apr</a></th><th><a href=\"update.php?month=may\" title=\"Update points for this month\">May</a></th><th><a href=\"update.php?month=june\" title=\"Update points for this month\">Jun</a></th><th><b>Bonus</b></th><th><b>Total</b></th></tr>";
+	}
+	else
+	{
+		echo "<tr><th><b>Rank</b></th><th><b>[<a href=\"addplayer.php\" title=\"Add a new player\">Add</a>] Player</b></th><th><b>Avatar</b></th><th><a href=\"addbrucies.php\" title=\"Add/reset Brucie Bonuses for all players\"><b>Brucies</b></a></th><th><a href=\"update.php?month=groupstage\" title=\"Update points for this stage\">Group</a></th><th><a href=\"update.php?month=knockout\" title=\"Update points for this stage\">Knockout</a></th><th><b>Bonus</b></th><th><b>Total</b></th></tr>";
+	}
+}
 else
-	echo "<tr><tr><th><b>Rank</b></th><th><b>Player</b></th><th><b>Avatar</b></th><th><b>Brucies</b></th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th><b>Bonus</b></th><th><b>Total</b></th></tr>";
+{
+	if ($competition == "league")
+	{
+		echo "<tr><tr><th><b>Rank</b></th><th><b>Player</b></th><th><b>Avatar</b></th><th><b>Brucies</b></th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th><b>Bonus</b></th><th><b>Total</b></th></tr>";
+	}
+	else
+	{
+		echo "<tr><tr><th><b>Rank</b></th><th><b>Player</b></th><th><b>Avatar</b></th><th><b>Brucies</b></th><th>Group</th><th>Knockout</th><th><b>Bonus</b></th><th><b>Total</b></th></tr>";
+	}
+}
 
 $playerdata = mysqli_query($connection, "SELECT * FROM players ORDER BY name");
 
@@ -528,7 +562,14 @@ $totals = array();
 //get all players and their totals
 while ($playerrow = mysqli_fetch_array($playerdata))
 {
-	$totals[$playerrow['name']] = $playerrow['july'] + $playerrow['august'] + $playerrow['september'] + $playerrow['october'] + $playerrow['november'] + $playerrow['december'] + $playerrow['january'] + $playerrow['february'] + $playerrow['march'] + $playerrow['april'] + $playerrow['may'] + $playerrow['june'] + $playerrow['bonus'];
+	if ($competition == "league")
+	{
+		$totals[$playerrow['name']] = $playerrow['july'] + $playerrow['august'] + $playerrow['september'] + $playerrow['october'] + $playerrow['november'] + $playerrow['december'] + $playerrow['january'] + $playerrow['february'] + $playerrow['march'] + $playerrow['april'] + $playerrow['may'] + $playerrow['june'] + $playerrow['bonus'];
+	}
+	else
+	{
+		$totals[$playerrow['name']] = $playerrow['groupstage'] + $playerrow['knockout'] + $playerrow['bonus'];
+	}
 }
 
 $noplayers = false;
@@ -597,18 +638,26 @@ foreach ($totals as $name => $totalpoints)
             {
                 echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['brucies'] . "B</td>";
             }
-			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['july'] . "</td>";
-			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['august'] . "</td>";
-			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['september'] . "</td>";
-			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['october'] . "</td>";
-			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['november'] . "</td>";
-			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['december'] . "</td>";
-			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['january'] . "</td>";
-			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['february'] . "</td>";
-			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['march'] . "</td>";
-			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['april'] . "</td>";
-			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['may'] . "</td>";
-			echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['june'] . "</td>";
+			if ($competition == "league")
+			{
+				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['july'] . "</td>";
+				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['august'] . "</td>";
+				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['september'] . "</td>";
+				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['october'] . "</td>";
+				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['november'] . "</td>";
+				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['december'] . "</td>";
+				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['january'] . "</td>";
+				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['february'] . "</td>";
+				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['march'] . "</td>";
+				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['april'] . "</td>";
+				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['may'] . "</td>";
+				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['june'] . "</td>";
+			}
+			else
+			{
+				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['groupstage'] . "</td>";
+				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['knockout'] . "</td>";
+			}
 			if ($admin == 1)
 			{
 				echo "<td style=\"background-color:" . $rowbg . "\"><a href=\"setbonus.php\">" . $playerrow['bonus'] . "</a></td>";
@@ -626,7 +675,14 @@ foreach ($totals as $name => $totalpoints)
 //display No Players if there are none
 if ($noplayers)
 {
-	echo "<tr><td colspan=\"17\"><center>No Players</center></td></tr>";
+	if ($competition == "league")
+	{
+		echo "<tr><td colspan=\"18\"><center>No Players</center></td></tr>";
+	}
+	else
+	{
+		echo "<tr><td colspan=\"8\"><center>No Players</center></td></tr>";
+	}
 }
 
 echo "</table>";
