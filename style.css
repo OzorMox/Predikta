@@ -1,4 +1,5 @@
 body {font-family: "Verdana";}
+a {color: blue;}
 table {border-style: solid; border-width: thin; border-collapse: collapse;}
 th {border-style: solid; border-width: thin; background-color: #dddddd; text-align: left; font-weight: normal;}
 td {border-style: solid; border-width: thin;}
