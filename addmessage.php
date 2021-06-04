@@ -8,7 +8,7 @@ include("connect.php");
 
 if (isset($_SESSION['username']))
 {
-	$message = $_POST["message"];
+	$message = mysqli_real_escape_string($connection, $_POST["message"]);
 	$user = $_SESSION['username'];
 	$datetime = date("Y/m/d H:i:s");
 

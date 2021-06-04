@@ -8,7 +8,7 @@ include("connect.php");
 
 if (isset($_SESSION['username']))
 {
-	$entry = $_POST["entry"];
+	$entry = mysqli_real_escape_string($connection, $_POST["entry"]);
 	$awardedto = $_POST['awardedto']; //TODO: this should come from a drop down list of players
     $awardedby = $_SESSION['username'];
 	$datetime = date("Y/m/d H:i:s");
