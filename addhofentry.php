@@ -24,7 +24,6 @@ if (isset($_SESSION['username']))
             $action = "Added Hall Of Fame entry";
             writelog($action);
             header('Location: halloffame.php');
-            break;
         }
         else
         {
