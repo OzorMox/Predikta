@@ -16,7 +16,7 @@ session_start();
 //connect to the database
 include("connect.php");
 
-$hofdata = mysqli_query($connection, "SELECT * FROM halloffame ORDER BY datetime");
+$hofdata = mysqli_query($connection, "SELECT * FROM halloffame ORDER BY entry");
 
 echo "<center>";
 include("title");
