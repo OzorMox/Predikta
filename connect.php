@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Europe/London');
 
 //connect to the database
 $connection = mysqli_connect("localhost:3306", "predikta", "Uye4#063t", "predikta");
