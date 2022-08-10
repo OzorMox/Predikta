@@ -169,30 +169,6 @@ echo "<b>Fixtures</b>";
 echo "<br>";
 echo "<br>";
 
-//-----------------
-//  TABLE COLOURS
-//-----------------
-
-//Headers and Footers: Grey (#dddddd)
-
-//Current Player: Green (#ccffcc)
-
-//Game Status
-//    Open: Green  (#ccffcc)
-//  Locked: Yellow (#ffffcc)
-//     Set: Red    (#ffcccc)
-
-//Points Acquired (OLD)
-// 0: Red    (#ffcccc)
-// 1: Yellow (#ffffcc)
-// 3: Blue   (#ccccff)
-// 5: Green  (#ccffcc)
-
-//Points Acquired
-// 0: Red    (#ffcccc)
-// 1: Yellow (#ffffcc)
-// 3: Green  (#ccffcc)
-
 //------------------
 //  FIXTURES TABLE
 //------------------
@@ -215,7 +191,7 @@ while ($playerrow = mysqli_fetch_array($playerdata))
 	if ($playerrow['name'] != "Admin")
 	{
 		if ($playerrow['name'] == $username)
-			echo "<th style=\"background-color:#ccffcc\">" . $playerrow['name'] . "</th>";
+			echo "<th style=\"background-color:#006600\">" . $playerrow['name'] . "</th>";
 		else
 			echo "<th>" . $playerrow['name'] . "</th>";
 	}
@@ -247,43 +223,43 @@ while($gamerow = mysqli_fetch_array($gamedata))
 		case "open":
 			if ($admin == 1)
 			{
-				echo "<td style=\"background-color:#ccffcc\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-				echo "<td style=\"background-color:#ccffcc\"><a href=\"changedate.php?game=" . $gamerow['game_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Change the date of this game\">" . formatdate($gamerow["date"]) . "</a></td>";
-				echo "<td style=\"background-color:#ccffcc\" title=\"" . $typealttext . "\">" . $typetext . "</td>";
+				echo "<td style=\"background-color:#006600\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
+				echo "<td style=\"background-color:#006600\"><a href=\"changedate.php?game=" . $gamerow['game_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Change the date of this game\">" . formatdate($gamerow["date"]) . "</a></td>";
+				echo "<td style=\"background-color:#006600\" title=\"" . $typealttext . "\">" . $typetext . "</td>";
 			}
 			else
 			{
-				echo "<td style=\"background-color:#ccffcc\">" . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-				echo "<td style=\"background-color:#ccffcc\">" . formatdate($gamerow["date"]) . "</td>";
-				echo "<td style=\"background-color:#ccffcc\" title=\"" . $typealttext . "\">" . $typetext . "</td>";
+				echo "<td style=\"background-color:#006600\">" . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
+				echo "<td style=\"background-color:#006600\">" . formatdate($gamerow["date"]) . "</td>";
+				echo "<td style=\"background-color:#006600\" title=\"" . $typealttext . "\">" . $typetext . "</td>";
 			}
 			break;
 		case "locked":
 			if ($admin == 1)
 			{
-				echo "<td style=\"background-color:#ffffcc\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-				echo "<td style=\"background-color:#ffffcc\">" . formatdate($gamerow["date"]) . "</td>";
-				echo "<td style=\"background-color:#ffffcc\">[<a href=\"activate.php?game=" . $gamerow["game_id"] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Activate this game and set the actual score\">Set</a>]</td>";
+				echo "<td style=\"background-color:#cc6600\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
+				echo "<td style=\"background-color:#cc6600\">" . formatdate($gamerow["date"]) . "</td>";
+				echo "<td style=\"background-color:#cc6600\">[<a href=\"activate.php?game=" . $gamerow["game_id"] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Activate this game and set the actual score\">Set</a>]</td>";
 			}
 			else
 			{
-				echo "<td style=\"background-color:#ffffcc\">" . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-				echo "<td style=\"background-color:#ffffcc\">" . formatdate($gamerow["date"]) . "</td>";
-				echo "<td style=\"background-color:#ffffcc\">Locked</td>";
+				echo "<td style=\"background-color:#cc6600\">" . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
+				echo "<td style=\"background-color:#cc6600\">" . formatdate($gamerow["date"]) . "</td>";
+				echo "<td style=\"background-color:#cc6600\">Locked</td>";
 			}
 			break;
 		case "set":
 			if ($admin == 1)
 			{
-				echo "<td style=\"background-color:#ffcccc\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-				echo "<td style=\"background-color:#ffcccc\">" . formatdate($gamerow["date"]) . "</td>";
-				echo "<td style=\"background-color:#ffcccc\"><a href=\"deleteactual.php?game=" . $gamerow['game_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Delete the actual score for this game\">" . $gamerow['actual_1'] . "-" . $gamerow['actual_2'] . "</a></td>";
+				echo "<td style=\"background-color:#660000\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
+				echo "<td style=\"background-color:#660000\">" . formatdate($gamerow["date"]) . "</td>";
+				echo "<td style=\"background-color:#660000\"><a href=\"deleteactual.php?game=" . $gamerow['game_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Delete the actual score for this game\">" . $gamerow['actual_1'] . "-" . $gamerow['actual_2'] . "</a></td>";
 			}
 			else
 			{
-				echo "<td style=\"background-color:#ffcccc\">" . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-				echo "<td style=\"background-color:#ffcccc\">" . formatdate($gamerow["date"]) . "</td>";
-				echo "<td style=\"background-color:#ffcccc\">" . $gamerow['actual_1'] . "-" . $gamerow['actual_2'] . "</td>";
+				echo "<td style=\"background-color:#660000\">" . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
+				echo "<td style=\"background-color:#660000\">" . formatdate($gamerow["date"]) . "</td>";
+				echo "<td style=\"background-color:#660000\">" . $gamerow['actual_1'] . "-" . $gamerow['actual_2'] . "</td>";
 			}
 			break;
 	}
@@ -341,24 +317,24 @@ while($gamerow = mysqli_fetch_array($gamedata))
 					switch ($cellpoints)
 					{
 						case 0:
-							$cellcolour = "#ffcccc";
+							$cellcolour = "#660000";
 							$legend = $cellpoints . " point(s)";
 							break;
 						case ($cellpoints == 1 || $cellpoints == 2):
-							$cellcolour = "#ffffcc";
+							$cellcolour = "#cc6600";
 							$legend = $cellpoints . " point(s)";
 							break;
 						case ($cellpoints == 3 || $cellpoints == 6):
-							$cellcolour = "#ccffcc";
+							$cellcolour = "#006600";
 							$legend = $cellpoints . " point(s)";
 							break;
 					}
 				}
 				
-				//white cell colour if the calculation has not been done yet
+				//blank cell colour if the calculation has not been done yet
 				if (!isset($cellcolour))
 				{
-					$cellcolour = "#dddddd";
+					$cellcolour = "#222222";
 				}
 				
 				switch ($gamerow['status'])
@@ -381,7 +357,7 @@ while($gamerow = mysqli_fetch_array($gamedata))
 								echo "<td style=\"background-color:" . $cellcolour . "\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . " (B)</td>";
 							}
 						else
-							echo "<td style=\"background-color:#dddddd\">--</td>";
+							echo "<td style=\"background-color:#666666\">--</td>";
 						break;
 					case "unlocked":
 						//if the actual score has not been set, show only this player's predictions and allow them to delete
@@ -393,7 +369,7 @@ while($gamerow = mysqli_fetch_array($gamedata))
 								echo "<td style=\"background-color:" . $cellcolour . "\"><a href=\"deleteprediction.php?game=" . $gamerow["game_id"] . "&player=" . $playerrow['player_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Delete your prediction for this game\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . "</a> (B)</td>";
 						}
 						else
-							echo "<td style=\"background-color:#dddddd\">--</td>";
+							echo "<td style=\"background-color:#666666\">--</td>";
 						break;
 					case "open":
 						//if the actual score has not been set, show only this player's predictions and allow them to delete
@@ -405,7 +381,7 @@ while($gamerow = mysqli_fetch_array($gamedata))
 								echo "<td style=\"background-color:" . $cellcolour . "\"><a href=\"deleteprediction.php?game=" . $gamerow["game_id"] . "&player=" . $playerrow['player_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Delete your prediction for this game\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . "</a> (B)</td>";
 						}
 						else
-							echo "<td style=\"background-color:#dddddd\">--</td>";
+							echo "<td style=\"background-color:#666666\">--</td>";
 						break;
 				}
 			}
@@ -439,14 +415,14 @@ else
 			if (!isset($playerpoints[$playerid]))
 			{
 				if ($playerrow['name'] == $username)
-					echo "<th style=\"background-color:#ccffcc\" title=\"" . $playerrow['name'] . "\">0</th>";
+					echo "<th style=\"background-color:#006600\" title=\"" . $playerrow['name'] . "\">0</th>";
 				else
 					echo "<th title=\"" . $playerrow['name'] . "\">0</th>";
 			}
 			else
 			{
 				if ($playerrow['name'] == $username)
-					echo "<th style=\"background-color:#ccffcc\" title=\"" . $playerrow['name'] . "\">" . $playerpoints[$playerid] . "</th>";
+					echo "<th style=\"background-color:#006600\" title=\"" . $playerrow['name'] . "\">" . $playerpoints[$playerid] . "</th>";
 				else
 					echo "<th title=\"" . $playerrow['name'] . "\">" . $playerpoints[$playerid] . "</th>";
 			}
@@ -600,13 +576,13 @@ foreach ($totals as $name => $totalpoints)
 			//highlight the row if it belongs to the logged in player
 			if ($playerrow['name'] == $username)
 			{
-				$rowbg = "#ccffcc";
-				$headbg = "#ccffcc";
+				$rowbg = "#006600";
+				$headbg = "#006600";
 			}
 			else
 			{
-				$rowbg = "#ffffff";
-				$headbg = "#dddddd";
+				$rowbg = "#222222";
+				$headbg = "#333333";
 			}
 			if ($admin == 1)
 			{

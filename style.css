@@ -1,5 +1,35 @@
-body {font-family: "Verdana";}
-a {color: blue;}
-table {border-style: solid; border-width: thin; border-collapse: collapse;}
-th {border-style: solid; border-width: thin; background-color: #dddddd; text-align: left; font-weight: normal;}
-td {border-style: solid; border-width: thin;}
+body
+{
+    font-family: Tahoma, Verdana, sans-serif;
+    color: #ffffff;
+    background-color: #000000;
+}
+
+a
+{
+    color: lightblue;
+}
+
+table
+{
+    border-style: solid;
+    border-width: thin;
+    border-collapse: collapse;
+    background-color: #222222;
+}
+
+th
+{
+    border-style: solid;
+    border-width: thin;
+    background-color: #333333;
+    text-align: left;
+    font-weight: normal;
+}
+
+td
+{
+    border-style: solid;
+    border-width: thin;
+    background-color: #222222;
+}
