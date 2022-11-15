@@ -83,8 +83,8 @@ while ($opengamerow = mysqli_fetch_array($opengamedata))
 		//check game type to determine when it should be locked
 		if ($gametype == "weekend")
 		{
-			//if it has gone noon
-			if (date("H") >= 12)
+			//if it has gone 10am
+			if (date("H") >= 10)
 			{
 				mysqli_query($connection, "UPDATE games SET status = 'locked' WHERE game_id = " . $opengamerow['game_id']);
 				$action = "Automatically locked game: " . $opengamerow["game_id"];
@@ -209,8 +209,8 @@ while($gamerow = mysqli_fetch_array($gamedata))
 	//set alt text for the date cell
 	if ($gamerow['type'] == "weekend")
 	{
-		$typetext = "12pm Lock";
-		$typealttext = "12pm Lock";
+		$typetext = "10am Lock";
+		$typealttext = "10am Lock";
 	}
 	if ($gamerow['type'] == "weekday")
 	{
