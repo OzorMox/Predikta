@@ -237,15 +237,15 @@ while($gamerow = mysqli_fetch_array($gamedata))
 		case "locked":
 			if ($admin == 1)
 			{
-				echo "<td style=\"background-color:#994d00\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-				echo "<td style=\"background-color:#994d00\">" . formatdate($gamerow["date"]) . "</td>";
-				echo "<td style=\"background-color:#994d00\">[<a href=\"activate.php?game=" . $gamerow["game_id"] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Activate this game and set the actual score\">Set</a>]</td>";
+				echo "<td style=\"background-color:#000066\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
+				echo "<td style=\"background-color:#000066\">" . formatdate($gamerow["date"]) . "</td>";
+				echo "<td style=\"background-color:#000066\">[<a href=\"activate.php?game=" . $gamerow["game_id"] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Activate this game and set the actual score\">Set</a>]</td>";
 			}
 			else
 			{
-				echo "<td style=\"background-color:#994d00\">" . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-				echo "<td style=\"background-color:#994d00\">" . formatdate($gamerow["date"]) . "</td>";
-				echo "<td style=\"background-color:#994d00\">Locked</td>";
+				echo "<td style=\"background-color:#000066\">" . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
+				echo "<td style=\"background-color:#000066\">" . formatdate($gamerow["date"]) . "</td>";
+				echo "<td style=\"background-color:#000066\">Locked</td>";
 			}
 			break;
 		case "set":
@@ -321,7 +321,7 @@ while($gamerow = mysqli_fetch_array($gamedata))
 							$legend = $cellpoints . " point(s)";
 							break;
 						case ($cellpoints == 1 || $cellpoints == 2):
-							$cellcolour = "#994d00";
+							$cellcolour = "#000066";
 							$legend = $cellpoints . " point(s)";
 							break;
 						case ($cellpoints == 3 || $cellpoints == 6):
