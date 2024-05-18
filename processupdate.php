@@ -61,9 +61,15 @@ if ($_SESSION['admin'] == 1)
 			exit();
 		}
 	}
-	//delete all current games, results and messages
-	mysqli_query($connection, "DELETE FROM games");
-	mysqli_query($connection, "DELETE FROM results");
+	//delete all current games for which the results have already been set
+	$gamedata = mysqli_query($connection, "SELECT game_id FROM games WHERE status = 'set'");
+
+	while($gamerow = mysqli_fetch_array($gamedata))
+	{
+		mysqli_query($connection, "DELETE FROM results WHERE game_id = " . $gamerow['game_id']);
+	}
+
+	mysqli_query($connection, "DELETE FROM games WHERE status = 'set'");
 	
 	//reset Brucies to zero
 	mysqli_query($connection, "UPDATE players SET brucies = 0");
