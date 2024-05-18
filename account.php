@@ -18,6 +18,12 @@ if (isset($_POST['submit']) && $_POST['submit'])
   {
     $t_reminder = 1;
   }
+
+  $t_mobile_view = 0;
+  if ($_POST['mobileview'])
+  {
+    $t_mobile_view = 1;
+  }
   
   if ($_POST["oldpassword"] != "")
   {
@@ -45,6 +51,7 @@ if (isset($_POST['submit']) && $_POST['submit'])
               "`email` = '" . $_POST['email'] . "', " . 
               "`avatar` = '" . $_POST['avatar'] . "', " . 
               "`send_reminder_email` = " . $t_reminder . " " . 
+              "`mobile_view` = " . $t_mobile_view . " " . 
             "WHERE `name` = '" . $_SESSION['username'] . "'";
 
   mysqli_query($connection, $t_sql);
@@ -52,10 +59,11 @@ if (isset($_POST['submit']) && $_POST['submit'])
 
 $t_email = "";
 $t_show_reminder = false;
+$t_mobile_view = false;
 $t_avatar = "";
 
 // Get account settings from database for this user
-$t_sql = "SELECT `email`, `send_reminder_email`, `avatar` FROM `players` " . 
+$t_sql = "SELECT `email`, `send_reminder_email`, `mobile_view`, `avatar` FROM `players` " . 
     "WHERE `name` = '" . $_SESSION['username'] . "'";
 
 $t_result = mysqli_query($connection, $t_sql);
@@ -75,6 +83,11 @@ while ($t_row = mysqli_fetch_assoc($t_result))
   if ($t_row['avatar'] != null && strlen($t_row['avatar']) > 0)
   {
     $t_avatar = $t_row['avatar'];
+  }
+
+  if ($t_row['mobile_view'])
+  {
+    $t_mobile_view = $t_row['mobile_view'];
   }
 }
 
@@ -117,6 +130,15 @@ $t_checked = "";
 if ($t_show_reminder)
   $t_checked = " checked=\"yes\"";
 echo "<td><input name=\"reminder\" type=\"checkbox\"" . $t_checked . "\" /></td>";
+echo "</tr>";
+echo "<tr>";
+echo "<th colspan=\"2\"><strong>Mobile View</strong></th>";
+echo "</tr>";
+echo "<tr>";
+$t_checked = "";
+if ($t_mobile_view)
+  $t_checked = " checked=\"yes\"";
+echo "<td><input name=\"mobileview\" type=\"checkbox\"" . $t_checked . "\" /></td>";
 echo "</tr>";
 echo "<tr>";
 echo "<th colspan=\"2\"><strong>Change Password</strong></th>";
