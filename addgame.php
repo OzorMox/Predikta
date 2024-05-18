@@ -106,18 +106,6 @@ else
 ?>
 <br>
 <br>
-Select the game type
-<br>
-<br>
-<table style="border-style:none;">
-<tr>
-<td style="border-style:none;"><input type="radio" name="type" value="weekend" checked="checked"></td><td style="border-style:none;">10am Lock</td>
-</tr>
-<tr>
-<td style="border-style:none;"><input type="radio" name="type" value="weekday"></td><td style="border-style:none;">7pm Lock</td>
-</tr>
-</table>
-<br>
 <input type="checkbox" name="another" value="yes" checked="yes" /> Add Another
 <br>
 <br>
