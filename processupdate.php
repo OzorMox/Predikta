@@ -45,8 +45,14 @@ if ($_SESSION['admin'] == 1)
 			$selectedmonth = $playerrow['june'];
 		if ($_GET["month"] == groupstage)
 			$selectedmonth = $playerrow['groupstage'];
-		if ($_GET["month"] == knockout)
-			$selectedmonth = $playerrow['knockout'];
+		if ($_GET["month"] == roundof16)
+			$selectedmonth = $playerrow['roundof16'];
+		if ($_GET["month"] == quarters)
+			$selectedmonth = $playerrow['quarters'];
+		if ($_GET["month"] == semis)
+			$selectedmonth = $playerrow['semis'];
+		if ($_GET["month"] == thefinal)
+			$selectedmonth = $playerrow['thefinal'];
 		$newtotal = $selectedmonth + $total;
 
 		if (!mysqli_query($connection, "UPDATE players SET " . $_GET["month"] . " = " . $newtotal . " WHERE player_id = " . $id))

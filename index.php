@@ -516,7 +516,7 @@ if ($admin == 1)
 	}
 	else
 	{
-		echo "<tr><th><b>Rank</b></th><th><b>[<a href=\"addplayer.php\" title=\"Add a new player\">Add</a>] Player</b></th><th><b>Avatar</b></th><th><a href=\"addbrucies.php\" title=\"Add/reset Brucie Bonuses for all players\"><b>Brucies</b></a></th><th><a href=\"update.php?month=groupstage\" title=\"Update points for this stage\">Group</a></th><th><a href=\"update.php?month=knockout\" title=\"Update points for this stage\">Knockout</a></th><th><b>Bonus</b></th><th><b>Total</b></th></tr>";
+		echo "<tr><th><b>Rank</b></th><th><b>[<a href=\"addplayer.php\" title=\"Add a new player\">Add</a>] Player</b></th><th><b>Avatar</b></th><th><a href=\"addbrucies.php\" title=\"Add/reset Brucie Bonuses for all players\"><b>Brucies</b></a></th><th><a href=\"update.php?month=groupstage\" title=\"Update points for this stage\">Group</a></th><th><a href=\"update.php?month=roundof16\" title=\"Update points for this stage\">Round of 16</a></th><th><a href=\"update.php?month=quarters\" title=\"Update points for this stage\">Quarter Finals</a></th><th><a href=\"update.php?month=semis\" title=\"Update points for this stage\">Semi Finals</a></th><th><a href=\"update.php?month=thefinal\" title=\"Update points for this stage\">Final</a></th><th><b>Bonus</b></th><th><b>Total</b></th></tr>";
 	}
 }
 else
@@ -527,7 +527,7 @@ else
 	}
 	else
 	{
-		echo "<tr><tr><th><b>Rank</b></th><th><b>Player</b></th><th><b>Avatar</b></th><th><b>Brucies</b></th><th>Group</th><th>Knockout</th><th><b>Bonus</b></th><th><b>Total</b></th></tr>";
+		echo "<tr><tr><th><b>Rank</b></th><th><b>Player</b></th><th><b>Avatar</b></th><th><b>Brucies</b></th><th>Group</th><th>Round of 16</th><th>Quarter Finals</th><th>Semi Finals</th><th>Final</th><th><b>Bonus</b></th><th><b>Total</b></th></tr>";
 	}
 }
 
@@ -544,7 +544,7 @@ while ($playerrow = mysqli_fetch_array($playerdata))
 	}
 	else
 	{
-		$totals[$playerrow['name']] = $playerrow['groupstage'] + $playerrow['knockout'] + $playerrow['bonus'];
+		$totals[$playerrow['name']] = $playerrow['groupstage'] + $playerrow['roundof16'] + $playerrow['quarters'] + $playerrow['semis'] + $playerrow['thefinal'] + $playerrow['bonus'];
 	}
 }
 
@@ -632,7 +632,10 @@ foreach ($totals as $name => $totalpoints)
 			else
 			{
 				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['groupstage'] . "</td>";
-				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['knockout'] . "</td>";
+				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['roundof16'] . "</td>";
+				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['quarters'] . "</td>";
+				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['semis'] . "</td>";
+				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['thefinal'] . "</td>";
 			}
 			if ($admin == 1)
 			{
