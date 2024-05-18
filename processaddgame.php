@@ -33,7 +33,7 @@ if (isset($_SESSION['username']))
 	}
 	else
 	{
-		mysqli_query($connection, "INSERT INTO games (team_1, team_2, date, status, type) VALUES ('" . strip_tags($_POST["team1"]) . "', '" . strip_tags($_POST["team2"]) . "', '" . $_POST["date"] . "', 'open', '" . $_POST["type"] . "')");
+		mysqli_query($connection, "INSERT INTO games (team_1, team_2, date, status, type) VALUES ('" . strip_tags($_POST["team1"]) . "', '" . strip_tags($_POST["team2"]) . "', '" . $_POST["date"] . "', 'open', 'weekend')");
 		include("log.php");
 		$action = "Added game: " . strip_tags($_POST["team1"]) . " v " . strip_tags($_POST["team2"]) . ", " . $_POST["date"] . ", " . $_POST["type"];
 		writelog($action);
