@@ -18,6 +18,12 @@ if ($_POST["name"] == "")
 	exit();
 }
 
+if ($_POST["name"] == "Admin" || $_POST["name"] == "Brucie")
+{
+	header('Location: error.php?error=Player+name+is+reserved');
+	exit();
+}
+
 if ($_SESSION['admin'] == 1)
 {
 	if (!mysqli_query($connection, "UPDATE players SET name = '" . $_POST["name"] . "' WHERE player_id = " . $_GET["player"]))

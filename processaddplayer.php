@@ -20,7 +20,7 @@ if ($_POST["brucies"] == "" || !is_numeric($_POST["brucies"]))
 
 if ($_SESSION['admin'] == 1)
 {
-	if ($_POST["player"] != "Admin")
+	if ($_POST["player"] != "Admin" && $_POST["player"] != "Brucie")
 	{
 		mysqli_query($connection, "INSERT INTO players (name, password, admin, brucies) VALUES ('" . strip_tags($_POST["player"]) . "', 'default', 0, " . $_POST["brucies"] . ")");
 		include("log.php");

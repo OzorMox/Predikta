@@ -14,10 +14,10 @@ if ($_GET["player"] == "")
 
 if ($_SESSION['admin'] == 1)
 {
-	//check that this isn't the admin user
+	//check that this isn't the admin user or Brucie
 	$playerdata = mysqli_query($connection, "SELECT * FROM players WHERE player_id = " . $_GET["player"]);
 	$playerrow = mysqli_fetch_array($playerdata);
-	if ($playerrow['name'] != "Admin")
+	if ($playerrow['name'] != "Admin" && $playerrow['name'] != "Brucie")
 	{
 		mysqli_query($connection, "DELETE FROM players WHERE player_id = " . $_GET["player"]);
 		mysqli_query($connection, "DELETE FROM results WHERE player_id = " . $_GET["player"]);

@@ -745,8 +745,7 @@ function bruciepredicts($gameid, $team1, $team2)
 {
 	include("connect.php");
 	
-    $brucieid = 3; //this should not change as long as the player Brucie is never deleted
-                   //TODO: prevent Brucie from being deleted in code
+    $brucieid = 3; //update to new ID for Brucie if the database is reset
 
     $brucieresultdata = mysqli_query($connection, "SELECT * FROM results WHERE game_id = " . $gameid . " AND player_id = " . $brucieid);
     
