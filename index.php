@@ -512,22 +512,22 @@ if ($admin == 1)
 {
 	if ($competition == "league")
 	{
-		echo "<tr><th><b>Rank</b></th><th><b>[<a href=\"addplayer.php\" title=\"Add a new player\">Add</a>] Player</b></th><th><b>Avatar</b></th><th><a href=\"addbrucies.php\" title=\"Add/reset Brucie Bonuses for all players\"><b>Brucies</b></a></th><th><a href=\"update.php?month=july\" title=\"Update points for this month\">Jul</a></th><th><a href=\"update.php?month=august\" title=\"Update points for this month\">Aug</a></th><th><a href=\"update.php?month=september\" title=\"Update points for this month\">Sep</a></th><th><a href=\"update.php?month=october\" title=\"Update points for this month\">Oct</a></th><th><a href=\"update.php?month=november\" title=\"Update points for this month\">Nov</a></th><th><a href=\"update.php?month=december\" title=\"Update points for this month\">Dec</a></th><th><a href=\"update.php?month=january\" title=\"Update points for this month\">Jan</a></th><th><a href=\"update.php?month=february\" title=\"Update points for this month\">Feb</a></th><th><a href=\"update.php?month=march\" title=\"Update points for this month\">Mar</a></th><th><a href=\"update.php?month=april\" title=\"Update points for this month\">Apr</a></th><th><a href=\"update.php?month=may\" title=\"Update points for this month\">May</a></th><th><a href=\"update.php?month=june\" title=\"Update points for this month\">Jun</a></th><th><b>Bonus</b></th><th><b>Total</b></th></tr>";
+		echo "<tr><th><b>Rank</b></th><th><b>[<a href=\"addplayer.php\" title=\"Add a new player\">Add</a>] Player</b></th><th><b>Avatar</b></th><th><a href=\"addbrucies.php\" title=\"Add/reset Brucie Bonuses for all players\"><b>Brucies</b></a></th><th><a href=\"update.php?month=july\" title=\"Update points for this month\">Jul</a></th><th><a href=\"update.php?month=august\" title=\"Update points for this month\">Aug</a></th><th><a href=\"update.php?month=september\" title=\"Update points for this month\">Sep</a></th><th><a href=\"update.php?month=october\" title=\"Update points for this month\">Oct</a></th><th><a href=\"update.php?month=november\" title=\"Update points for this month\">Nov</a></th><th><a href=\"update.php?month=december\" title=\"Update points for this month\">Dec</a></th><th><a href=\"update.php?month=january\" title=\"Update points for this month\">Jan</a></th><th><a href=\"update.php?month=february\" title=\"Update points for this month\">Feb</a></th><th><a href=\"update.php?month=march\" title=\"Update points for this month\">Mar</a></th><th><a href=\"update.php?month=april\" title=\"Update points for this month\">Apr</a></th><th><a href=\"update.php?month=may\" title=\"Update points for this month\">May</a></th><th><a href=\"update.php?month=june\" title=\"Update points for this month\">Jun</a></th><th><b>Total</b></th></tr>";
 	}
 	else
 	{
-		echo "<tr><th><b>Rank</b></th><th><b>[<a href=\"addplayer.php\" title=\"Add a new player\">Add</a>] Player</b></th><th><b>Avatar</b></th><th><a href=\"addbrucies.php\" title=\"Add/reset Brucie Bonuses for all players\"><b>Brucies</b></a></th><th><a href=\"update.php?month=groupstage\" title=\"Update points for this stage\">Group</a></th><th><a href=\"update.php?month=roundof16\" title=\"Update points for this stage\">Round of 16</a></th><th><a href=\"update.php?month=quarters\" title=\"Update points for this stage\">Quarter Finals</a></th><th><a href=\"update.php?month=semis\" title=\"Update points for this stage\">Semi Finals</a></th><th><a href=\"update.php?month=thefinal\" title=\"Update points for this stage\">Final</a></th><th><b>Bonus</b></th><th><b>Total</b></th></tr>";
+		echo "<tr><th><b>Rank</b></th><th><b>[<a href=\"addplayer.php\" title=\"Add a new player\">Add</a>] Player</b></th><th><b>Avatar</b></th><th><a href=\"addbrucies.php\" title=\"Add/reset Brucie Bonuses for all players\"><b>Brucies</b></a></th><th><a href=\"update.php?month=groupstage\" title=\"Update points for this stage\">Group</a></th><th><a href=\"update.php?month=roundof16\" title=\"Update points for this stage\">Round of 16</a></th><th><a href=\"update.php?month=quarters\" title=\"Update points for this stage\">Quarter Finals</a></th><th><a href=\"update.php?month=semis\" title=\"Update points for this stage\">Semi Finals</a></th><th><a href=\"update.php?month=thefinal\" title=\"Update points for this stage\">Final</a></th><th><b>Total</b></th></tr>";
 	}
 }
 else
 {
 	if ($competition == "league")
 	{
-		echo "<tr><tr><th><b>Rank</b></th><th><b>Player</b></th><th><b>Avatar</b></th><th><b>Brucies</b></th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th><b>Bonus</b></th><th><b>Total</b></th></tr>";
+		echo "<tr><tr><th><b>Rank</b></th><th><b>Player</b></th><th><b>Avatar</b></th><th><b>Brucies</b></th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th><b>Total</b></th></tr>";
 	}
 	else
 	{
-		echo "<tr><tr><th><b>Rank</b></th><th><b>Player</b></th><th><b>Avatar</b></th><th><b>Brucies</b></th><th>Group</th><th>Round of 16</th><th>Quarter Finals</th><th>Semi Finals</th><th>Final</th><th><b>Bonus</b></th><th><b>Total</b></th></tr>";
+		echo "<tr><tr><th><b>Rank</b></th><th><b>Player</b></th><th><b>Avatar</b></th><th><b>Brucies</b></th><th>Group</th><th>Round of 16</th><th>Quarter Finals</th><th>Semi Finals</th><th>Final</th><th><b>Total</b></th></tr>";
 	}
 }
 
@@ -639,11 +639,11 @@ foreach ($totals as $name => $totalpoints)
 			}
 			if ($admin == 1)
 			{
-				echo "<td style=\"background-color:" . $rowbg . "\"><a href=\"setbonus.php\">" . $playerrow['bonus'] . "</a></td>";
+				//echo "<td style=\"background-color:" . $rowbg . "\"><a href=\"setbonus.php\">" . $playerrow['bonus'] . "</a></td>";
 			}
 			else
 			{
-				echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['bonus'] . "</td>";
+				//echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['bonus'] . "</td>";
 			}
 			echo "<td style=\"background-color:" . $headbg . "\"><b>" . $totalpoints . "</b></td>";
 			echo "</tr>";
