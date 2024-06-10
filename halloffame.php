@@ -25,7 +25,7 @@ echo "<br>";
 echo "<br>";
 //table headers
 echo "<table border=1 cellpadding=10>";
-echo "<tr><th><b>Entry</b></th><th><b>Awarded To</b></th><th><b>Awarded By</b></th></tr>";
+echo "<tr><th><b>Entry</b></th><th><b>Awarded To</b></th></tr>";
 if (mysqli_num_rows($hofdata) == 0)
 {
 	echo "<tr><td colspan=\"4\"><center>No Hall Of Fame Data</center></td></tr>";
@@ -36,11 +36,11 @@ else
 	{
         if ($_SESSION['admin'] == 1)
         {
-            echo "<tr><td>[<a href=\"deletehofentry.php?entry=" . $hofrow['entry_id'] . "\" title=\"Delete this entry\">Del</a>] " . $hofrow['entry'] . "</td><td>" . $hofrow['awardedto'] . "</td><td>" . $hofrow['awardedby'] . "</td></tr>";
+            echo "<tr><td>[<a href=\"deletehofentry.php?entry=" . $hofrow['entry_id'] . "\" title=\"Delete this entry\">Del</a>] " . $hofrow['entry'] . "</td><td>" . $hofrow['awardedto'] . "</td></tr>";
         }
         else
         {
-            echo "<tr><td>" . $hofrow['entry'] . "</td><td>" . $hofrow['awardedto'] . "</td><td>" . $hofrow['awardedby'] . "</td></tr>";
+            echo "<tr><td>" . $hofrow['entry'] . "</td><td>" . $hofrow['awardedto'] . "</td></tr>";
         }
 	}
 }
