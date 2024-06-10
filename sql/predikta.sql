@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 28, 2021 at 02:48 PM
--- Server version: 10.0.38-MariaDB-0+deb8u1
--- PHP Version: 7.3.18
+-- Generation Time: Jun 10, 2024 at 10:41 PM
+-- Server version: 10.3.39-MariaDB-0ubuntu0.20.04.2
+-- PHP Version: 8.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `bruciesays` (
   `bruciesays_id` int(10) NOT NULL,
-  `bruciesays` text COLLATE latin1_general_ci NOT NULL,
-  `user` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `bruciesays` text NOT NULL,
+  `user` varchar(100) NOT NULL,
   `datetime` datetime NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
@@ -42,13 +42,13 @@ CREATE TABLE `bruciesays` (
 
 CREATE TABLE `games` (
   `game_id` int(10) NOT NULL,
-  `team_1` varchar(100) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `team_2` varchar(100) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `actual_1` int(10) NOT NULL DEFAULT '0',
-  `actual_2` int(10) NOT NULL DEFAULT '0',
+  `team_1` varchar(100) NOT NULL DEFAULT '',
+  `team_2` varchar(100) NOT NULL DEFAULT '',
+  `actual_1` int(10) NOT NULL DEFAULT 0,
+  `actual_2` int(10) NOT NULL DEFAULT 0,
   `date` date NOT NULL DEFAULT '0000-00-00',
-  `status` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `type` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT ''
+  `status` varchar(10) NOT NULL DEFAULT '',
+  `type` varchar(10) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
@@ -59,9 +59,9 @@ CREATE TABLE `games` (
 
 CREATE TABLE `halloffame` (
   `entry_id` int(10) NOT NULL,
-  `entry` varchar(5000) COLLATE latin1_general_ci NOT NULL,
-  `awardedto` varchar(100) COLLATE latin1_general_ci NOT NULL,
-  `awardedby` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `entry` text NOT NULL,
+  `awardedto` varchar(100) NOT NULL,
+  `awardedby` varchar(100) NOT NULL,
   `datetime` datetime NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
@@ -73,8 +73,8 @@ CREATE TABLE `halloffame` (
 
 CREATE TABLE `log` (
   `log_id` int(10) NOT NULL,
-  `action` text COLLATE latin1_general_ci NOT NULL,
-  `user` varchar(100) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `action` text NOT NULL,
+  `user` varchar(100) NOT NULL DEFAULT '',
   `datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
@@ -86,8 +86,8 @@ CREATE TABLE `log` (
 
 CREATE TABLE `messages` (
   `message_id` int(10) NOT NULL,
-  `message` text COLLATE latin1_general_ci NOT NULL,
-  `user` varchar(100) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `message` text NOT NULL,
+  `user` varchar(100) NOT NULL DEFAULT '',
   `datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
@@ -99,29 +99,32 @@ CREATE TABLE `messages` (
 
 CREATE TABLE `players` (
   `player_id` int(10) NOT NULL,
-  `name` varchar(100) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `password` varchar(100) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `email` varchar(500) COLLATE latin1_general_ci DEFAULT NULL,
-  `send_reminder_email` tinyint(1) DEFAULT '0',
-  `avatar` text COLLATE latin1_general_ci NOT NULL,
-  `admin` int(10) NOT NULL DEFAULT '0',
-  `competition` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `brucies` int(10) NOT NULL DEFAULT '0',
-  `july` int(10) NOT NULL DEFAULT '0',
-  `august` int(10) NOT NULL DEFAULT '0',
-  `september` int(10) NOT NULL DEFAULT '0',
-  `october` int(10) NOT NULL DEFAULT '0',
-  `november` int(10) NOT NULL DEFAULT '0',
-  `december` int(10) NOT NULL DEFAULT '0',
-  `january` int(10) NOT NULL DEFAULT '0',
-  `february` int(10) NOT NULL DEFAULT '0',
-  `march` int(10) NOT NULL DEFAULT '0',
-  `april` int(10) NOT NULL DEFAULT '0',
-  `may` int(10) NOT NULL DEFAULT '0',
-  `june` int(10) NOT NULL DEFAULT '0',
-  `groupstage` int(10) NOT NULL DEFAULT '0',
-  `knockout` int(10) NOT NULL DEFAULT '0',
-  `bonus` int(10) NOT NULL DEFAULT '0'
+  `name` varchar(100) NOT NULL DEFAULT '',
+  `password` varchar(100) NOT NULL DEFAULT '',
+  `email` varchar(500) DEFAULT NULL,
+  `send_reminder_email` tinyint(1) DEFAULT 0,
+  `avatar` text NOT NULL,
+  `admin` int(10) NOT NULL DEFAULT 0,
+  `competition` varchar(10) NOT NULL DEFAULT '',
+  `brucies` int(10) NOT NULL DEFAULT 0,
+  `july` int(10) NOT NULL DEFAULT 0,
+  `august` int(10) NOT NULL DEFAULT 0,
+  `september` int(10) NOT NULL DEFAULT 0,
+  `october` int(10) NOT NULL DEFAULT 0,
+  `november` int(10) NOT NULL DEFAULT 0,
+  `december` int(10) NOT NULL DEFAULT 0,
+  `january` int(10) NOT NULL DEFAULT 0,
+  `february` int(10) NOT NULL DEFAULT 0,
+  `march` int(10) NOT NULL DEFAULT 0,
+  `april` int(10) NOT NULL DEFAULT 0,
+  `may` int(10) NOT NULL DEFAULT 0,
+  `june` int(10) NOT NULL DEFAULT 0,
+  `groupstage` int(10) NOT NULL DEFAULT 0,
+  `roundof16` int(10) NOT NULL DEFAULT 0,
+  `quarters` int(10) NOT NULL DEFAULT 0,
+  `semis` int(10) NOT NULL DEFAULT 0,
+  `thefinal` int(10) NOT NULL DEFAULT 0,
+  `bonus` int(10) NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- --------------------------------------------------------
@@ -132,11 +135,11 @@ CREATE TABLE `players` (
 
 CREATE TABLE `results` (
   `result_id` int(10) NOT NULL,
-  `score_1` int(10) NOT NULL DEFAULT '0',
-  `score_2` int(10) NOT NULL DEFAULT '0',
-  `brucie` int(10) NOT NULL DEFAULT '0',
-  `game_id` int(10) NOT NULL DEFAULT '0',
-  `player_id` int(10) NOT NULL DEFAULT '0'
+  `score_1` int(10) NOT NULL DEFAULT 0,
+  `score_2` int(10) NOT NULL DEFAULT 0,
+  `brucie` int(10) NOT NULL DEFAULT 0,
+  `game_id` int(10) NOT NULL DEFAULT 0,
+  `player_id` int(10) NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
