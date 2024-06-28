@@ -165,13 +165,37 @@ if (isset($_GET["message"]))
 	echo "<br>";
 }
 
-echo "<b>Fixtures</b>";
+//------------------
+//      NOTICE
+//------------------
+
+echo "<div style=\"background-color:#660000\">";
 echo "<br>";
+echo "<b>NOTICE</b>";
+echo "<br>";
+echo "<br>";
+echo "All Brucies have been reset after the group stage";
+echo "<br>";
+echo "<br>";
+echo "There will be <b>4</b> Brucies available for the <b>ENTIRE</b> knockout stage, these will <b>NOT</b> reset at the end of each part of the knockout stage";
+echo "<br>";
+echo "<br>";
+echo "Points will be copied to the points table below after each part of the knockout stage so we can see updated rankings, but Brucies will remain until the end";
+echo "<br>";
+echo "<br>";
+echo "Predictions are for the score <b>after 90 minutes</b>";
+echo "<br>";
+echo "<br>";
+echo "</div>";
 echo "<br>";
 
 //------------------
 //  FIXTURES TABLE
 //------------------
+
+echo "<b>Fixtures</b>";
+echo "<br>";
+echo "<br>";
 
 //build constant area of the table
 echo "<table border=1 cellpadding=10>";

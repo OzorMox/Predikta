@@ -72,7 +72,7 @@ if ($_SESSION['admin'] == 1)
 	mysqli_query($connection, "DELETE FROM games WHERE status = 'set'");
 	
 	//reset Brucies to zero
-	mysqli_query($connection, "UPDATE players SET brucies = 0");
+	//mysqli_query($connection, "UPDATE players SET brucies = 0");
 
 	include("log.php");
 	$action = "Updated month/stage: " . $_GET["month"];
