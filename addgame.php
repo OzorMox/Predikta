@@ -109,7 +109,7 @@ else
 <input type="checkbox" name="another" value="yes" checked="yes" /> Add Another
 <br>
 <br>
-<input type="submit" value="OK" />
+<input type="submit" value="OK" disabled />
 </form>
 <a href="index.php">Back</a>
 
