@@ -75,27 +75,9 @@ function gemini_predict_result($gameid, $team1, $team2)
         if ($response !== false && $statusCode == 200)
         {
             $decoded = json_decode($response, true);
-            if (is_array($decoded))
+            if (is_array($decoded) && isset($decoded['candidates'][0]['content']['parts'][0]['text']))
             {
-                $content = '';
-                if (isset($decoded['predictions'][0]['content']))
-                {
-                    $content = $decoded['predictions'][0]['content'];
-                }
-                elseif (isset($decoded['predictions'][0]['candidates'][0]['output']))
-                {
-                    $content = $decoded['predictions'][0]['candidates'][0]['output'];
-                }
-                elseif (isset($decoded['predictions'][0]['output']))
-                {
-                    $content = $decoded['predictions'][0]['output'];
-                }
-                elseif (isset($decoded['output'][0]['content']))
-                {
-                    $content = $decoded['output'][0]['content'];
-                }
-
-                $content = trim(is_string($content) ? $content : '');
+                $content = trim($decoded['candidates'][0]['content']['parts'][0]['text']);
                 if (preg_match('/^(\d+),(\d+),([01])$/', $content, $matches))
                 {
                     $result = array(
@@ -111,7 +93,7 @@ function gemini_predict_result($gameid, $team1, $team2)
 
     if (!$success)
     {
-        writelog("BrucieAI failed, randomly predicted on game: " . $gameid . ", error: " . $statusCode);
+        writelog("BrucieAI failed, randomly predicted on game: " . $gameid . ", error: " . $statusCode . ", Gemini response: " . $response);
         return $default;
     }
 
