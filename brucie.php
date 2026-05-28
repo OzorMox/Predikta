@@ -113,9 +113,9 @@ function gemini_predict_result($gameid, $team1, $team2)
         }
         else
         {
-            $reason .= ', response=' . substr($response, 0, 200);
+            $reason .= ', response=' . preg_replace('/\s+/', ' ', substr($response, 0, 200));
         }
-        writelog("BrucieAI failed, randomly predicted on game: " . $gameid . ", error: " . $reason);
+        writelog("BrucieAI failed, randomly predicted on game: " . $gameid . ", error: " . preg_replace('/\s+/', ' ', $reason));
         return $default;
     }
 
