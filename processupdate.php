@@ -71,8 +71,11 @@ if ($_SESSION['admin'] == 1)
 
 	mysqli_query($connection, "DELETE FROM games WHERE status = 'set'");
 	
-	//reset Brucies to zero
-	mysqli_query($connection, "UPDATE players SET brucies = 0");
+	//reset Brucies to zero unless checkbox was selected
+	if (!isset($_POST['keepbrucies']))
+	{
+		mysqli_query($connection, "UPDATE players SET brucies = 0");
+	}
 
 	include("log.php");
 	$action = "Updated month/stage: " . $_GET["month"];
