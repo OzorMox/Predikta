@@ -106,16 +106,7 @@ function gemini_predict_result($gameid, $team1, $team2)
 
     if (!$success)
     {
-        $reason = 'status=' . $statusCode;
-        if ($response === false)
-        {
-            $reason .= ', curl_error=' . $curlError;
-        }
-        else
-        {
-            $reason .= ', response=' . preg_replace('/\s+/', ' ', substr($response, 0, 200));
-        }
-        writelog("BrucieAI failed, randomly predicted on game: " . $gameid . ", error: " . preg_replace('/\s+/', ' ', strip_tags($reason)));
+        writelog("BrucieAI failed, randomly predicted on game: " . $gameid . ", error: " . $statusCode);
         return $default;
     }
 
