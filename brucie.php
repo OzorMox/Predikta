@@ -1,7 +1,7 @@
 <?php
 function bruciepredicts($gameid, $team1, $team2)
 {
-    include_once("connect.php");
+    include("connect.php");
 
     $brucieid = 3; //update to new ID for Brucie if the database is reset
 
@@ -115,7 +115,7 @@ function gemini_predict_result($gameid, $team1, $team2)
         {
             $reason .= ', response=' . substr($response, 0, 200);
         }
-        writelog("BrucieAI failed, randomly predicted on game: " . $gameid . " (" . $reason . ")");
+        writelog("BrucieAI failed, randomly predicted on game: " . $gameid . ", error: " . $reason);
         return $default;
     }
 

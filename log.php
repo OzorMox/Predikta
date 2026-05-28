@@ -14,6 +14,7 @@ function writelog($action)
 	//if action is "Automatically locked game" or "Brucie predicted on game", then never log a username
 	$autolockgame = "Automatically locked game";
 	$bruciepredicts = "Brucie predicted on game";
+	$action = mysqli_real_escape_string($connection, $action);
 	
 	//set default username (blank)
 	$user = "--";
