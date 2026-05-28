@@ -115,7 +115,7 @@ function gemini_predict_result($gameid, $team1, $team2)
         {
             $reason .= ', response=' . preg_replace('/\s+/', ' ', substr($response, 0, 200));
         }
-        writelog("BrucieAI failed, randomly predicted on game: " . $gameid . ", error: " . preg_replace('/\s+/', ' ', $reason));
+        writelog("BrucieAI failed, randomly predicted on game: " . $gameid . ", error: " . preg_replace('/\s+/', ' ', strip_tags($reason)));
         return $default;
     }
 
