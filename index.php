@@ -122,7 +122,7 @@ $playerpoints = array();
 
 if (isset($_GET["brucie"]) && $_GET["brucie"] == "yes")
 {
-	echo "<img src=\"brucie.jpg\"/>";
+	echo "<img src=\"images/brucie.jpg\"/>";
 	echo "<br>";
 	echo "We Love You Brucie!";
 	echo "<br>";
@@ -131,7 +131,7 @@ if (isset($_GET["brucie"]) && $_GET["brucie"] == "yes")
 
 if (isset($_GET["scott"]) && $_GET["scott"] == "yes")
 {
-	echo "<img src=\"scott.gif\"/>";
+	echo "<img src=\"images/scott.gif\"/>";
 	echo "<br>";
 	echo "Helloooooo!";
 	echo "<br>";
@@ -151,7 +151,7 @@ if (date("m") == 2)
 {
 	if (date("d") >= 20 && date("d") <= 24)
 	{
-		echo "<img src=\"brucie.jpg\"/>";
+		echo "<img src=\"images/brucie.jpg\"/>";
 		echo "<br>";
 		echo "Happy Birthday Brucie!";
 		echo "<br>";
