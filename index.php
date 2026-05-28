@@ -67,6 +67,7 @@ if (isset($username) && $username == "Admin")
 include("title");
 
 include("log.php");
+include("brucie.php");
 
 //automatically lock games if they have not been manually unlocked and the game date has been reached
 $opengamedata = mysqli_query($connection, "SELECT * FROM games WHERE status = 'open'");
@@ -739,125 +740,6 @@ function pointscalc($playerscore1, $playerscore2, $brucie, $actualscore1, $actua
 		$points = $points * 2;
     }
 	return $points;
-}
-
-function bruciepredicts($gameid, $team1, $team2)
-{
-	include("connect.php");
-	
-    $brucieid = 3; //update to new ID for Brucie if the database is reset
-
-    $brucieresultdata = mysqli_query($connection, "SELECT * FROM results WHERE game_id = " . $gameid . " AND player_id = " . $brucieid);
-    
-    //check if Brucie has made a prediction yet for this game, if not, do it
-    if (mysqli_num_rows($brucieresultdata) == 0)
-    {
-        $team1rank = brucieranking($team1);
-        $team2rank = brucieranking($team2);
-        
-        $team1score = 0;
-        $team2score = 0;
-        $gap = round(abs($team1rank - $team2rank) / 4);
-        if ($team1rank > $team2rank)
-        {
-            $team1score = $gap;
-            $team2score = 0;
-        }
-        else
-        {
-            $team1score = 0;
-            $team2score = $gap;
-        }
-        
-        //weight random adjustments towards the home team
-        if (rand(1, 3) == 3)
-        {
-            $team1score += 1;
-        }
-        if (rand(1, 3) == 3)
-        {
-            $team2score -= 1;
-        }
-        if ($team1score < 0) { $team1score = 0; }
-        if ($team2score < 0) { $team2score = 0; }
-        
-        //don't predict more than 3 goals on either side
-        if ($team1score > 3) { $team1score = 3; }
-        if ($team2score > 3) { $team2score = 3; }
-        
-        //decide whether Brucie should use a Brucie (ha!)
-        $bruciebonus = 0;
-        if (abs($team1score - $team2score) >= 2)
-        {
-            $bruciedata = mysqli_query($connection, "SELECT brucies FROM players WHERE player_id = " . $brucieid);
-            $brucierow = mysqli_fetch_array($bruciedata);
-            if ($brucierow['brucies'] > 0)
-            {
-                $bruciebonus = 1;
-                $updbrucies = $brucierow["brucies"] - 1;
-                mysqli_query($connection, "UPDATE players SET brucies = " . $updbrucies . " WHERE player_id = " . $brucieid);
-            }
-        }
-        
-        writelog("Brucie predicted on game: " . $gameid);
-        
-        mysqli_query($connection, "INSERT INTO results (score_1, score_2, brucie, game_id, player_id) VALUES (" . (int)$team1score . ", " . (int)$team2score . ", " . $bruciebonus . ", " . $gameid . ", " . $brucieid . ")");
-    }
-}
-
-function brucieranking($team)
-{
-    switch ($team)
-    {
-		case "France":
-			return 24;
-		case "Belgium":
-			return 23;
-		case "England":
-			return 22;
-		case "Portugal":
-			return 21;
-		case "Netherlands":
-			return 20;
-		case "Spain":
-			return 19;
-		case "Italy":
-			return 18;
-		case "Croatia":
-			return 17;
-		case "Germany":
-			return 16;
-		case "Switzerland":
-			return 15;
-		case "Denmark":
-			return 14;
-		case "Ukraine":
-			return 13;
-		case "Austria":
-			return 12;
-		case "Hungary":
-			return 11;
-		case "Poland":
-			return 10;
-		case "Serbia":
-			return 9;
-		case "Czech Republic":
-			return 8;
-		case "Scotland":
-			return 7;
-		case "Turkey":
-			return 6;
-		case "Romania":
-			return 5;
-		case "Slovakia":
-			return 4;
-		case "Slovenia":
-			return 3;
-		case "Albania":
-			return 2;
-		case "Georgia":
-			return 1;
-    }
 }
 
 ?>
