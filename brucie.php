@@ -40,19 +40,24 @@ function gemini_predict_result($gameid, $team1, $team2)
     $apiKey = "key";
     if ($apiKey)
     {
-        $endpoint = 'https://gemini.googleapis.com/v1/models/gemini-1.5:predict';
+        $endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent';
         $prompt = "You are predicting an international football match. The home team is '" . $team1 . "' and the away team is '" . $team2 . "'. " .
             "Return exactly one line and no extra text in this exact format: x,y,b. " .
             "x is the home team score, y is the away team score, and b is 1 if this prediction should double the points, otherwise 0.";
 
         $postData = json_encode(array(
-            'instances' => array(array('content' => $prompt)),
-            'parameters' => array('temperature' => 0.7, 'maxOutputTokens' => 20)
+            'contents' => array(
+                array(
+                    'parts' => array(
+                        array('text' => $prompt)
+                    )
+                )
+            )
         ));
 
         $headers = array(
-            'Authorization: Bearer ' . $apiKey,
-            'Content-Type: application/json'
+            'Content-Type: application/json',
+            'X-goog-api-key: ' . $apiKey
         );
 
         $curl = curl_init($endpoint);
