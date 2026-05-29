@@ -19,39 +19,39 @@ if ($_SESSION['admin'] == 1)
 	{
 		$playerdata = mysqli_query($connection, "SELECT * FROM players WHERE player_id = " . $id);
 		$playerrow = mysqli_fetch_array($playerdata);
-		if ($_GET["month"] == july)
+		if ($_GET["month"] == "july")
 			$selectedmonth = $playerrow['july'];
-		if ($_GET["month"] == august)
+		if ($_GET["month"] == "august")
 			$selectedmonth = $playerrow['august'];
-		if ($_GET["month"] == september)
+		if ($_GET["month"] == "september")
 			$selectedmonth = $playerrow['september'];
-		if ($_GET["month"] == october)
+		if ($_GET["month"] == "october")
 			$selectedmonth = $playerrow['october'];
-		if ($_GET["month"] == november)
+		if ($_GET["month"] == "november")
 			$selectedmonth = $playerrow['november'];
-		if ($_GET["month"] == december)
+		if ($_GET["month"] == "december")
 			$selectedmonth = $playerrow['december'];
-		if ($_GET["month"] == january)
+		if ($_GET["month"] == "january")
 			$selectedmonth = $playerrow['january'];
-		if ($_GET["month"] == february)
+		if ($_GET["month"] == "february")
 			$selectedmonth = $playerrow['february'];
-		if ($_GET["month"] == march)
+		if ($_GET["month"] == "march")
 			$selectedmonth = $playerrow['march'];
-		if ($_GET["month"] == april)
+		if ($_GET["month"] == "april")
 			$selectedmonth = $playerrow['april'];
-		if ($_GET["month"] == may)
+		if ($_GET["month"] == "may")
 			$selectedmonth = $playerrow['may'];
-		if ($_GET["month"] == june)
+		if ($_GET["month"] == "june")
 			$selectedmonth = $playerrow['june'];
-		if ($_GET["month"] == groupstage)
+		if ($_GET["month"] == "groupstage")
 			$selectedmonth = $playerrow['groupstage'];
-		if ($_GET["month"] == roundof16)
+		if ($_GET["month"] == "roundof16")
 			$selectedmonth = $playerrow['roundof16'];
-		if ($_GET["month"] == quarters)
+		if ($_GET["month"] == "quarters")
 			$selectedmonth = $playerrow['quarters'];
-		if ($_GET["month"] == semis)
+		if ($_GET["month"] == "semis")
 			$selectedmonth = $playerrow['semis'];
-		if ($_GET["month"] == thefinal)
+		if ($_GET["month"] == "thefinal")
 			$selectedmonth = $playerrow['thefinal'];
 		$newtotal = $selectedmonth + $total;
 
