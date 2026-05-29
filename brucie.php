@@ -65,7 +65,7 @@ function gemini_predict_result($gameid, $team1, $team2)
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
-        curl_setopt($curl, CURLOPT_TIMEOUT, 5);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 30);
 
         $response = curl_exec($curl);
         $statusCode = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
@@ -93,7 +93,7 @@ function gemini_predict_result($gameid, $team1, $team2)
 
     if (!$success)
     {
-        writelog("BrucieAI failed, randomly predicted on game: " . $gameid . ", error: " . $statusCode . ", Gemini response: " . $response);
+        writelog("BrucieAI failed, randomly predicted on game: " . $gameid . ", Gemini response: " . $response);
         return $default;
     }
 
