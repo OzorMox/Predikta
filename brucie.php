@@ -43,7 +43,7 @@ function gemini_predict_result($gameid, $team1, $team2)
         $endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent';
         $prompt = "You are predicting an international football match. The home team is '" . $team1 . "' and the away team is '" . $team2 . "'. " .
             "Return exactly one line and no extra text in this exact format: x,y,b. " .
-            "x is the home team score, y is the away team score, and b is 1 if this prediction should double the points, otherwise 0.";
+            "x is the home team score, y is the away team score, and b is 1 if this prediction should double the points, otherwise 0. You should double the points if you have are fairly sure of the winner.";
 
         $postData = json_encode(array(
             'contents' => array(
