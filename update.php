@@ -11,7 +11,10 @@
 
 include("title");
 
-echo "Warning: All fixtures with results set will be deleted and Brucies reset after updating the points for " . $_GET["month"];
+echo "Warning: All fixtures with results set will be deleted after updating the points for " . $_GET["month"];
+echo "<br>";
+echo "<br>";
+echo "To keep Brucies instead of resetting them to zero, check the box.";
 echo "<br>";
 echo "<br>";
 echo "Brucie Says: THIS ACTION CANNOT BE UNDONE!";
