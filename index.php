@@ -57,6 +57,20 @@ if (isset($username) && $username == "Admin")
 <head>
 <title>Predikta</title>
 <link rel="stylesheet" type="text/css" href="style.css">
+<script>
+function toggleIntro() {
+	var more = document.getElementById('introMore');
+	var link = document.getElementById('introToggle');
+	if (!more) return false;
+	if (more.style.display === 'none') {
+		more.style.display = 'block';
+		link.innerText = 'Show less';
+	} else {
+		more.style.display = 'none';
+		link.innerText = 'Show more';
+	}
+}
+</script>
 </head>
 
 <body>
@@ -65,8 +79,10 @@ if (isset($username) && $username == "Admin")
 <?php
 
 include("title");
-
+ 
 echo "Welcome to World Cup 2026 Predikta! Here's what's new.";
+echo " <a href=\"#\" id=\"introToggle\" onclick=\"toggleIntro(); return false;\">Show more</a>";
+echo "<div id=\"introMore\" style=\"display:none;\">";
 echo "<br>";
 echo "<br>";
 echo "There will be 18 Brucies for the group stages and 8 for the knockout stages.";
@@ -86,6 +102,7 @@ echo "<br>";
 echo "Good luck!";
 echo "<br>";
 echo "<br>";
+echo "</div>";
 
 include("log.php");
 include("brucie.php");
