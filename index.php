@@ -66,6 +66,16 @@ if (isset($username) && $username == "Admin")
 
 include("title");
 
+echo "Welcome to World Cup 2026 Predikta!";
+echo "<br>";
+echo "<br>";
+echo "There will be 18 Brucies for the group stages and 8 for the knockout stages.";
+echo "<br>";
+echo "You will lose any unused Brucies at the end of the group stage.";
+echo "<br>";
+echo "<br>";
+echo "Good luck!";
+
 include("log.php");
 include("brucie.php");
 
