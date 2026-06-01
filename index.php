@@ -100,9 +100,9 @@ echo "Finally, Brucie has had an upgrade! Let's see how he competes with the res
 echo "<br>";
 echo "<br>";
 echo "Good luck!";
-echo "<br>";
-echo "<br>";
 echo "</div>";
+echo "<br>";
+echo "<br>";
 
 include("log.php");
 include("brucie.php");
