@@ -618,7 +618,7 @@ foreach ($totals as $name => $totalpoints)
 			}
             if ($admin == 1)
             {
-                echo "<td style=\"background-color:" . $rowbg . "\"><a href=\"setbrucies.php?player=" . $playerrow['player_id'] . "\" title=\"Add/reset Brucie Bonuses for this player\">" . $playerrow['brucies'] . " <img src=\"images/brucie.png\" height=\"14\" width=\"14\" alt=\"B\" style=\"vertical-align: middle;\" /></a></td>";
+                echo "<td style=\"background-color:" . $rowbg . "\"><a href=\"setbrucies.php?player=" . $playerrow['player_id'] . "\" title=\"Add/reset Brucie Bonuses for this player\">" . $playerrow['brucies'] . "</a> <img src=\"images/brucie.png\" height=\"14\" width=\"14\" alt=\"B\" style=\"vertical-align: middle;\" /></td>";
             }
             else
             {

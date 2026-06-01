@@ -140,7 +140,7 @@ echo '<input type="time" name="time" value="' . htmlspecialchars($timeValue) . '
 <input type="checkbox" name="another" value="yes" checked="yes" /> Add Another
 <br>
 <br>
-<input type="submit" value="OK" disabled />
+<input type="submit" value="OK" />
 </form>
 <a href="index.php">Back</a>
 
