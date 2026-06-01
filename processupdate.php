@@ -73,8 +73,8 @@ if ($_SESSION['admin'] == 1)
 
 	include("log.php");
 	
-	//reset Brucies to zero unless checkbox was selected
-	if (!isset($_POST['keepbrucies']))
+	//reset Brucies to zero only if checkbox was selected
+	if (isset($_POST['resetbrucies']))
 	{
 		$action = "Reset Brucies to zero";
 		writelog($action);
