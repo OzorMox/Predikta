@@ -81,43 +81,13 @@ echo "<br>";
 include("log.php");
 include("brucie.php");
 
-//automatically lock games if they have not been manually unlocked and the game date has been reached
+//automatically lock games if they have not been manually unlocked and the lock time has been reached
 $opengamedata = mysqli_query($connection, "SELECT * FROM games WHERE status = 'open'");
 
 while ($opengamerow = mysqli_fetch_array($opengamedata))
 {
-	$curdate = date("Y-m-d");
-	$gamedate = date("Y-m-d", strtotime($opengamerow['date']));
-	$gametype = $opengamerow['type'];
-
-	//if the game is today
-	if ($curdate == $gamedate)
-	{
-		//check game type to determine when it should be locked
-		if ($gametype == "weekend")
-		{
-			//if it has gone 10am
-			if (date("H") >= 10)
-			{
-				mysqli_query($connection, "UPDATE games SET status = 'locked' WHERE game_id = " . $opengamerow['game_id']);
-				$action = "Automatically locked game: " . $opengamerow["game_id"];
-				writelog($action);
-			}
-		}
-		if ($gametype == "weekday")
-		{
-			//if it has gone 7pm
-			if (date("H") >= 19)
-			{
-				mysqli_query($connection, "UPDATE games SET status = 'locked' WHERE game_id = " . $opengamerow['game_id']);
-				$action = "Automatically locked game: " . $opengamerow["game_id"];
-				writelog($action);
-			}
-		}
-	}
-	
-	//if the game date has passed
-	if ($curdate > $gamedate)
+	$lockTime = strtotime($opengamerow['date'] . ' -1 hour');
+	if ($lockTime !== false && time() >= $lockTime)
 	{
 		mysqli_query($connection, "UPDATE games SET status = 'locked' WHERE game_id = " . $opengamerow['game_id']);
 		$action = "Automatically locked game: " . $opengamerow["game_id"];
@@ -219,18 +189,9 @@ while($gamerow = mysqli_fetch_array($gamedata))
     bruciepredicts($gamerow['game_id'], $gamerow['team_1'], $gamerow['team_2']);
     
 	echo "<tr>";
-	//set alt text for the date cell
-	if ($gamerow['type'] == "weekend")
-	{
-		$typetext = "10am Lock";
-		$typealttext = "10am Lock";
-	}
-	if ($gamerow['type'] == "weekday")
-	{
-		$typetext = "7pm Lock";
-		$typealttext = "7pm Lock";
-	}
 	//determine what to show based on status and if the user is an admin
+	$lockLabel = getLockTimeLabel($gamerow['date']);
+	$lockTooltip = getLockTimeTooltip($gamerow['date']);
 	switch ($gamerow['status'])
 	{
 		case "open":
@@ -238,13 +199,13 @@ while($gamerow = mysqli_fetch_array($gamedata))
 			{
 				echo "<td style=\"background-color:#006600\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
 				echo "<td style=\"background-color:#006600\"><a href=\"changedate.php?game=" . $gamerow['game_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Change the date of this game\">" . formatdatetime($gamerow["date"]) . "</a></td>";
-				echo "<td style=\"background-color:#006600\" title=\"" . $typealttext . "\">" . $typetext . "</td>";
+				echo "<td style=\"background-color:#006600\" title=\"" . $lockTooltip . "\">" . $lockLabel . "</td>";
 			}
 			else
 			{
 				echo "<td style=\"background-color:#006600\">" . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
 				echo "<td style=\"background-color:#006600\">" . formatdatetime($gamerow["date"]) . "</td>";
-				echo "<td style=\"background-color:#006600\" title=\"" . $typealttext . "\">" . $typetext . "</td>";
+				echo "<td style=\"background-color:#006600\" title=\"" . $lockTooltip . "\">" . $lockLabel . "</td>";
 			}
 			break;
 		case "locked":
@@ -739,6 +700,42 @@ function formatdate($date)
 function formatdatetime($datetime)
 {
 	return date("d/m/Y H:i:s", strtotime($datetime));
+}
+
+function getLockTimeLabel($datetime)
+{
+	$lockTime = strtotime($datetime . ' -1 hour');
+	if ($lockTime === false)
+	{
+		return "Lock time unknown";
+	}
+
+	$now = time();
+	$diff = $lockTime - $now;
+	if ($diff <= 0)
+	{
+		return "Less than 1 min";
+	}
+
+	$hours = floor($diff / 3600);
+	$minutes = floor(($diff % 3600) / 60);
+	$label = "";
+	if ($hours > 0)
+	{
+		$label .= $hours . "h ";
+	}
+	$label .= $minutes . "m";
+	return "Locks in " . trim($label);
+}
+
+function getLockTimeTooltip($datetime)
+{
+	$lockTime = strtotime($datetime . ' -1 hour');
+	if ($lockTime === false)
+	{
+		return "Lock time unknown";
+	}
+	return "Lock time: " . formatdatetime(date('Y-m-d H:i:s', $lockTime));
 }
 
 //function to calculate points and keep a running total
