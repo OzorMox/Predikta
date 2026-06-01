@@ -198,13 +198,13 @@ while($gamerow = mysqli_fetch_array($gamedata))
 			if ($admin == 1)
 			{
 				echo "<td style=\"background-color:#006600\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-				echo "<td style=\"background-color:#006600\"><a href=\"changedate.php?game=" . $gamerow['game_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Change the date of this game\">" . formatdatetime($gamerow["date"]) . "</a></td>";
+				echo "<td style=\"background-color:#006600\"><a href=\"changedate.php?game=" . $gamerow['game_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Change the date of this game\">" . formatdatetime_short($gamerow["date"]) . "</a></td>";
 				echo "<td style=\"background-color:#006600\" title=\"" . $lockTooltip . "\">" . $lockLabel . "</td>";
 			}
 			else
 			{
 				echo "<td style=\"background-color:#006600\">" . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-				echo "<td style=\"background-color:#006600\">" . formatdatetime($gamerow["date"]) . "</td>";
+				echo "<td style=\"background-color:#006600\">" . formatdatetime_short($gamerow["date"]) . "</td>";
 				echo "<td style=\"background-color:#006600\" title=\"" . $lockTooltip . "\">" . $lockLabel . "</td>";
 			}
 			break;
@@ -212,13 +212,13 @@ while($gamerow = mysqli_fetch_array($gamedata))
 			if ($admin == 1)
 			{
 				echo "<td style=\"background-color:#000066\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-						echo "<td style=\"background-color:#000066\">" . formatdatetime($gamerow["date"]) . "</td>";
+								echo "<td style=\"background-color:#000066\">" . formatdatetime_short($gamerow["date"]) . "</td>";
 				echo "<td style=\"background-color:#000066\">[<a href=\"activate.php?game=" . $gamerow["game_id"] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Activate this game and set the actual score\">Set</a>]</td>";
 			}
 			else
 			{
 				echo "<td style=\"background-color:#000066\">" . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-						echo "<td style=\"background-color:#000066\">" . formatdatetime($gamerow["date"]) . "</td>";
+								echo "<td style=\"background-color:#000066\">" . formatdatetime_short($gamerow["date"]) . "</td>";
 				echo "<td style=\"background-color:#000066\">Locked</td>";
 			}
 			break;
@@ -226,13 +226,13 @@ while($gamerow = mysqli_fetch_array($gamedata))
 			if ($admin == 1)
 			{
 				echo "<td style=\"background-color:#660000\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-						echo "<td style=\"background-color:#660000\">" . formatdatetime($gamerow["date"]) . "</td>";
+								echo "<td style=\"background-color:#660000\">" . formatdatetime_short($gamerow["date"]) . "</td>";
 				echo "<td style=\"background-color:#660000\"><a href=\"deleteactual.php?game=" . $gamerow['game_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Delete the actual score for this game\">" . $gamerow['actual_1'] . "-" . $gamerow['actual_2'] . "</a></td>";
 			}
 			else
 			{
 				echo "<td style=\"background-color:#660000\">" . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-						echo "<td style=\"background-color:#660000\">" . formatdatetime($gamerow["date"]) . "</td>";
+								echo "<td style=\"background-color:#660000\">" . formatdatetime_short($gamerow["date"]) . "</td>";
 				echo "<td style=\"background-color:#660000\">" . $gamerow['actual_1'] . "-" . $gamerow['actual_2'] . "</td>";
 			}
 			break;
@@ -702,6 +702,11 @@ function formatdatetime($datetime)
 	return date("d/m/Y H:i:s", strtotime($datetime));
 }
 
+function formatdatetime_short($datetime)
+{
+	return date("d/m/Y H:i", strtotime($datetime));
+}
+
 function getLockTimeLabel($datetime)
 {
 	$lockTime = strtotime($datetime . ' -1 hour');
@@ -735,7 +740,7 @@ function getLockTimeTooltip($datetime)
 	{
 		return "Lock time unknown";
 	}
-	return "Lock time: " . formatdatetime(date('Y-m-d H:i:s', $lockTime));
+	return "Lock time: " . formatdatetime_short(date('Y-m-d H:i:s', $lockTime));
 }
 
 //function to calculate points and keep a running total
