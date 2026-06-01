@@ -20,7 +20,7 @@ if (isset($_SESSION['username']))
 	{
 		mysqli_query($connection, "INSERT INTO games (team_1, team_2, date, status, type) VALUES ('" . mysqli_real_escape_string($connection, strip_tags($_POST["customgame1"])) . "', '" . mysqli_real_escape_string($connection, strip_tags($_POST["customgame2"])) . "', '" . $datetime . "', 'open', 'weekend')");
 		include("log.php");
-		$action = "Added custom game: " . strip_tags($_POST["customgame1"]) . " v " . strip_tags($_POST["customgame2"]) . ", " . $datetime . ", " . $_POST["type"];
+		$action = "Added custom game: " . strip_tags($_POST["customgame1"]) . " v " . strip_tags($_POST["customgame2"]) . ", " . $datetime;
 		writelog($action);
 		if ($_POST["another"] == "yes")
 		{
