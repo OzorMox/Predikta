@@ -65,7 +65,7 @@ function gemini_predict_result($gameid, $team1, $team2)
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
-        curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 60);
 
         $response = curl_exec($curl);
         $statusCode = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
