@@ -328,7 +328,7 @@ while($gamerow = mysqli_fetch_array($gamedata))
 						if ($resultrow['brucie'] == 0)
 							echo "<td style=\"background-color:" . $cellcolour . "\" title=\"" . $legend . "\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . "</td>";
 						else
-							echo "<td style=\"background-color:" . $cellcolour . "\" title=\"" . $legend . "\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . " (B)</td>";
+							echo "<td style=\"background-color:" . $cellcolour . "\" title=\"" . $legend . "\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . " <img src=\"images/brucie.png\" height=\"14\" width=\"14\" alt=\"B\" style=\"vertical-align: middle;\" /></td>";
 						break;
 					case "locked":
 						//if the game has been locked, show only this player's predictions and do not allow them to delete
@@ -337,7 +337,7 @@ while($gamerow = mysqli_fetch_array($gamedata))
 							if ($resultrow['brucie'] == 0)
 								echo "<td style=\"background-color:" . $cellcolour . "\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . "</td>";
 							else
-								echo "<td style=\"background-color:" . $cellcolour . "\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . " (B)</td>";
+								echo "<td style=\"background-color:" . $cellcolour . "\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . " <img src=\"images/brucie.png\" height=\"14\" width=\"14\" alt=\"B\" style=\"vertical-align: middle;\" /></td>";
 							}
 						else
 							echo "<td style=\"background-color:#666666\">--</td>";
@@ -349,7 +349,7 @@ while($gamerow = mysqli_fetch_array($gamedata))
 							if ($resultrow['brucie'] == 0)
 								echo "<td style=\"background-color:" . $cellcolour . "\"><a href=\"deleteprediction.php?game=" . $gamerow["game_id"] . "&player=" . $playerrow['player_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Delete your prediction for this game\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . "</a></td>";
 							else
-								echo "<td style=\"background-color:" . $cellcolour . "\"><a href=\"deleteprediction.php?game=" . $gamerow["game_id"] . "&player=" . $playerrow['player_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Delete your prediction for this game\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . "</a> (B)</td>";
+								echo "<td style=\"background-color:" . $cellcolour . "\"><a href=\"deleteprediction.php?game=" . $gamerow["game_id"] . "&player=" . $playerrow['player_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Delete your prediction for this game\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . "</a> <img src=\"images/brucie.png\" height=\"14\" width=\"14\" alt=\"B\" style=\"vertical-align: middle;\" /></td>";
 						}
 						else
 							echo "<td style=\"background-color:#666666\">--</td>";
@@ -361,7 +361,7 @@ while($gamerow = mysqli_fetch_array($gamedata))
 							if ($resultrow['brucie'] == 0)
 								echo "<td style=\"background-color:" . $cellcolour . "\"><a href=\"deleteprediction.php?game=" . $gamerow["game_id"] . "&player=" . $playerrow['player_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Delete your prediction for this game\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . "</a></td>";
 							else
-								echo "<td style=\"background-color:" . $cellcolour . "\"><a href=\"deleteprediction.php?game=" . $gamerow["game_id"] . "&player=" . $playerrow['player_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Delete your prediction for this game\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . "</a> (B)</td>";
+								echo "<td style=\"background-color:" . $cellcolour . "\"><a href=\"deleteprediction.php?game=" . $gamerow["game_id"] . "&player=" . $playerrow['player_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Delete your prediction for this game\">" . $resultrow['score_1'] . "-" . $resultrow['score_2'] . "</a> <img src=\"images/brucie.png\" height=\"14\" width=\"14\" alt=\"B\" style=\"vertical-align: middle;\" /></td>";
 						}
 						else
 							echo "<td style=\"background-color:#666666\">--</td>";
@@ -601,11 +601,11 @@ foreach ($totals as $name => $totalpoints)
 			}
             if ($admin == 1)
             {
-                echo "<td style=\"background-color:" . $rowbg . "\"><a href=\"setbrucies.php?player=" . $playerrow['player_id'] . "\" title=\"Add/reset Brucie Bonuses for this player\">" . $playerrow['brucies'] . "B</a></td>";
+                echo "<td style=\"background-color:" . $rowbg . "\"><a href=\"setbrucies.php?player=" . $playerrow['player_id'] . "\" title=\"Add/reset Brucie Bonuses for this player\">" . $playerrow['brucies'] . " <img src=\"images/brucie.png\" height=\"14\" width=\"14\" alt=\"B\" style=\"vertical-align: middle;\" /></a></td>";
             }
             else
             {
-                echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['brucies'] . "B</td>";
+                echo "<td style=\"background-color:" . $rowbg . "\">" . $playerrow['brucies'] . " <img src=\"images/brucie.png\" height=\"14\" width=\"14\" alt=\"B\" style=\"vertical-align: middle;\" /></td>";
             }
 			if ($competition == "league")
 			{
