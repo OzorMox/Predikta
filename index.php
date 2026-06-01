@@ -75,6 +75,8 @@ echo "You will lose any unused Brucies at the end of the group stage.";
 echo "<br>";
 echo "<br>";
 echo "Good luck!";
+echo "<br>";
+echo "<br>";
 
 include("log.php");
 include("brucie.php");
