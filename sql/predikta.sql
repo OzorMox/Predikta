@@ -46,7 +46,7 @@ CREATE TABLE `games` (
   `team_2` varchar(100) NOT NULL DEFAULT '',
   `actual_1` int(10) NOT NULL DEFAULT 0,
   `actual_2` int(10) NOT NULL DEFAULT 0,
-  `date` date NOT NULL DEFAULT '0000-00-00',
+  `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `status` varchar(10) NOT NULL DEFAULT '',
   `type` varchar(10) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC;

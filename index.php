@@ -86,8 +86,8 @@ $opengamedata = mysqli_query($connection, "SELECT * FROM games WHERE status = 'o
 
 while ($opengamerow = mysqli_fetch_array($opengamedata))
 {
-	$curdate = strtotime(date("Y/m/d"));
-	$gamedate = strtotime($opengamerow['date']);
+	$curdate = date("Y-m-d");
+	$gamedate = date("Y-m-d", strtotime($opengamerow['date']));
 	$gametype = $opengamerow['type'];
 
 	//if the game is today
@@ -237,13 +237,13 @@ while($gamerow = mysqli_fetch_array($gamedata))
 			if ($admin == 1)
 			{
 				echo "<td style=\"background-color:#006600\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-				echo "<td style=\"background-color:#006600\"><a href=\"changedate.php?game=" . $gamerow['game_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Change the date of this game\">" . formatdate($gamerow["date"]) . "</a></td>";
+				echo "<td style=\"background-color:#006600\"><a href=\"changedate.php?game=" . $gamerow['game_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Change the date of this game\">" . formatdatetime($gamerow["date"]) . "</a></td>";
 				echo "<td style=\"background-color:#006600\" title=\"" . $typealttext . "\">" . $typetext . "</td>";
 			}
 			else
 			{
 				echo "<td style=\"background-color:#006600\">" . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-				echo "<td style=\"background-color:#006600\">" . formatdate($gamerow["date"]) . "</td>";
+				echo "<td style=\"background-color:#006600\">" . formatdatetime($gamerow["date"]) . "</td>";
 				echo "<td style=\"background-color:#006600\" title=\"" . $typealttext . "\">" . $typetext . "</td>";
 			}
 			break;
@@ -251,13 +251,13 @@ while($gamerow = mysqli_fetch_array($gamedata))
 			if ($admin == 1)
 			{
 				echo "<td style=\"background-color:#000066\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-				echo "<td style=\"background-color:#000066\">" . formatdate($gamerow["date"]) . "</td>";
+						echo "<td style=\"background-color:#000066\">" . formatdatetime($gamerow["date"]) . "</td>";
 				echo "<td style=\"background-color:#000066\">[<a href=\"activate.php?game=" . $gamerow["game_id"] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Activate this game and set the actual score\">Set</a>]</td>";
 			}
 			else
 			{
 				echo "<td style=\"background-color:#000066\">" . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-				echo "<td style=\"background-color:#000066\">" . formatdate($gamerow["date"]) . "</td>";
+						echo "<td style=\"background-color:#000066\">" . formatdatetime($gamerow["date"]) . "</td>";
 				echo "<td style=\"background-color:#000066\">Locked</td>";
 			}
 			break;
@@ -265,13 +265,13 @@ while($gamerow = mysqli_fetch_array($gamedata))
 			if ($admin == 1)
 			{
 				echo "<td style=\"background-color:#660000\">[<a href=\"deletegame.php?game=" . $gamerow['game_id'] . "\" title=\"Delete this game\">Del</a>] " . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-				echo "<td style=\"background-color:#660000\">" . formatdate($gamerow["date"]) . "</td>";
+						echo "<td style=\"background-color:#660000\">" . formatdatetime($gamerow["date"]) . "</td>";
 				echo "<td style=\"background-color:#660000\"><a href=\"deleteactual.php?game=" . $gamerow['game_id'] . "&team1=" . urlencode($gamerow['team_1']) . "&team2=" . urlencode($gamerow['team_2']) . "\" title=\"Delete the actual score for this game\">" . $gamerow['actual_1'] . "-" . $gamerow['actual_2'] . "</a></td>";
 			}
 			else
 			{
 				echo "<td style=\"background-color:#660000\">" . $gamerow['team_1'] . " v " . $gamerow['team_2'] . "</td>";
-				echo "<td style=\"background-color:#660000\">" . formatdate($gamerow["date"]) . "</td>";
+						echo "<td style=\"background-color:#660000\">" . formatdatetime($gamerow["date"]) . "</td>";
 				echo "<td style=\"background-color:#660000\">" . $gamerow['actual_1'] . "-" . $gamerow['actual_2'] . "</td>";
 			}
 			break;

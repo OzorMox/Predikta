@@ -3,16 +3,6 @@
 <head>
 <title>Predikta</title>
 <link rel="stylesheet" type="text/css" href="style.css">
-
-<script type="text/javascript" src="calendarDateInput.js">
-
-/***********************************************
-* Jason's Date Input Calendar- By Jason Moon http://calendar.moonscript.com/dateinput.cfm
-* Script featured on and available at http://www.dynamicdrive.com
-* Keep this notice intact for use.
-***********************************************/
-
-</script>
 </head>
 
 <body>
@@ -140,17 +130,10 @@ Enter the date for the fixture
 <br>
 <br>
 <?php
-
-//re-use previous date if available, otherwise default to today's date
-if (!isset($_GET["date"]))
-{
-	echo "<script>DateInput('date', true, 'YYYY-MM-DD')</script>";
-}
-else
-{
-	echo "<script>DateInput('date', true, 'YYYY-MM-DD', '" . $_GET["date"] . "')</script>";
-}
-
+$dateValue = isset($_GET["date"]) ? date('Y-m-d', strtotime($_GET["date"])) : date('Y-m-d');
+$timeValue = isset($_GET["date"]) ? date('H:i', strtotime($_GET["date"])) : '12:00';
+echo '<input type="date" name="date" value="' . htmlspecialchars($dateValue) . '" /> ';
+echo '<input type="time" name="time" value="' . htmlspecialchars($timeValue) . '" step="3600" />';
 ?>
 <br>
 <br>

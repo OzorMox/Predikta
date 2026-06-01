@@ -12,11 +12,13 @@ if ($_GET["game"] == "")
 	exit();
 }
 
-if ($_POST["date"] == "")
+if ($_POST["date"] == "" || $_POST["time"] == "")
 {
 	header('Location: error.php?error=Corrupt+post+data');
 	exit();
 }
+
+$datetime = date('Y-m-d H:i:s', strtotime($_POST["date"] . ' ' . $_POST["time"]));
 
 $gamedata = mysqli_query($connection, "SELECT status FROM games WHERE game_id = " . $_GET["game"]);
 
@@ -26,7 +28,7 @@ if ($_SESSION['admin'] == 1)
 {
 	if ($gamerow['status'] == "open" || $gamerow['status'] == "unlocked")
 	{
-		if (!mysqli_query($connection, "UPDATE games SET date = '" . $_POST["date"] . "' WHERE game_id = " . $_GET["game"]))
+		if (!mysqli_query($connection, "UPDATE games SET date = '" . $datetime . "' WHERE game_id = " . $_GET["game"]))
 		{
 			header('Location: error.php?error=Database+query+failed+to+complete');
 			exit();
@@ -37,7 +39,7 @@ if ($_SESSION['admin'] == 1)
 			exit();
 		}
 		include("log.php");
-		$action = "Changed game date/type: " . $_GET["game"] . ": " . $_POST["date"] . ", " . $_POST["type"];
+		$action = "Changed game date/type: " . $_GET["game"] . ": " . $datetime . ", " . $_POST["type"];
 		writelog($action);
 		header('Location: index.php');
 		exit();
