@@ -93,7 +93,7 @@ echo "<br>";
 echo "Fixtures will now automatically lock one hour before kick-off.";
 echo "<br>";
 echo "<br>";
-echo "There is also now a running total in the points table which reflects the current state of play.";
+echo "The stage columns have been removed, all fixtures are now shown from newest to oldest and the totals reflect the current state of play.";
 echo "<br>";
 echo "<br>";
 echo "Finally, Brucie has had an upgrade! Let's see how he competes with the rest of us this time!";
