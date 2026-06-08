@@ -121,7 +121,7 @@ while ($opengamerow = mysqli_fetch_array($opengamedata))
 	}
 }
 
-$gamedata = mysqli_query($connection, "SELECT * FROM games ORDER BY date, team_1");
+$gamedata = mysqli_query($connection, "SELECT * FROM games ORDER BY date DESC, team_1");
 
 $playerdata = mysqli_query($connection, "SELECT * FROM players ORDER BY (name = '" . $username . "') desc, name");
 
