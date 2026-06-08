@@ -174,8 +174,8 @@ if (isset($_GET["message"]))
 	echo "<br>";
 }
 
-echo "<b id=\"fixtures\">Fixtures</b> ";
-echo "<a href=\"#messages\">Messages</a> ";
+echo "<b id=\"fixtures\">Fixtures</b> - ";
+echo "<a href=\"#messages\">Messages</a> - ";
 echo "<a href=\"#points\">Points</a>";
 echo "<br>";
 echo "<br>";
@@ -440,8 +440,8 @@ echo "</table>";
 //------------
 
 echo "<br>";
-echo "<a href=\"#fixtures\">Fixtures</a> ";
-echo "<b id=\"messages\">Messages</b> ";
+echo "<a href=\"#fixtures\">Fixtures</a> - ";
+echo "<b id=\"messages\">Messages</b> - ";
 echo "<a href=\"#points\">Points</a>";
 echo "<br>";
 echo "<br>";
@@ -508,8 +508,8 @@ if ($username != null)
 //--------------------
 
 echo "<br>";
-echo "<a href=\"#fixtures\">Fixtures</a> ";
-echo "<a href=\"#messages\">Messages</a> ";
+echo "<a href=\"#fixtures\">Fixtures</a> - ";
+echo "<a href=\"#messages\">Messages</a> - ";
 echo "<b id=\"points\">Points</b>";
 echo "<br>";
 echo "<br>";
