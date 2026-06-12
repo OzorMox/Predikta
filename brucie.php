@@ -11,31 +11,35 @@ function bruciepredicts($gameid, $team1, $team2)
     if (mysqli_num_rows($brucieresultdata) == 0)
     {
         $prediction = gemini_predict_result($gameid, $team1, $team2);
-        $team1score = $prediction['home'];
-        $team2score = $prediction['away'];
-        $bruciebonus = $prediction['bonus'];
-
-        $bruciedata = mysqli_query($connection, "SELECT brucies FROM players WHERE player_id = " . $brucieid);
-        $brucierow = mysqli_fetch_array($bruciedata);
-        if ($bruciebonus == 1 && $brucierow['brucies'] > 0)
+        if ($prediction !== null)
         {
-            $updbrucies = $brucierow["brucies"] - 1;
-            mysqli_query($connection, "UPDATE players SET brucies = " . $updbrucies . " WHERE player_id = " . $brucieid);
-        }
-        else
-        {
-            $bruciebonus = 0;
-        }
+            $team1score = $prediction['home'];
+            $team2score = $prediction['away'];
+            $bruciebonus = $prediction['bonus'];
 
-        mysqli_query($connection, "INSERT INTO results (score_1, score_2, brucie, game_id, player_id) VALUES (" . (int)$team1score . ", " . (int)$team2score . ", " . $bruciebonus . ", " . $gameid . ", " . $brucieid . ")");
+            $bruciedata = mysqli_query($connection, "SELECT brucies FROM players WHERE player_id = " . $brucieid);
+            $brucierow = mysqli_fetch_array($bruciedata);
+            if ($bruciebonus == 1 && $brucierow['brucies'] > 0)
+            {
+                $updbrucies = $brucierow["brucies"] - 1;
+                mysqli_query($connection, "UPDATE players SET brucies = " . $updbrucies . " WHERE player_id = " . $brucieid);
+            }
+            else
+            {
+                $bruciebonus = 0;
+            }
+
+            mysqli_query($connection, "INSERT INTO results (score_1, score_2, brucie, game_id, player_id) VALUES (" . (int)$team1score . ", " . (int)$team2score . ", " . $bruciebonus . ", " . $gameid . ", " . $brucieid . ")");
+        }
     }
 }
 
 function gemini_predict_result($gameid, $team1, $team2)
 {
-    $default = array('home' => rand(0, 3), 'away' => rand(0, 3), 'bonus' => 0);
-    $result = $default;
+    $result = null;
     $success = false;
+    $response = null;
+    $curlError = null;
 
     $apiKey = "key";
     if ($apiKey)
@@ -93,8 +97,8 @@ function gemini_predict_result($gameid, $team1, $team2)
 
     if (!$success)
     {
-        writelog("BrucieAI failed, randomly predicted on game: " . $gameid . ", Gemini response: " . $response);
-        return $default;
+        writelog("BrucieAI failed, skipping prediction on game: " . $gameid . ", Gemini response: " . $response);
+        return null;
     }
 
     writelog("BrucieAI predicted on game: " . $gameid);
