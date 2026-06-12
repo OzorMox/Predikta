@@ -446,7 +446,7 @@ echo "<a href=\"#points\">Points</a>";
 echo "<br>";
 echo "<br>";
 echo "<table border=\"1\" cellpadding=\"10\">";
-echo "<tr><th><b>[<a href=\"index.php?all=yes\" title=\"Show all messages\">All</a>] Message</b></th><th>User</th><th>Date/Time</th></tr>";
+echo "<tr><th><b>[<a href=\"index.php?all=yes\" title=\"Show all messages\">All</a>] Message</b></th><th><b>User</b></th><th><b>Date/Time</b></th></tr>";
 
 if (isset($_GET['all']) && $_GET["all"] == "yes")
 {
