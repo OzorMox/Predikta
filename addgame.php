@@ -133,7 +133,7 @@ Enter the date for the fixture
 $dateValue = isset($_GET["date"]) ? date('Y-m-d', strtotime($_GET["date"])) : date('Y-m-d');
 $timeValue = isset($_GET["date"]) ? date('H:i', strtotime($_GET["date"])) : '12:00';
 echo '<input type="date" name="date" value="' . htmlspecialchars($dateValue) . '" /> ';
-echo '<input type="time" name="time" value="' . htmlspecialchars($timeValue) . '" step="3600" />';
+echo '<input type="time" name="time" value="' . htmlspecialchars($timeValue) . '" step="1800" />';
 ?>
 <br>
 <br>
